@@ -9,7 +9,7 @@ const EmptyDashboard = () => {
             <h1 className="text-2xl font-bold mt-[30px] mb-[10px]">Your research</h1>
             <p className="my-[10px]">When you create research, it’ll show in a list here.</p>
             <p>You can view each research’s status, details and more. Clicking on them takes you to an individual research page.</p>
-            <Link className="h-[40px] px-5 bg-black text-white font-bold rounded-md flex items-center justify-center my-[20px]" href="/create-research">Create research</Link>
+            <Link className="h-[40px] px-5 bg-black text-white font-bold rounded-md flex items-center justify-center my-[20px]" href="/research/create">Create research</Link>
         </div>
     )
 }

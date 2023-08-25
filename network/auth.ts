@@ -59,4 +59,5 @@ export const signIn = async (email: string, password: string) => {
     } catch (err) {
         return { data: null, error: err }
     }
+    
 }
