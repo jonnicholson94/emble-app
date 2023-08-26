@@ -1,3 +1,34 @@
+import { ResearchType } from "@/types/researchTypes"
+
+export const fetchResearch = async () => {
+
+    const token = localStorage.getItem("token")
+
+    if (!token) {
+        return { data: null, error: "No token provided" }
+    }
+
+    try {
+
+        const response = await fetch("http://localhost:8080/research", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            }
+        })
+
+        const json = await response.json()
+
+        return { data: json, error: null }
+
+    } catch (error) {
+
+        return { data: null, error: error }
+
+    }
+
+}
 
 export const createResearch = async (title: string, description: string, status: string, limit: number, prototype_url: string) => {
 
