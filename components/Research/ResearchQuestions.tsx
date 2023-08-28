@@ -16,6 +16,7 @@ type ResearchProps = {
     setIntro: React.Dispatch<React.SetStateAction<boolean>>
     outro: boolean 
     setOutro: React.Dispatch<React.SetStateAction<boolean>>
+    research_id: string | string[] | undefined
 }
 
 const Question = ({ content, type, index, length }: QuestionProps) => {
@@ -33,7 +34,7 @@ const Question = ({ content, type, index, length }: QuestionProps) => {
     )
 }
 
-const ResearchQuestions = ({ questions, intro, setIntro, outro, setOutro }: ResearchProps) => {
+const ResearchQuestions = ({ questions, intro, setIntro, outro, setOutro, research_id }: ResearchProps) => {
     return (
         <div className="h-auto w-[95%]">
             <h2 className="font-bold mb-[30px]">Survey</h2>
@@ -46,7 +47,7 @@ const ResearchQuestions = ({ questions, intro, setIntro, outro, setOutro }: Rese
 
             <Outro outro={outro} setOutro={setOutro} />
 
-            <ResearchAddQuestion />
+            <ResearchAddQuestion research_id={research_id} index={questions.length + 1} />
 
         </div>
     )

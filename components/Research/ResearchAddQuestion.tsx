@@ -2,8 +2,14 @@
 import { useState } from "react"
 import MenuSelect from "../UI/MenuSelect"
 import { QuestionTypeOptions } from "@/types/questionTypes"
+import { createQuestion } from "@/network/questions"
 
-const ResearchAddQuestion = () => {
+type Props = {
+    research_id: string | string[] | undefined
+    index: number
+}
+
+const ResearchAddQuestion = ({ research_id, index }: Props) => {
 
     const [active, setActive] = useState(false)
     const [newTitle, setNewTitle] = useState("")
@@ -15,6 +21,21 @@ const ResearchAddQuestion = () => {
         setActive(false)
         setNewTitle("")
         setNewType("Short text")
+    }
+
+    const handleSubmit = async () => {
+
+        const { data, error } = await createQuestion(newTitle, newType, research_id, index) 
+
+        if (error != null) {
+            console.log(error)
+        } else {
+            setActive(false)
+            setNewTitle("")
+            setNewType("Single select")
+            console.log("Successfully created the question")
+        }
+
     }
 
     return (
@@ -33,7 +54,7 @@ const ResearchAddQuestion = () => {
             </div>
             <div className="h-auto w-full flex items-center justify-end">
                 <button className="h-[35px] w-[75px] border border-paleGrey text-sm rounded-sm font-bold" onClick={() => cancel()}>Cancel</button>
-                <button className="h-[35px] w-[75px] bg-black text-sm rounded-sm font-bold text-white ml-[10px]">Add</button>
+                <button className="h-[35px] w-[75px] bg-black text-sm rounded-sm font-bold text-white ml-[10px]" onClick={() => handleSubmit()}>Add</button>
             </div>
             </> :
 

@@ -68,7 +68,7 @@ const ViewResearch = () => {
                     <ResearchInput state={title} setState={setTitle} />
                     <ResearchTextarea state={description} setState={setDescription} />
                     <ResearchDivider />
-                    <ResearchQuestions questions={questions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} />
+                    <ResearchQuestions questions={questions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} research_id={id} />
                     <ResearchDivider />
                 </ResearchMainContainer>
 
