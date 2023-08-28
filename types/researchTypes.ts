@@ -4,7 +4,9 @@ export interface ResearchType {
     title: string 
     description: string 
     limit: string 
-    status: "Backlog" | "Active" | "Completed" 
+    status: ActiveTypes
     prototype_url: string 
     user_id: number
 }
+
+export type ActiveTypes = "Backlog" | "Active" | "Completed"

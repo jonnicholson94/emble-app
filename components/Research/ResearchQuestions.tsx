@@ -1,9 +1,15 @@
+import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes"
+import ResearchAddQuestion from "./ResearchAddQuestion"
 
 type QuestionProps = {
     content: string 
-    type: "Intro" | "Outro" | "Single select"
+    type: QuestionTypeOptions
     index: number 
     length: number
+}
+
+type ResearchProps = {
+    questions: QuestionType[]
 }
 
 const Question = ({ content, type, index, length }: QuestionProps) => {
@@ -21,14 +27,17 @@ const Question = ({ content, type, index, length }: QuestionProps) => {
     )
 }
 
-const ResearchQuestions = () => {
+const ResearchQuestions = ({ questions }: ResearchProps) => {
     return (
         <div className="h-auto w-[95%]">
             <h2 className="font-bold mb-[30px]">Survey</h2>
-            <Question content="Intro" type="Intro" index={0} length={3} />
-            <Question content="Example question, wow!" type="Single select" index={1} length={3} />
-            <Question content="Example question, wow!" type="Single select" index={2} length={3} />
-            <Question content="Thank you" type="Outro" index={2} length={3} />
+
+            { questions.map((question, index) => {
+                return <Question content={question.title} type={question.type} index={index} length={questions.length - 1} />
+            })}
+
+            <ResearchAddQuestion />
+
         </div>
     )
 }

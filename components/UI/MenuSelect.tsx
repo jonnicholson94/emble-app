@@ -2,18 +2,20 @@
 import { ReactNode } from "react"
 
 import * as Select from "@radix-ui/react-select"
+import { ActiveTypes } from "@/types/researchTypes"
+import { QuestionTypeOptions } from "@/types/questionTypes"
 
 type Props = {
     children: ReactNode
     array: string[]
-    state: "Backlog" | "Active" | "Completed" 
-    setState: React.Dispatch<React.SetStateAction<"Backlog" | "Active" | "Completed">>
+    state: ActiveTypes | QuestionTypeOptions
+    setState: React.Dispatch<React.SetStateAction<any>>
 }
 
 const MenuSelect = ({ children, array, state, setState }: Props) => {
 
     return (
-        <Select.Root value={state} onValueChange={(value: "Backlog" | "Active" | "Completed") => setState(value)}>
+        <Select.Root value={state} onValueChange={(value) => setState(value as ActiveTypes | QuestionTypeOptions)}>
             <Select.Trigger asChild>
                 { children }
             </Select.Trigger>

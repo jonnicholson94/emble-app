@@ -16,6 +16,7 @@ import ResearchStatus from "@/components/Research/ResearchStatus"
 import ResearchTarget from "@/components/Research/ResearchTarget"
 import ResearchPrototypeUrl from "@/components/Research/ResearchPrototypeUrl"
 import ResearchQuestions from "@/components/Research/ResearchQuestions"
+import { QuestionType } from "@/types/questionTypes"
 
 const ViewResearch = () => {
 
@@ -30,6 +31,29 @@ const ViewResearch = () => {
     const [status, setStatus] = useState<"Backlog" | "Active" | "Completed">("Backlog")
     const [target, setTarget] = useState<number>(50)
     const [prototype, setPrototype] = useState("")
+
+    const questions: QuestionType[] = [
+        {
+            id: 1,
+            title: "Intro",
+            type: "Intro"
+        },
+        {
+            id: 2,
+            title: "Example question",
+            type: "Single select"
+        },
+        {
+            id: 3,
+            title: "Another example question",
+            type: "Single select"
+        },
+        {
+            id: 4,
+            title: "Thank you",
+            type: "Outro"
+        }
+    ]
 
     useEffect(() => {
         if (data?.data) {
@@ -54,7 +78,7 @@ const ViewResearch = () => {
                     <ResearchInput state={title} setState={setTitle} />
                     <ResearchTextarea state={description} setState={setDescription} />
                     <ResearchDivider />
-                    <ResearchQuestions />
+                    <ResearchQuestions questions={questions} />
                     <ResearchDivider />
                 </ResearchMainContainer>
 
