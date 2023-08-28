@@ -28,16 +28,13 @@ const ViewResearch = () => {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
+    const [intro, setIntro] = useState(false)
+    const [outro, setOutro] = useState(false)
     const [status, setStatus] = useState<"Backlog" | "Active" | "Completed">("Backlog")
     const [target, setTarget] = useState<number>(50)
     const [prototype, setPrototype] = useState("")
 
     const questions: QuestionType[] = [
-        {
-            id: 1,
-            title: "Intro",
-            type: "Intro"
-        },
         {
             id: 2,
             title: "Example question",
@@ -47,11 +44,6 @@ const ViewResearch = () => {
             id: 3,
             title: "Another example question",
             type: "Single select"
-        },
-        {
-            id: 4,
-            title: "Thank you",
-            type: "Outro"
         }
     ]
 
@@ -60,8 +52,6 @@ const ViewResearch = () => {
             setTitle(data?.data.title)
             setDescription(data?.data.description)
             setStatus(data?.data.status)
-            console.log(data?.data)
-            console.log(data?.data.status)
         }
     }, [data])
 
@@ -78,7 +68,7 @@ const ViewResearch = () => {
                     <ResearchInput state={title} setState={setTitle} />
                     <ResearchTextarea state={description} setState={setDescription} />
                     <ResearchDivider />
-                    <ResearchQuestions questions={questions} />
+                    <ResearchQuestions questions={questions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} />
                     <ResearchDivider />
                 </ResearchMainContainer>
 

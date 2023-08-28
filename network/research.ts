@@ -12,6 +12,7 @@ export const fetchSingleResearch = async (research_id: string | string[] | undef
     const token = localStorage.getItem("token")
 
     if (!token) {
+        throw new Error("No token provided")
         return { data: null, error: "No token provided" }
     }
 

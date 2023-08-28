@@ -1,5 +1,7 @@
 import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes"
 import ResearchAddQuestion from "./ResearchAddQuestion"
+import Intro from "./QuestionTypes/Intro"
+import Outro from "./QuestionTypes/Outro"
 
 type QuestionProps = {
     content: string 
@@ -10,6 +12,10 @@ type QuestionProps = {
 
 type ResearchProps = {
     questions: QuestionType[]
+    intro: boolean
+    setIntro: React.Dispatch<React.SetStateAction<boolean>>
+    outro: boolean 
+    setOutro: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Question = ({ content, type, index, length }: QuestionProps) => {
@@ -27,14 +33,18 @@ const Question = ({ content, type, index, length }: QuestionProps) => {
     )
 }
 
-const ResearchQuestions = ({ questions }: ResearchProps) => {
+const ResearchQuestions = ({ questions, intro, setIntro, outro, setOutro }: ResearchProps) => {
     return (
         <div className="h-auto w-[95%]">
             <h2 className="font-bold mb-[30px]">Survey</h2>
 
+            <Intro intro={intro} setIntro={setIntro} />
+
             { questions.map((question, index) => {
                 return <Question content={question.title} type={question.type} index={index} length={questions.length - 1} />
             })}
+
+            <Outro outro={outro} setOutro={setOutro} />
 
             <ResearchAddQuestion />
 
