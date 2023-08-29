@@ -5,6 +5,8 @@ import { useRouter } from "next/router"
 
 import { fetchSingleResearch } from "@/network/research"
 
+import { QuestionType } from "@/types/questionTypes"
+
 import ResearchParentContainer from "@/components/Research/ResearchParentContainer"
 import ResearchMainContainer from "@/components/Research/ResearchMainContainer"
 import ResearchSecondaryContainer from "@/components/Research/ResearchSecondaryContainer"
@@ -16,7 +18,6 @@ import ResearchStatus from "@/components/Research/ResearchStatus"
 import ResearchTarget from "@/components/Research/ResearchTarget"
 import ResearchPrototypeUrl from "@/components/Research/ResearchPrototypeUrl"
 import ResearchQuestions from "@/components/Research/ResearchQuestions"
-import { QuestionType } from "@/types/questionTypes"
 
 const ViewResearch = () => {
 
@@ -24,34 +25,25 @@ const ViewResearch = () => {
 
     const { id } = router.query
 
-    const { data, error, isLoading } = useQuery('research', () => fetchSingleResearch(id))
+    const { data, error, isLoading } = useQuery(`research-${id}`, () => fetchSingleResearch(id))
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [intro, setIntro] = useState(false)
     const [outro, setOutro] = useState(false)
     const [status, setStatus] = useState<"Backlog" | "Active" | "Completed">("Backlog")
-    const [target, setTarget] = useState<number>(50)
+    const [limit, setLimit] = useState<number>(50)
     const [prototype, setPrototype] = useState("")
-
-    const questions: QuestionType[] = [
-        {
-            id: 2,
-            title: "Example question",
-            type: "Single select"
-        },
-        {
-            id: 3,
-            title: "Another example question",
-            type: "Single select"
-        }
-    ]
+    const [questions, setQuestions] = useState<QuestionType[] | []>([])
 
     useEffect(() => {
         if (data?.data) {
-            setTitle(data?.data.title)
-            setDescription(data?.data.description)
-            setStatus(data?.data.status)
+            setTitle(data.data.title)
+            setDescription(data.data.description)
+            setStatus(data.data.status)
+            setLimit(data.data.limit)
+            setPrototype(data.data.prototype_url)
+            setQuestions(data.data.questions)
         }
     }, [data])
 
@@ -76,7 +68,7 @@ const ViewResearch = () => {
                     <div className="h-[60px] w-full border-b border-paleGrey"></div>
                     <div className="h-auto w-full border-b border-paleGrey flex flex-col items-center justify-center">
                         <ResearchStatus state={status} setState={setStatus} />
-                        <ResearchTarget state={target} setState={setTarget} />
+                        <ResearchTarget state={limit} setState={setLimit} />
                     </div>
                     <div className="h-auto w-full border-b border-paleGrey flex flex-col items-center justify-center">
                         <ResearchPrototypeUrl state={prototype} setState={setPrototype} />

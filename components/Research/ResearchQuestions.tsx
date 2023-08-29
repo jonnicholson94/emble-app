@@ -42,7 +42,7 @@ const ResearchQuestions = ({ questions, intro, setIntro, outro, setOutro, resear
             <Intro intro={intro} setIntro={setIntro} />
 
             { questions.map((question, index) => {
-                return <Question content={question.title} type={question.type} index={index} length={questions.length - 1} />
+                return <Question content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length - 1} />
             })}
 
             <Outro outro={outro} setOutro={setOutro} />

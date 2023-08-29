@@ -1,5 +1,6 @@
 
 import { useState } from "react"
+import { useQueryClient } from "react-query"
 import MenuSelect from "../UI/MenuSelect"
 import { QuestionTypeOptions } from "@/types/questionTypes"
 import { createQuestion } from "@/network/questions"
@@ -10,6 +11,8 @@ type Props = {
 }
 
 const ResearchAddQuestion = ({ research_id, index }: Props) => {
+
+    const queryClient = useQueryClient()
 
     const [active, setActive] = useState(false)
     const [newTitle, setNewTitle] = useState("")
@@ -33,6 +36,7 @@ const ResearchAddQuestion = ({ research_id, index }: Props) => {
             setActive(false)
             setNewTitle("")
             setNewType("Single select")
+            queryClient.invalidateQueries({ queryKey: `research-${research_id}` })
             console.log("Successfully created the question")
         }
 
