@@ -4,6 +4,7 @@ import { useQueryClient } from "react-query"
 import MenuSelect from "../UI/MenuSelect"
 import { QuestionTypeOptions } from "@/types/questionTypes"
 import { createQuestion } from "@/network/questions"
+import { ActiveTypes } from "@/types/researchTypes"
 
 type Props = {
     research_id: string | string[] | undefined
@@ -42,6 +43,10 @@ const ResearchAddQuestion = ({ research_id, index }: Props) => {
 
     }
 
+    const handleClick = (value: QuestionTypeOptions | ActiveTypes) => {
+        setNewType(value as QuestionTypeOptions)
+    }
+
     return (
         <>
             { active ? 
@@ -52,7 +57,7 @@ const ResearchAddQuestion = ({ research_id, index }: Props) => {
                     placeholder="Enter a question title"
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)} />
-                <MenuSelect array={options} state={newType} setState={setNewType}>
+                <MenuSelect array={options} state={newType} handleClick={handleClick}>
                     <p className="px-[10px] py-[5px] border border-paleGrey text-sm cursor-pointer rounded-sm">{newType}</p>
                 </MenuSelect>
             </div>

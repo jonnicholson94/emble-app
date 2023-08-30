@@ -38,14 +38,25 @@ const ViewResearch = () => {
 
     useEffect(() => {
         if (data?.data) {
+            console.log(data.data)
             setTitle(data.data.title)
             setDescription(data.data.description)
             setStatus(data.data.status)
             setLimit(data.data.limit)
             setPrototype(data.data.prototype_url)
             setQuestions(data.data.questions)
+            const sortedList = sortQuestions(questions)
+            setQuestions(sortedList)
         }
     }, [data])
+
+    const sortQuestions = (array: QuestionType[] | []) => {
+        if (array.length === 0) {
+            return []
+        } else {
+            return array.sort((a, b) => a.question_index - b.question_index)
+        }
+    }
 
     if (isLoading) {
         return <div></div>
@@ -57,21 +68,21 @@ const ViewResearch = () => {
             <ResearchParentContainer>
 
                 <ResearchMainContainer>
-                    <ResearchInput state={title} setState={setTitle} />
-                    <ResearchTextarea state={description} setState={setDescription} />
+                    <ResearchInput state={title} setState={setTitle} research_id={id} />
+                    <ResearchTextarea state={description} setState={setDescription} research_id={id} />
                     <ResearchDivider />
-                    <ResearchQuestions questions={questions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} research_id={id} />
+                    <ResearchQuestions questions={questions} setQuestions={setQuestions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} research_id={id} />
                     <ResearchDivider />
                 </ResearchMainContainer>
 
                 <ResearchSecondaryContainer>
                     <div className="h-[60px] w-full border-b border-paleGrey"></div>
                     <div className="h-auto w-full border-b border-paleGrey flex flex-col items-center justify-center">
-                        <ResearchStatus state={status} setState={setStatus} />
-                        <ResearchTarget state={limit} setState={setLimit} />
+                        <ResearchStatus state={status} setState={setStatus} research_id={id} />
+                        <ResearchTarget state={limit} setState={setLimit} research_id={id} />
                     </div>
                     <div className="h-auto w-full border-b border-paleGrey flex flex-col items-center justify-center">
-                        <ResearchPrototypeUrl state={prototype} setState={setPrototype} />
+                        <ResearchPrototypeUrl state={prototype} setState={setPrototype} research_id={id} />
                     </div>
                 </ResearchSecondaryContainer>
             </ResearchParentContainer>

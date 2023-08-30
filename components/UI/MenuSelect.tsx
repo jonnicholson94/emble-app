@@ -9,13 +9,13 @@ type Props = {
     children: ReactNode
     array: string[]
     state: ActiveTypes | QuestionTypeOptions
-    setState: React.Dispatch<React.SetStateAction<any>>
+    handleClick: (value: ActiveTypes | QuestionTypeOptions) => void
 }
 
-const MenuSelect = ({ children, array, state, setState }: Props) => {
+const MenuSelect = ({ children, array, state, handleClick }: Props) => {
 
     return (
-        <Select.Root value={state} onValueChange={(value) => setState(value as ActiveTypes | QuestionTypeOptions)}>
+        <Select.Root value={state} onValueChange={(value) => handleClick(value as ActiveTypes | QuestionTypeOptions)}>
             <Select.Trigger asChild>
                 { children }
             </Select.Trigger>

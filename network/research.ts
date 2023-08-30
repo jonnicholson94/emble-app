@@ -109,3 +109,49 @@ export const createResearch = async (title: string, description: string, status:
     }
 
 }
+
+export const editResearch = async (column: string, value: string | number, research_id: string | string[] | undefined) => {
+
+    const data = {
+        [column]: value
+    }
+
+    if (!research_id) {
+        return { data: null, error: "No research ID provided" }
+    }
+
+    if (Array.isArray(research_id)) {
+        research_id = research_id[0]
+    }
+
+    const token = localStorage.getItem("token")
+
+    if (!token) {
+        return { data: null, error: "No token provided" }
+    }
+
+    try {
+
+        const queryParam = new URLSearchParams({
+            id: research_id
+        })
+
+        const response = await fetch(`http://localhost:8080/edit-item?${queryParam}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify(data)
+        })
+
+        const json = await response.json()
+
+        return { data: json, error: null }
+
+    } catch (err) {
+
+        return { data: null, error: err }
+
+    }
+}
