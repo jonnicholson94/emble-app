@@ -1,6 +1,7 @@
 
 import { useQuery } from "react-query"
 import { fetchResearch } from "@/network/research"
+import { toast } from "sonner"
 
 import { ResearchType } from "@/types/researchTypes"
 
@@ -8,21 +9,39 @@ import DashboardHeader from "@/components/Dashboard/DashboardHeader"
 import EmptyDashboard from "@/components/Dashboard/EmptyDashboard"
 import DashboardToggle from "@/components/Dashboard/DashboardToggle"
 import DashboardResearch from "@/components/Dashboard/DashboardResearch"
+import LoadingDashboard from "@/components/Loading/LoadingDashboardResearch"
 
 const Dashboard = () => {
 
     const { data, error, isLoading } = useQuery('research', fetchResearch)
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
+                <DashboardHeader />
+
+                <DashboardToggle />
+
+                <LoadingDashboard />
+                
+            </div>
+        )
     }
 
     if (error) {
-        return <div>Error</div>;
-    }
 
-    if (!data?.data || !Array.isArray(data.data)) {
-        return
+        toast.error("Failed to fetch your data")
+
+        return (
+            <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
+                <DashboardHeader />
+
+                <DashboardToggle />
+
+                <LoadingDashboard />
+                
+            </div>
+        )
     }
 
     return (

@@ -38,24 +38,24 @@ const ViewResearch = () => {
 
     useEffect(() => {
         if (data?.data) {
-            console.log(data.data)
             setTitle(data.data.title)
             setDescription(data.data.description)
             setStatus(data.data.status)
             setLimit(data.data.limit)
             setPrototype(data.data.prototype_url)
-            setQuestions(data.data.questions)
-            const sortedList = sortQuestions(questions)
-            setQuestions(sortedList)
+            setQuestions(sortQuestions(data.data.questions))
         }
     }, [data])
 
     const sortQuestions = (array: QuestionType[] | []) => {
-        if (array.length === 0) {
+        if (array.length > 0) {
+            return [...array].sort((a, b) => a.question_index - b.question_index);
+        } else if (array == null) {
             return []
         } else {
-            return array.sort((a, b) => a.question_index - b.question_index)
+            return []
         }
+        
     }
 
     if (isLoading) {

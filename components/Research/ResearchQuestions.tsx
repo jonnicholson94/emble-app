@@ -3,14 +3,12 @@ import ResearchAddQuestion from "./ResearchAddQuestion"
 import Intro from "./QuestionTypes/Intro"
 import Outro from "./QuestionTypes/Outro"
 import { editQuestionOrder } from "@/network/questions"
-
-type QuestionProps = {
-    content: string 
-    type: QuestionTypeOptions
-    index: number 
-    length: number
-    changeOrder: (index: number, change: 1 | -1 ) => void
-}
+import ShortText from "./QuestionTypes/ShortText"
+import LongText from "./QuestionTypes/LongText"
+import SingleSelect from "./QuestionTypes/SingleSelect"
+import Rating from "./QuestionTypes/Rating"
+import MultiSelect from "./QuestionTypes/MultiSelect"
+import Scale from "./QuestionTypes/Scale"
 
 type ResearchProps = {
     questions: QuestionType[]
@@ -20,21 +18,6 @@ type ResearchProps = {
     outro: boolean 
     setOutro: React.Dispatch<React.SetStateAction<boolean>>
     research_id: string | string[] | undefined
-}
-
-const Question = ({ content, type, index, length, changeOrder }: QuestionProps) => {
-    return (
-        <div className="h-[50px] w-[full] px-[20px] flex items-center justify-start bg-white border border-paleGrey rounded-sm mb-[10px]">
-            <p className="flex-grow">{content}</p>
-            { type !== "Intro" && type !== "Outro" ? 
-                <>
-                    <p className="h-[30px] px-[10px] mr-[20px] border border-paleGrey rounded-sm text-sm flex items-center justify-center">{type}</p>
-                    <img className="mx-[10px]" src={index - 1 === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} onClick={() => changeOrder(index, -1)} />
-                    <img className="mx-[10px]" src={index + 1 > length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} onClick={() => changeOrder(index, 1)} />
-                </> : null
-            }
-        </div>
-    )
 }
 
 const ResearchQuestions = ({ questions, setQuestions, intro, setIntro, outro, setOutro, research_id }: ResearchProps) => {
@@ -59,10 +42,6 @@ const ResearchQuestions = ({ questions, setQuestions, intro, setIntro, outro, se
         const updatedQuestions = [...questions];
         updatedQuestions[index - 1] = changeTarget;
         updatedQuestions[index - 1 + change] = clickedTarget;
-    
-        // Now you can set the state with the updatedQuestions array
-        // For example, if you're using React and managing state with useState:
-        // setQuestions(updatedQuestions);
 
         setQuestions(updatedQuestions)
 
@@ -82,8 +61,23 @@ const ResearchQuestions = ({ questions, setQuestions, intro, setIntro, outro, se
 
             <Intro intro={intro} setIntro={setIntro} />
 
-            { questions.map((question, index) => {
-                return <Question key={question.question_id} content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} />
+            { questions.map((question) => {
+
+                switch (question.question_type) {
+                    case "Short text":
+                        return <ShortText content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} />
+                    case "Long text":
+                        return <LongText content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} />
+                    case "Single select":
+                        return <SingleSelect content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} />
+                    case "Multi select":
+                        return <MultiSelect content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} />
+                    case "Rating":
+                        return <Rating content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} />
+                    case "Scale":
+                        return <Scale content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} />
+                }
+
             })}
 
             <Outro outro={outro} setOutro={setOutro} />
