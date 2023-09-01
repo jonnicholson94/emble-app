@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import { useRouter } from "next/router"
+import { toast } from "sonner"
+import { useQueryClient } from "react-query"
 
-import { fetchSingleResearch } from "@/network/research"
+import { deleteResearch, fetchSingleResearch } from "@/network/research"
 
 import { QuestionType } from "@/types/questionTypes"
 
@@ -18,10 +20,12 @@ import ResearchStatus from "@/components/Research/ResearchStatus"
 import ResearchTarget from "@/components/Research/ResearchTarget"
 import ResearchPrototypeUrl from "@/components/Research/ResearchPrototypeUrl"
 import ResearchQuestions from "@/components/Research/ResearchQuestions"
+import AlertDialog from "@/components/UI/AlertDialog"
 
 const ViewResearch = () => {
 
     const router = useRouter()
+    const queryClient = useQueryClient()
 
     const { id } = router.query
 
@@ -38,6 +42,7 @@ const ViewResearch = () => {
 
     useEffect(() => {
         if (data?.data) {
+            console.log(data.data)
             setTitle(data.data.title)
             setDescription(data.data.description)
             setStatus(data.data.status)
@@ -48,14 +53,29 @@ const ViewResearch = () => {
     }, [data])
 
     const sortQuestions = (array: QuestionType[] | []) => {
-        if (array.length > 0) {
-            return [...array].sort((a, b) => a.question_index - b.question_index);
-        } else if (array == null) {
+        if (array == null) {
             return []
+        } else if (array.length > 0) {
+            return [...array].sort((a, b) => a.question_index - b.question_index)
         } else {
             return []
         }
-        
+    }
+
+    const handleDelete = async () => {
+
+        const { data, error } = await deleteResearch(id)
+
+        console.log(data)
+        console.log(error)
+
+        if (error != null) {
+            console.log(error)
+        } else {
+            router.push("/dashboard")
+            queryClient.invalidateQueries("research")
+            toast.success("Successfully deleted your research")
+        }
     }
 
     if (isLoading) {
@@ -76,7 +96,14 @@ const ViewResearch = () => {
                 </ResearchMainContainer>
 
                 <ResearchSecondaryContainer>
-                    <div className="h-[60px] w-full border-b border-paleGrey"></div>
+                    <div className="h-[60px] w-full border-b border-paleGrey flex items-center justify-start px-[20px]">
+                        <AlertDialog 
+                            title="Would you like to delete this research?" 
+                            description="Deleting the research will also delete all of the questions and responses you've had so far. The survey will no longer be available for customers to access."
+                            handleDelete={() => handleDelete()}>
+                            <img className="h-[25px] w-[25px] mx-[10px]" src="/trash.svg" />
+                        </AlertDialog>
+                    </div>
                     <div className="h-auto w-full border-b border-paleGrey flex flex-col items-center justify-center">
                         <ResearchStatus state={status} setState={setStatus} research_id={id} />
                         <ResearchTarget state={limit} setState={setLimit} research_id={id} />

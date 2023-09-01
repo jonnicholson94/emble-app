@@ -34,9 +34,7 @@ export const createQuestion = async (title: string, type: QuestionTypeOptions, r
             body: JSON.stringify(data)
         })
 
-        const json = await response.json()
-
-        return { data: json, error: null }
+        return { data: response, error: null }
 
     } catch (err) {
 
@@ -81,9 +79,7 @@ export const updateQuestion = async (column: string, value: string | number, res
             body: JSON.stringify(data)
         })
 
-        const json = await response.json()
-
-        return { data: json, error: null }
+        return { data: response, error: null }
 
     } catch (err) {
 
@@ -124,9 +120,7 @@ export const editQuestionOrder = async (firstQuestion: QuestionType, secondQuest
             body: JSON.stringify(data)
         })
 
-        const json = await response.json()
-
-        return { data: json, error: null }
+        return { data: response, error: null }
 
     } catch (error) {
 

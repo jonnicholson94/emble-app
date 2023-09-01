@@ -56,6 +56,8 @@ const SingleSelect = ({ content, type, index, length, changeOrder, id }: Questio
 
     }
 
+    const handleDelete = async () => {}
+
     const options: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
 
     return (

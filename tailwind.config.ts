@@ -22,7 +22,8 @@ const config: Config = {
       "white": "#ffffff",
       "border": "#c9c9c9",
       "offWhite": "#F9F9F9",
-      "paleGrey": "#e9e9e9"
+      "paleGrey": "#e9e9e9",
+      "warning": "#E25E3E",
     },
     borderRadius: {
       'none': '0',
