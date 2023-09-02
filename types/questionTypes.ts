@@ -7,4 +7,10 @@ export interface QuestionType {
     question_index: number
 }
 
+export interface NewQuestionType {
+    title: string 
+    type: QuestionTypeOptions 
+    index: number
+}
+
 export type QuestionTypeOptions = "Intro" | "Outro" | "Single select" | "Multi select" | "Short text" | "Long text" | "Rating" | "Scale"

@@ -9,18 +9,19 @@ import { deleteResearch, fetchSingleResearch } from "@/network/research"
 
 import { QuestionType } from "@/types/questionTypes"
 
-import ResearchParentContainer from "@/components/Research/ResearchParentContainer"
-import ResearchMainContainer from "@/components/Research/ResearchMainContainer"
-import ResearchSecondaryContainer from "@/components/Research/ResearchSecondaryContainer"
-import ResearchHeader from "@/components/Research/ResearchHeader"
-import ResearchInput from "@/components/Research/ResearchInput"
-import ResearchTextarea from "@/components/Research/ResearchTextarea"
-import ResearchDivider from "@/components/Research/ResearchDivider"
-import ResearchStatus from "@/components/Research/ResearchStatus"
-import ResearchTarget from "@/components/Research/ResearchTarget"
-import ResearchPrototypeUrl from "@/components/Research/ResearchPrototypeUrl"
-import ResearchQuestions from "@/components/Research/ResearchQuestions"
+import ResearchParentContainer from "@/components/Containers/ResearchParentContainer"
+import ResearchMainContainer from "@/components/Containers/ResearchMainContainer"
+import ResearchSecondaryContainer from "@/components/Containers/ResearchSecondaryContainer"
+import ResearchHeader from "@/components/ViewResearch/ResearchHeader"
+import ResearchInput from "@/components/ViewResearch/ResearchInput"
+import ResearchTextarea from "@/components/ViewResearch/ResearchTextarea"
+import ResearchDivider from "@/components/ViewResearch/ResearchDivider"
+import ResearchStatus from "@/components/ViewResearch/ResearchStatus"
+import ResearchTarget from "@/components/ViewResearch/ResearchTarget"
+import ResearchPrototypeUrl from "@/components/ViewResearch/ResearchPrototypeUrl"
+import ResearchQuestions from "@/components/ViewResearch/ResearchQuestions"
 import AlertDialog from "@/components/UI/AlertDialog"
+import Tooltip from "@/components/UI/Tooltip"
 
 const ViewResearch = () => {
 
@@ -78,6 +79,11 @@ const ViewResearch = () => {
         }
     }
 
+    const handleClipboardCopy = () => {
+        navigator.clipboard.writeText(`http://localhost:3000/survey/${id}`)
+        toast("Successfully copied survey link to your clipboard")
+    }
+
     if (isLoading) {
         return <div></div>
     }
@@ -101,8 +107,11 @@ const ViewResearch = () => {
                             title="Would you like to delete this research?" 
                             description="Deleting the research will also delete all of the questions and responses you've had so far. The survey will no longer be available for customers to access."
                             handleDelete={() => handleDelete()}>
-                            <img className="h-[25px] w-[25px] mx-[10px]" src="/trash.svg" />
+                                <img className="h-[25px] w-[25px] mx-[10px] cursor-pointer" src="/trash.svg" />
                         </AlertDialog>
+                        <Tooltip content="Copy survey link">
+                            <img className="h-[25px] w-[25px] mx-[10px] cursor-pointer" onClick={() => handleClipboardCopy()} src="/link.svg" />
+                        </Tooltip>
                     </div>
                     <div className="h-auto w-full border-b border-paleGrey flex flex-col items-center justify-center">
                         <ResearchStatus state={status} setState={setStatus} research_id={id} />

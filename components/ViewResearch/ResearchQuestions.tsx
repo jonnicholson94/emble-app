@@ -1,14 +1,14 @@
 import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes"
 import ResearchAddQuestion from "./ResearchAddQuestion"
-import Intro from "./QuestionTypes/Intro"
-import Outro from "./QuestionTypes/Outro"
+import Intro from "../QuestionTypes/Intro"
+import Outro from "../QuestionTypes/Outro"
 import { editQuestionOrder } from "@/network/questions"
-import ShortText from "./QuestionTypes/ShortText"
-import LongText from "./QuestionTypes/LongText"
-import SingleSelect from "./QuestionTypes/SingleSelect"
-import Rating from "./QuestionTypes/Rating"
-import MultiSelect from "./QuestionTypes/MultiSelect"
-import Scale from "./QuestionTypes/Scale"
+import ShortText from "../QuestionTypes/ShortText"
+import LongText from "../QuestionTypes/LongText"
+import SingleSelect from "../QuestionTypes/SingleSelect"
+import Rating from "../QuestionTypes/Rating"
+import MultiSelect from "../QuestionTypes/MultiSelect"
+import Scale from "../QuestionTypes/Scale"
 
 type ResearchProps = {
     questions: QuestionType[]
