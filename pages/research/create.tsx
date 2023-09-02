@@ -33,7 +33,9 @@ const CreateResearch = () => {
 
     const handleCreate = async () => {
         
-        const { data, error } = await createResearch(title, description, status, target, prototype)
+        const { data, error } = await createResearch(title, description, status, target, prototype, questions)
+
+        console.log(data)
 
         if (error != null) {
             console.log(error)

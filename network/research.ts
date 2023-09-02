@@ -1,3 +1,4 @@
+import { NewQuestionType } from "@/types/questionTypes"
 
 export const fetchSingleResearch = async (research_id: string | string[] | undefined) => {
 
@@ -13,7 +14,6 @@ export const fetchSingleResearch = async (research_id: string | string[] | undef
 
     if (!token) {
         throw new Error("No token provided")
-        return { data: null, error: "No token provided" }
     }
 
     try {
@@ -73,14 +73,15 @@ export const fetchResearch = async () => {
 
 }
 
-export const createResearch = async (title: string, description: string, status: string, limit: number, prototype_url: string) => {
+export const createResearch = async (title: string, description: string, status: string, limit: number, prototype_url: string, questions: NewQuestionType[] | []) => {
 
     const data = {
         "title": title,
         "description": description,
         "status": status,
         "limit": limit,
-        "prototype_url": prototype_url
+        "prototype_url": prototype_url,
+        "questions": questions
     }
 
     const token = localStorage.getItem("token")
@@ -100,7 +101,9 @@ export const createResearch = async (title: string, description: string, status:
             body: JSON.stringify(data)
         })
 
-        return { data: response, error: null }
+        const json = await response.json()
+
+        return { data: json, error: null }
 
     } catch (err) {
 
