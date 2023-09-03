@@ -7,6 +7,8 @@ import { createResearch } from "@/network/research"
 
 import { ActiveTypes } from "@/types/researchTypes"
 
+import useAuth from "@/lib/hooks/useAuth"
+
 import ResearchParentContainer from "@/components/Containers/ResearchParentContainer"
 import ResearchMainContainer from "@/components/Containers/ResearchMainContainer"
 import ResearchSecondaryContainer from "@/components/Containers/ResearchSecondaryContainer"
@@ -22,6 +24,8 @@ import CreateTarget from "@/components/CreateResearch/CreateTarget"
 import CreatePrototypeUrl from "@/components/CreateResearch/CreatePrototypeUrl"
 
 const CreateResearch = () => {
+
+    useAuth()
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")

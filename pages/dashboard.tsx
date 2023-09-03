@@ -5,6 +5,7 @@ import { fetchResearch } from "@/network/research"
 import { toast } from "sonner"
 
 import { ResearchType } from "@/types/researchTypes"
+import useAuth from "@/lib/hooks/useAuth"
 
 import DashboardHeader from "@/components/Dashboard/DashboardHeader"
 import EmptyDashboard from "@/components/Dashboard/EmptyDashboard"
@@ -13,6 +14,8 @@ import DashboardResearch from "@/components/Dashboard/DashboardResearch"
 import LoadingDashboard from "@/components/Loading/LoadingDashboardResearch"
 
 const Dashboard = () => {
+
+    useAuth()
 
     const router = useRouter()
 
@@ -51,16 +54,16 @@ const Dashboard = () => {
 
     const filterResults = () => {
 
-        if (!data) {
+        if (!data || data.data === null) {
             return
         }
 
         if (filter === undefined) {
-            return data.data
+            return data?.data
         } else if (filter === "active") {
-            return data.data.filter((item: ResearchType) => item.status === "Active")
+            return data?.data.filter((item: ResearchType) => item.status === "Active")
         } else if (filter === "completed") {
-            return data.data.filter((item: ResearchType) => item.status === "Completed")
+            return data?.data.filter((item: ResearchType) => item.status === "Completed")
         }
     }
 
@@ -72,7 +75,7 @@ const Dashboard = () => {
 
                 { data?.data == null ? <EmptyDashboard /> : <DashboardToggle /> }
 
-                { filteredData.map((research: ResearchType) => {
+                { filteredData?.map((research: ResearchType) => {
                     return (
                         <DashboardResearch key={research.id} status={research.status} title={research.title} id={research.id} />
                     )

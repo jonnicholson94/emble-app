@@ -6,6 +6,7 @@ import { toast } from "sonner"
 import { useQueryClient } from "react-query"
 
 import { deleteResearch, fetchSingleResearch } from "@/network/research"
+import useAuth from "@/lib/hooks/useAuth"
 
 import { QuestionType } from "@/types/questionTypes"
 
@@ -24,6 +25,8 @@ import AlertDialog from "@/components/UI/AlertDialog"
 import Tooltip from "@/components/UI/Tooltip"
 
 const ViewResearch = () => {
+
+    useAuth()
 
     const router = useRouter()
     const queryClient = useQueryClient()
