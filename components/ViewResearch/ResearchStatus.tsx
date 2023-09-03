@@ -1,5 +1,6 @@
 
 import React from "react"
+import { toast } from "sonner"
 import MenuSelect from "../UI/MenuSelect"
 import { ActiveTypes } from "@/types/researchTypes"
 import { QuestionTypeOptions } from "@/types/questionTypes"
@@ -19,9 +20,9 @@ const ResearchStatus = ({ state, setState, research_id }: Props) => {
         const { data, error } = await editResearch("status", value, research_id)
 
         if (error != null) {
-            console.log(error)
+            toast.error("Failed to save changes")
         } else {
-            console.log("Successfully updated status")
+            toast.success("Saved changes")
         }
 
     }

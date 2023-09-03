@@ -1,5 +1,6 @@
 
 import { useState } from "react"
+import { toast } from "sonner"
 
 import { editResearch } from "@/network/research"
 
@@ -22,9 +23,9 @@ const ResearchPrototypeUrl = ({ state, setState, research_id }: Props) => {
         const { data, error } = await editResearch("prototype_url", state, research_id)
 
         if (error != null) {
-            console.log(error)
+            toast.error("Failed to save changes")
         } else {
-            console.log("Successfully updated")
+            toast.success("Saved changes")
         }
 
     }

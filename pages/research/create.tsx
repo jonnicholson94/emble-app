@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react"
 import Router from "next/router"
+import { toast } from "sonner"
 
 import { createResearch } from "@/network/research"
 
@@ -35,12 +36,11 @@ const CreateResearch = () => {
         
         const { data, error } = await createResearch(title, description, status, target, prototype, questions)
 
-        console.log(data)
-
         if (error != null) {
-            console.log(error)
+            toast.error("Failed to create your research, please try again")
         } else {
             Router.push("/dashboard")
+            toast.success("Successfully created your research")
         }
     }
 

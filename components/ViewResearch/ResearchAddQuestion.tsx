@@ -1,6 +1,7 @@
 
 import { useState } from "react"
 import { useQueryClient } from "react-query"
+import { toast } from "sonner"
 import MenuSelect from "../UI/MenuSelect"
 import { QuestionTypeOptions } from "@/types/questionTypes"
 import { createQuestion } from "@/network/questions"
@@ -34,11 +35,10 @@ const ResearchAddQuestion = ({ research_id, index }: Props) => {
         if (error != null) {
             console.log(error)
         } else {
-            setActive(false)
             setNewTitle("")
-            setNewType("Single select")
+            setNewType("Short text")
             queryClient.invalidateQueries({ queryKey: `research-${research_id}` })
-            console.log("Successfully created the question")
+            toast.success("Successfully created your question")
         }
 
     }

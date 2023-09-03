@@ -71,7 +71,7 @@ const ViewResearch = () => {
         console.log(error)
 
         if (error != null) {
-            console.log(error)
+            toast.success("Failed to delete your research, please try again")
         } else {
             router.push("/dashboard")
             queryClient.invalidateQueries("research")

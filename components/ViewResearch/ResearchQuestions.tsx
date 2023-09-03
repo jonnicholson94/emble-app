@@ -1,4 +1,5 @@
 import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes"
+import { toast } from "sonner"
 import ResearchAddQuestion from "./ResearchAddQuestion"
 import Intro from "../QuestionTypes/Intro"
 import Outro from "../QuestionTypes/Outro"
@@ -47,10 +48,10 @@ const ResearchQuestions = ({ questions, setQuestions, intro, setIntro, outro, se
 
         const { data, error } = await editQuestionOrder(updatedQuestions[index - 1], updatedQuestions[index - 1 + change])
 
-        if (error) {
-            console.log(error)
+        if (error != null) {
+            toast.error("Failed to save changes")
         } else {
-            console.log("Successfully updated question order")
+            toast.success("Saved changes")
         }
     };
 

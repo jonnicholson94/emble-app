@@ -1,3 +1,6 @@
+
+import { toast } from "sonner"
+
 import { editResearch } from "@/network/research"
 
 type Props = {
@@ -13,9 +16,9 @@ const ResearchInput = ({ state, setState, research_id }: Props) => {
         const { data, error } = await editResearch("title", state, research_id)
 
         if (error != null) {
-            console.log(error)
+            toast.error("Failed to save changes")
         } else {
-            console.log("Successfully updated")
+            toast.success("Saved changes")
         }
 
     }
