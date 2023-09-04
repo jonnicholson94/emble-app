@@ -24,6 +24,7 @@ const config: Config = {
       "offWhite": "#F9F9F9",
       "paleGrey": "#e9e9e9",
       "warning": "#E25E3E",
+      "pinkCta": "#E4A5FF",
     },
     borderRadius: {
       'none': '0',

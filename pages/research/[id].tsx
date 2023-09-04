@@ -21,6 +21,7 @@ import ResearchStatus from "@/components/ViewResearch/ResearchStatus"
 import ResearchTarget from "@/components/ViewResearch/ResearchTarget"
 import ResearchPrototypeUrl from "@/components/ViewResearch/ResearchPrototypeUrl"
 import ResearchQuestions from "@/components/ViewResearch/ResearchQuestions"
+import ResearchComments from "@/components/ViewResearch/ResearchComments"
 import AlertDialog from "@/components/UI/AlertDialog"
 import Tooltip from "@/components/UI/Tooltip"
 
@@ -102,6 +103,7 @@ const ViewResearch = () => {
                     <ResearchDivider />
                     <ResearchQuestions questions={questions} setQuestions={setQuestions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} research_id={id} />
                     <ResearchDivider />
+                    <ResearchComments research_id={id} />
                 </ResearchMainContainer>
 
                 <ResearchSecondaryContainer>
