@@ -1,10 +1,15 @@
 
 import { useState } from "react"
+import moment from "moment"
 
 import { addComment } from "@/network/comments"
 import { toast } from "sonner"
+import { CommentType } from "@/types/commentTypes"
 
 type CommentsProps = {
+    comments: CommentType[]
+    setComments: React.Dispatch<React.SetStateAction<CommentType[]>>
+    name: string
     research_id: string | string[] | undefined
 }
 
@@ -14,16 +19,23 @@ type CommentsInputProps = {
     handleCreate: () => void
 }
 
-const Comment = () => {
+type SingleCommentProps = {
+    content: string
+    name: string 
+    timestamp: number
+}
+
+const Comment = ({ content, name, timestamp }: SingleCommentProps) => {
+
     return (
-        <div className="h-auto w-full flex items-start justify-center">
+        <div className="h-auto w-full flex items-start justify-center my-[15px]">
             {/* <span className="h-[30px] w-[30px] bg-paleGrey border border-border rounded-rnd text-xs flex items-center justify-center mr-[10px]">JN</span> */}
             <div className="h-auto flex-grow bg-white border border-paleGrey rounded-sm">
                 <div className="h-auto w-full flex items-center justify-start my-[15px] mx-[15px]">
-                    <p className="font-bold mr-[20px] text-sm">Jon Nicholson</p>
-                    <p className="text-border text-sm">Today, 8:39am</p>
+                    <p className="font-bold mr-[20px] text-sm">{name}</p>
+                    <p className="text-border text-sm">{moment(timestamp).format("DD MMM, HH:MM")}</p>
                 </div>
-                <p className="h-auto w-full mx-[15px] mb-[15px] text-sm">An example comment here to be reviewed and shown in the design file</p>
+                <p className="h-auto w-full mx-[15px] mb-[15px] text-sm">{content}</p>
             </div>
         </div>
     )
@@ -31,14 +43,14 @@ const Comment = () => {
 
 const CommentInput = ({ state, setState, handleCreate }: CommentsInputProps) => {
     return (
-        <div className="h-auto w-full flex items-end justify-end flex-col">
-            <textarea className="h-[75px] w-full border border-paleGrey my-[15px] placeholder:text-border p-[15px] rounded-sm text-sm" placeholder="Enter a comment..." value={state} onChange={(e) => setState(e.target.value)} />
-            <button className="h-[35px] px-[15px] bg-black text-white font-bold rounded-sm mb-[15px]" onClick={handleCreate}>Save</button>
+        <div className="h-auto w-full flex items-end justify-end flex-col my-[15px]">
+            <textarea className="h-[75px] w-full border border-paleGrey placeholder:text-border p-[15px] rounded-sm text-sm" placeholder="Enter a comment..." value={state} onChange={(e) => setState(e.target.value)} />
+            <button className="h-[35px] px-[30px] text-sm bg-black text-white font-bold rounded-sm mt-[15px] mb-[50px]" onClick={handleCreate}>Save</button>
         </div>
     )
 }
 
-const ResearchComments = ({ research_id }: CommentsProps) => {
+const ResearchComments = ({ comments, setComments, name, research_id }: CommentsProps) => {
 
     const [newContent, setNewContent] = useState("Example text")
 
@@ -61,7 +73,9 @@ const ResearchComments = ({ research_id }: CommentsProps) => {
     return (
         <div className="h-auto w-[95%]">
             <h2 className="font-bold mb-[30px]">Comments</h2>
-            <Comment />
+            { comments.map(comment => {
+                return <Comment content={comment.comment_content} name={name} timestamp={comment.comment_timestamp} />
+            })}
             <CommentInput state={newContent} setState={setNewContent} handleCreate={() => handleCreate()} />
         </div>
     )

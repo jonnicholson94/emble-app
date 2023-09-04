@@ -7,7 +7,7 @@ type Props = {
 
 const ResearchParentContainer = ({ children }: Props) => {
     return (
-        <div className="h-screen w-screen flex items-center justify-center">
+        <div className="w-screen h-auto flex items-start justify-center">
             { children }
         </div>
     )

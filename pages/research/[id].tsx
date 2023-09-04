@@ -9,6 +9,7 @@ import { deleteResearch, fetchSingleResearch } from "@/network/research"
 import useAuth from "@/lib/hooks/useAuth"
 
 import { QuestionType } from "@/types/questionTypes"
+import { CommentType } from "@/types/commentTypes"
 
 import ResearchParentContainer from "@/components/Containers/ResearchParentContainer"
 import ResearchMainContainer from "@/components/Containers/ResearchMainContainer"
@@ -44,6 +45,8 @@ const ViewResearch = () => {
     const [limit, setLimit] = useState<number>(50)
     const [prototype, setPrototype] = useState("")
     const [questions, setQuestions] = useState<QuestionType[] | []>([])
+    const [comments, setComments] = useState<CommentType[] | []>([])
+    const [name, setName] = useState("")
 
     useEffect(() => {
         if (data?.data) {
@@ -54,6 +57,8 @@ const ViewResearch = () => {
             setLimit(data.data.limit)
             setPrototype(data.data.prototype_url)
             setQuestions(sortQuestions(data.data.questions))
+            setComments(sortComments(data.data.comments))
+            setName(data.data.first_name + " " + data.data.last_name)
         }
     }, [data])
 
@@ -62,6 +67,16 @@ const ViewResearch = () => {
             return []
         } else if (array.length > 0) {
             return [...array].sort((a, b) => a.question_index - b.question_index)
+        } else {
+            return []
+        }
+    }
+
+    const sortComments = (array: CommentType[] | []) => {
+        if (array == null) {
+            return []
+        } else if (array.length > 0) {
+            return [...array].sort((a, b) => a.comment_timestamp - b.comment_timestamp)
         } else {
             return []
         }
@@ -93,7 +108,7 @@ const ViewResearch = () => {
     }
 
     return (
-        <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
+        <div className="h-auto w-screen flex overflow-hidden items-center justify-start flex-col bg-offWhite">
             <ResearchHeader heading="" handleSubmit={() => console.log("Running...")} />
             <ResearchParentContainer>
 
@@ -103,7 +118,7 @@ const ViewResearch = () => {
                     <ResearchDivider />
                     <ResearchQuestions questions={questions} setQuestions={setQuestions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} research_id={id} />
                     <ResearchDivider />
-                    <ResearchComments research_id={id} />
+                    <ResearchComments comments={comments} setComments={setComments} name={name} research_id={id} />
                 </ResearchMainContainer>
 
                 <ResearchSecondaryContainer>
