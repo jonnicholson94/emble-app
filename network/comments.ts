@@ -43,3 +43,36 @@ export const addComment = async (content: string, research_id: string | string[]
     }
 
 }
+
+export const editComment = async (content: string, comment_id: string) => {
+    const data = {
+        "content": content
+    }
+
+    const token = localStorage.getItem("token")
+
+    if (!token) {
+        return { data: null, error: "No token provided" }
+    }
+
+    try {
+
+        const queryParam = new URLSearchParams({
+            id: comment_id
+        })
+
+        const response = await fetch(`http://localhost:8080/edit-comment?${queryParam}`, {
+            method: "PUT", 
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify(data)
+        })
+
+        return { data: response, error: null }
+    } catch (error) {
+        console.log(error)
+        return { data: null, error: error }
+    }
+}
