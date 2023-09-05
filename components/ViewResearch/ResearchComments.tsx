@@ -2,7 +2,7 @@
 import { useState } from "react"
 import moment from "moment"
 
-import { addComment, editComment } from "@/network/comments"
+import { addComment, deleteComment, editComment } from "@/network/comments"
 import { toast } from "sonner"
 import { CommentType } from "@/types/commentTypes"
 import AlertDialog from "../UI/AlertDialog"
@@ -43,8 +43,14 @@ const Comment = ({ content, name, timestamp, comment_id }: SingleCommentProps) =
         }
     }
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
+        const { data, error } = await deleteComment(comment_id)
 
+        if (error != null) {
+            toast.error("Failed to delete comment comment")
+        } else {
+            toast.success("Successfully deleted your comment")
+        }
     }
 
     return (

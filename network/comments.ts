@@ -76,3 +76,31 @@ export const editComment = async (content: string, comment_id: string) => {
         return { data: null, error: error }
     }
 }
+
+export const deleteComment = async (comment_id: string) => {
+    const token = localStorage.getItem("token")
+
+    if (!token) {
+        return { data: null, error: "No token provided" }
+    }
+
+    try {
+
+        const queryParam = new URLSearchParams({
+            id: comment_id
+        })
+
+        const response = await fetch(`http://localhost:8080/delete-comment?${queryParam}`, {
+            method: "DELETE", 
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+        })
+
+        return { data: response, error: null }
+    } catch (error) {
+        console.log(error)
+        return { data: null, error: error }
+    }
+}
