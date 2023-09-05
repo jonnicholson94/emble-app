@@ -52,7 +52,7 @@ const CommentInput = ({ state, setState, handleCreate }: CommentsInputProps) => 
 
 const ResearchComments = ({ comments, setComments, name, research_id }: CommentsProps) => {
 
-    const [newContent, setNewContent] = useState("Example text")
+    const [newContent, setNewContent] = useState("")
 
     const handleCreate = async () => {
 

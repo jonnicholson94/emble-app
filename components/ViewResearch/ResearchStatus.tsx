@@ -28,15 +28,12 @@ const ResearchStatus = ({ state, setState, research_id }: Props) => {
     }
 
     return (
-        <div className="h-[60px] w-[80%] flex items-center justify-center">
-            <h2 className="font-bold mr-[20px] flex-grow">Status</h2>
             <MenuSelect array={["Backlog", "Active", "Completed"]} state={state} handleClick={handleClick}>
-                <div className="py-[5px] px-[10px] border border-white hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer">
+                <div className="py-[5px] px-[10px] border border-paleGrey hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer mx-[10px]">
                     <img className="h-[15px] w-[15px] mr-[10px]" src={`/${state}.svg`} />
                     <p>{state}</p>
                 </div>
             </MenuSelect>
-        </div>
     )
 }
 
