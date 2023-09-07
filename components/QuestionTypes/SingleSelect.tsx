@@ -7,6 +7,7 @@ import MenuSelect from "@/components/UI/MenuSelect"
 
 import { QuestionTypeOptions } from "@/types/questionTypes"
 import { ActiveTypes } from "@/types/researchTypes"
+import { createOption } from "@/network/options"
 
 type QuestionProps = {
     content: string 
@@ -15,13 +16,14 @@ type QuestionProps = {
     length: number
     changeOrder: (index: number, change: 1 | -1 ) => void
     id: string
+    research_id: string | string[] | undefined
 }
 
-const SingleSelect = ({ content, type, index, length, changeOrder, id }: QuestionProps) => {
+const SingleSelect = ({ content, type, index, length, changeOrder, id, research_id }: QuestionProps) => {
 
     const [question, setQuestion] = useState(content)
     const [questionType, setQuestionType] = useState<QuestionTypeOptions>(type)
-    const [selectOptions, setSelectOptions] = useState<string[] | []>(["Example"])
+    const [selectOptions, setSelectOptions] = useState<string[] | []>([])
     const [newOption, setNewOption] = useState("")
 
     const handleBlur = async () => {
@@ -35,12 +37,10 @@ const SingleSelect = ({ content, type, index, length, changeOrder, id }: Questio
         setQuestionType(value as QuestionTypeOptions)
     }
 
-    const addOption = (e: React.KeyboardEvent) => {
-
-        const stateCopy: string[] | [] = [...selectOptions]
+    const addOption = async (e: React.KeyboardEvent) => {
 
         if (e.key === "Enter") {
-            setSelectOptions([...stateCopy, newOption])
+            const { data, error } = await createOption(newOption, id, selectOptions.length + 1, research_id)
             setNewOption("")
         }        
 

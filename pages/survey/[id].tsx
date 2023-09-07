@@ -48,8 +48,6 @@ const Survey = () => {
             populateStateArray()
         }
 
-        console.log(answers)
-
     }, [data])
 
     if (isLoading) {
@@ -67,7 +65,7 @@ const Survey = () => {
                 <SurveySecondaryContainer>
                     <div className="h-auto w-[90%] flex items-center justify-start mb-[10px]">
                     <img className="h-[30px] w-[30px] mr-[10px] cursor-pointer" src={active === 1 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} />
-                        <img className="h-[30px] w-[30px] mr-10 cursor-pointer" src={active === data!.data!.questions.length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} />
+                        <img className="h-[30px] w-[30px] mr-10 cursor-pointer" src={active === data?.data?.questions.length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} />
                     </div>
                     { answers.map(answer => {
                         return <QuestionBox title={answer.title} type={answer.type} />
