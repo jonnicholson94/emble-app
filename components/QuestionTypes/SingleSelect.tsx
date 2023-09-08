@@ -5,9 +5,10 @@ import { updateQuestion } from "@/network/questions"
 
 import MenuSelect from "@/components/UI/MenuSelect"
 
-import { QuestionTypeOptions } from "@/types/questionTypes"
+import { QuestionOption, QuestionTypeOptions } from "@/types/questionTypes"
 import { ActiveTypes } from "@/types/researchTypes"
 import { createOption } from "@/network/options"
+import SelectOption from "./SelectOption"
 
 type QuestionProps = {
     content: string 
@@ -17,13 +18,14 @@ type QuestionProps = {
     changeOrder: (index: number, change: 1 | -1 ) => void
     id: string
     research_id: string | string[] | undefined
+    options: QuestionOption[] | null
 }
 
-const SingleSelect = ({ content, type, index, length, changeOrder, id, research_id }: QuestionProps) => {
+const SingleSelect = ({ content, type, index, length, changeOrder, id, research_id, options }: QuestionProps) => {
 
     const [question, setQuestion] = useState(content)
     const [questionType, setQuestionType] = useState<QuestionTypeOptions>(type)
-    const [selectOptions, setSelectOptions] = useState<string[] | []>([])
+    const [questionOptions, setQuestionOptions] = useState<QuestionOption[] | null>(options)
     const [newOption, setNewOption] = useState("")
 
     const handleBlur = async () => {
@@ -37,28 +39,24 @@ const SingleSelect = ({ content, type, index, length, changeOrder, id, research_
         setQuestionType(value as QuestionTypeOptions)
     }
 
-    const addOption = async (e: React.KeyboardEvent) => {
+    const addOption = async (e: React.KeyboardEvent) => {  
 
-        if (e.key === "Enter") {
-            const { data, error } = await createOption(newOption, id, selectOptions.length + 1, research_id)
+        index = 1
+
+        if (questionOptions !== null) {
+            index = questionOptions.length + 1
+        }
+        
+        if (e.key == "Enter") {
+            const { data, error } = await createOption(newOption, id, index, research_id)
             setNewOption("")
-        }        
-
-    }
-
-    const removeOption = (index: number) => {
-
-        const stateCopy: string[] = [...selectOptions]
-
-        stateCopy.splice(index, 1)
-
-        setSelectOptions(stateCopy)
-
+        }
+        
     }
 
     const handleDelete = async () => {}
 
-    const options: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
+    const questionTypes: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
 
     return (
         <div className="h-auto w-[full] px-[20px] flex flex-col items-center justify-start bg-white border border-paleGrey rounded-sm mb-[10px]">
@@ -70,17 +68,14 @@ const SingleSelect = ({ content, type, index, length, changeOrder, id, research_
                     placeholder="Enter a question"
                     onBlur={() => handleBlur()}
                 />
-                <MenuSelect array={options} state={questionType} handleClick={handleClick}>
+                <MenuSelect array={questionTypes} state={questionType} handleClick={handleClick}>
                     <p className="h-[30px] px-[10px] mr-[20px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer">{questionType}</p>
                 </MenuSelect>
                 <img className="mx-[10px]" src={index - 1 === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} onClick={() => changeOrder(index, -1)} />
                 <img className="mx-[10px]" src={index + 1 > length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} onClick={() => changeOrder(index, 1)} />
             </div>
-            { selectOptions.map((item, index) => {
-                return <div className="h-[35px] w-[98%] px-[10px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]">
-                            <input className="flex-grow outline-none" value={item} /> 
-                            <img className="h-[15px] w-[15px]" src="/close.svg" onClick={() => removeOption(index)} />
-                        </div>
+            { questionOptions?.map((item, index) => {
+                return <SelectOption key={item.option_id} id={item.option_id} index={item.option_index} options={questionOptions} setOptions={setQuestionOptions} />
             })}
             <div className="h-[35px] w-[98%] px-[10px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]">
                 <input className="flex-grow outline-none" placeholder="Enter an option" value={newOption} onChange={(e) => setNewOption(e.target.value)} onKeyDown={(e) => addOption(e)}  />

@@ -70,9 +70,9 @@ const ResearchQuestions = ({ questions, setQuestions, intro, setIntro, outro, se
                     case "Long text":
                         return <LongText content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} />
                     case "Single select":
-                        return <SingleSelect content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} research_id={research_id} />
+                        return <SingleSelect content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} options={question.question_options} research_id={research_id} />
                     case "Multi select":
-                        return <MultiSelect content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} />
+                        return <MultiSelect content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} options={question.question_options} />
                     case "Rating":
                         return <Rating content={question.question_title} type={question.question_type} index={question.question_index} length={questions.length} changeOrder={handleOrderChange} id={question.question_id} />
                     case "Scale":

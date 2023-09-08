@@ -5,7 +5,7 @@ import { updateQuestion } from "@/network/questions"
 
 import MenuSelect from "@/components/UI/MenuSelect"
 
-import { QuestionTypeOptions } from "@/types/questionTypes"
+import { QuestionTypeOptions, QuestionOption } from "@/types/questionTypes"
 import { ActiveTypes } from "@/types/researchTypes"
 
 type QuestionProps = {
@@ -15,9 +15,10 @@ type QuestionProps = {
     length: number
     changeOrder: (index: number, change: 1 | -1 ) => void
     id: string | string[] | undefined
+    options: QuestionOption[] | null
 }
 
-const MultiSelect = ({ content, type, index, changeOrder, id }: QuestionProps) => {
+const MultiSelect = ({ content, type, index, changeOrder, id, options }: QuestionProps) => {
 
     const [question, setQuestion] = useState(content)
     const [questionType, setQuestionType] = useState<QuestionTypeOptions>(type)
@@ -56,7 +57,7 @@ const MultiSelect = ({ content, type, index, changeOrder, id }: QuestionProps) =
 
     }
 
-    const options: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
+    const typeOptions: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
 
     return (
         <div className="h-auto w-[full] px-[20px] flex flex-col items-center justify-start bg-white border border-paleGrey rounded-sm mb-[10px]">
@@ -68,7 +69,7 @@ const MultiSelect = ({ content, type, index, changeOrder, id }: QuestionProps) =
                     placeholder="Enter a question"
                     onBlur={() => handleBlur()}
                 />
-                <MenuSelect array={options} state={questionType} handleClick={handleClick}>
+                <MenuSelect array={typeOptions} state={questionType} handleClick={handleClick}>
                     <p className="h-[30px] px-[10px] mr-[20px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer">{questionType}</p>
                 </MenuSelect>
                 <img className="mx-[10px]" src={index - 1 === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} onClick={() => changeOrder(index, -1)} />
