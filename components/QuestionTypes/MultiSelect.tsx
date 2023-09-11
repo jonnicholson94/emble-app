@@ -76,7 +76,7 @@ const MultiSelect = ({ content, type, index, changeOrder, id, options }: Questio
                 <img className="mx-[10px]" src={index + 1 > length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} onClick={() => changeOrder(index, 1)} />
             </div>
             { selectOptions.map((item, index) => {
-                return <div className="h-[35px] w-[98%] px-[10px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]">
+                return <div key={index} className="h-[35px] w-[98%] px-[10px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]">
                             <input className="flex-grow outline-none" value={item} /> 
                             <img className="h-[15px] w-[15px]" src="/close.svg" onClick={() => removeOption(index)} />
                         </div>

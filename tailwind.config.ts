@@ -34,7 +34,9 @@ const config: Config = {
       'rnd': '50%'
     },
     extend: {
-      
+      backgroundImage: {
+        'homepage-pattern': "url('/background.svg')"
+      }
     },
   },
   plugins: [],

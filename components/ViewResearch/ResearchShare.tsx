@@ -21,7 +21,7 @@ const ResearchShare = ({ research_id }: Props) => {
             </Popover.Trigger>
             <Popover.Content sideOffset={15} className="h-auto w-[350px] bg-white flex items-center justify-center flex-col border border-paleGrey rounded-sm shadow mr-[15px]">
                 <h2 className="h-auto w-[80%] mt-[20px] font-bold">Your survey link</h2>
-                <p className="h-auto w-[80%] mt-[10px] text-xs">Send this survey link to your users. They'll see your Figma prototype, and questions you've added to the survey to fill in.</p>
+                <p className="h-auto w-[80%] mt-[10px] text-xs">Send this survey link to your users. They&apos;ll see your Figma prototype, and questions you&apos;ve added to the survey to fill in.</p>
                 <button className="h-[40px] w-[80%] bg-black text-white text-sm font-bold rounded-sm mt-[10px] mb-[30px]" onClick={() => handleClipboardCopy()}>Copy shareable link</button>
             </Popover.Content>
         </Popover.Root>

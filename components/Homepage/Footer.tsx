@@ -16,7 +16,7 @@ type HeaderProps = {
 
 const FooterSection = ({ children }: SectionProps) => {
     return (
-        <div className="h-auto w-auto mx-[50px] flex items-start justify-start flex-col">
+        <div className="h-auto w-auto mx-[50px] flex items-start justify-start flex-col xxs:my-[30px] lg:my-0">
             {children}
         </div>
     )
@@ -30,15 +30,15 @@ const FooterLink = ({ link, content }: LinkProps) => {
 
 const FooterHeader = ({ content }: HeaderProps) => {
     return (
-        <h3 className="text-md text-white font-bold mb-[20px]">{content}</h3>
+        <h3 className="text-md text-white font-bold xxs:mb-[5px] lg:mb-[20px]">{content}</h3>
     )
 }
 
 const Footer = () => {
     return (
-        <footer className="h-auto w-full flex items-start justify-center py-[100px] bg-black">
-            <h2 className="text-2xl font-bold text-white mr-[150px]">Emble</h2>
-            <FooterSection>
+        <footer className="h-auto w-full xxs:flex-col lg:flex items-start justify-center py-[100px] bg-black mt-[50px]">
+            <h2 className="text-2xl font-bold text-white xxs:mx-[50px] xxs:mb-[30px] md:mr-[150px]">Emble</h2>
+            {/* <FooterSection>
                 <FooterHeader content="Use cases" />
                 <FooterLink link="/product-managers" content="Product Managers" />
                 <FooterLink link="/designers" content="Designers" />
@@ -59,7 +59,7 @@ const Footer = () => {
                 <FooterHeader content="Legal" />
                 <FooterLink link="/terms" content="Terms and Conditions" />
                 <FooterLink link="/privacy" content="Privacy policy" />
-            </FooterSection>
+            </FooterSection> */}
         </footer>
     )
 }

@@ -23,21 +23,21 @@ const Survey = () => {
 
     const { data, error, isLoading } = useQuery(`survey-${id}`, () => fetchSurveyDetails(id))
 
+    console.log(answers)
+
     useEffect(() => {
 
         // Create function which maps through questions array, and passes them in to the state
 
         const populateStateArray = () => {
-            console.log("Running populate...")
-            console.log(data?.data)
-            console.log(data?.data.questions)
             const newArray = data?.data.questions.map((item: SurveyAnswer) => {
                 return {
-                    id: item.id,
-                    title: item.title,
-                    type: item.type,
-                    index: item.index,
-                    answer: ""
+                    question_id: item.question_id,
+                    question_title: item.question_title,
+                    question_type: item.question_type,
+                    question_index: item.question_index,
+                    question_options: item.question_options,
+                    question_answer: ""
                 }
             })
 
@@ -67,8 +67,8 @@ const Survey = () => {
                     <img className="h-[30px] w-[30px] mr-[10px] cursor-pointer" src={active === 1 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} />
                         <img className="h-[30px] w-[30px] mr-10 cursor-pointer" src={active === data?.data?.questions.length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} />
                     </div>
-                    { answers.map(answer => {
-                        return <QuestionBox title={answer.title} type={answer.type} />
+                    { answers.map((answer, index) => {
+                        return <QuestionBox key={answer.question_id} state={answers} setState={setAnswers} active={active} setActive={setActive} id={answer.question_id} title={answer.question_title} type={answer.question_type} options={answer.question_options} index={index}  />
                     })}
                 </SurveySecondaryContainer>
             </SurveyParentContainer>

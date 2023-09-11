@@ -33,9 +33,9 @@ const SignIn = () => {
             <AuthTitle content="Sign in to your account" />
             <AuthInput placeholder="Enter your email address" value={email} setValue={setEmail} type="email" />
             <AuthInput placeholder="Enter your password" value={password} setValue={setPassword} type="password" />
-            <AuthLink text="Forgot your password?" href="/auth/forgot-password" />
+            {/* <AuthLink text="Forgot your password?" href="/auth/forgot-password" /> */}
             <AuthButton text="Sign in" handleClick={handleSignIn} />
-            <AuthLink text="Not got an account?" href="/auth/register" />
+            {/* <AuthLink text="Not got an account?" href="/auth/register" /> */}
         </AuthContainer>
     )
 }
