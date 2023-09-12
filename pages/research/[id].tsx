@@ -18,6 +18,7 @@ import ResearchTextarea from "@/components/ViewResearch/ResearchTextarea"
 import ResearchDivider from "@/components/ViewResearch/ResearchDivider"
 import ResearchQuestions from "@/components/ViewResearch/ResearchQuestions"
 import ResearchComments from "@/components/ViewResearch/ResearchComments"
+import LoadingResearch from "@/components/Loading/LoadingResearch"
 
 const ViewResearch = () => {
 
@@ -76,7 +77,7 @@ const ViewResearch = () => {
     }
 
     if (isLoading) {
-        return <div></div>
+        return <LoadingResearch />
     }
 
     return (
