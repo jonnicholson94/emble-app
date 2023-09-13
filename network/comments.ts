@@ -1,8 +1,13 @@
 
+import { StandardError } from "@/types/errorTypes"
+
 export const addComment = async (content: string, research_id: string | string[] | undefined, timestamp: number) => {
 
     if (!research_id) {
-        return { data: null, error: "No research ID provided" }
+        throw {
+            message: "No research ID",
+            status: 400
+        }
     }
 
     if (Array.isArray(research_id)) {
@@ -18,7 +23,10 @@ export const addComment = async (content: string, research_id: string | string[]
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -32,13 +40,21 @@ export const addComment = async (content: string, research_id: string | string[]
             body: JSON.stringify(data)
         })
 
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { data: response, error: null }
 
-    } catch (error) {
+    } catch (err) {
 
-        console.log(error)
-
-        return { data: null, error: error }
+        return { data: null, error: err as StandardError }
         
     }
 
@@ -52,7 +68,10 @@ export const editComment = async (content: string, comment_id: string) => {
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -70,10 +89,20 @@ export const editComment = async (content: string, comment_id: string) => {
             body: JSON.stringify(data)
         })
 
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { data: response, error: null }
-    } catch (error) {
-        console.log(error)
-        return { data: null, error: error }
+    } catch (err) {
+
+        return { data: null, error: err as StandardError }
     }
 }
 
@@ -81,7 +110,10 @@ export const deleteComment = async (comment_id: string) => {
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -98,9 +130,18 @@ export const deleteComment = async (comment_id: string) => {
             },
         })
 
-        return { data: response, error: null }
-    } catch (error) {
-        console.log(error)
-        return { data: null, error: error }
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
+        return { data: json, error: null }
+    } catch (err) {
+        return { data: null, error: err as StandardError }
     }
 }

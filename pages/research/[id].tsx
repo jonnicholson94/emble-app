@@ -6,6 +6,8 @@ import { useQueryClient } from "react-query"
 
 import { fetchSingleResearch } from "@/network/research"
 import useAuth from "@/lib/hooks/useAuth"
+import { toast } from "sonner"
+import errorHandler from "@/lib/errorHandler"
 
 import { QuestionType } from "@/types/questionTypes"
 import { CommentType } from "@/types/commentTypes"
@@ -29,7 +31,7 @@ const ViewResearch = () => {
 
     const { id } = router.query
 
-    const { data, error, isLoading } = useQuery(`research-${id}`, () => fetchSingleResearch(id))
+    const { data, isFetching } = useQuery(`research-${id}`, () => fetchSingleResearch(id))
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -76,8 +78,18 @@ const ViewResearch = () => {
         }
     }
 
-    if (isLoading) {
+    if (isFetching) {
         return <LoadingResearch />
+    }
+
+    if (data?.error !== null && !isFetching) {
+
+        toast.error(data?.error.message)
+        errorHandler(data?.error.status)
+
+        return (
+            <LoadingResearch />
+        )
     }
 
     return (

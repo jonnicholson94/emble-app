@@ -1,8 +1,13 @@
 
+import { StandardError } from "@/types/errorTypes"
+
 export const createOption = async (content: string, question_id: string, index: number, research_id: string | string[] | undefined) => {
     
     if (!research_id) {
-        return { data: null, error: "No research ID provided" }
+        throw {
+            message: "No research ID",
+            status: 400
+        }
     }
 
     if (Array.isArray(research_id)) {
@@ -19,7 +24,10 @@ export const createOption = async (content: string, question_id: string, index: 
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -33,11 +41,21 @@ export const createOption = async (content: string, question_id: string, index: 
             body: JSON.stringify(data)
         })
 
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { data: response, error: null }
 
-    } catch (error) {
+    } catch (err) {
 
-        throw error
+        return { data: null, error: err as StandardError }
 
     }
 
@@ -48,7 +66,10 @@ export const deleteOption = async (option_id: string) => {
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -65,11 +86,21 @@ export const deleteOption = async (option_id: string) => {
             },
         })
 
-        return { data: response, error: null }
+        const json = await response.json()
 
-    } catch (error) {
+        if (!response.ok) {
 
-        throw error
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
+        return { data: json, error: null }
+
+    } catch (err) {
+
+        return { data: null, error: err as StandardError }
 
     }
 

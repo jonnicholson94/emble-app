@@ -1,9 +1,13 @@
 import { NewQuestionType } from "@/types/questionTypes"
+import { StandardError } from "@/types/errorTypes"
 
 export const fetchSingleResearch = async (research_id: string | string[] | undefined) => {
 
     if (!research_id) {
-        return { data: null, error: "No research ID provided" }
+        throw {
+            message: "No research ID",
+            status: 400
+        }
     }
 
     if (Array.isArray(research_id)) {
@@ -13,7 +17,10 @@ export const fetchSingleResearch = async (research_id: string | string[] | undef
     const token = localStorage.getItem("token")
 
     if (!token) {
-        throw new Error("No token provided")
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -32,13 +39,19 @@ export const fetchSingleResearch = async (research_id: string | string[] | undef
 
         const json = await response.json()
 
-        console.log(json)
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
 
         return { data: json, error: null }
 
-    } catch (error) {
+    } catch (err) {
 
-        return { data: null, error: error }
+        return { data: null, error: err as StandardError }
 
     }
 }
@@ -48,7 +61,10 @@ export const fetchResearch = async () => {
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -63,11 +79,19 @@ export const fetchResearch = async () => {
 
         const json = await response.json()
 
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { data: json, error: null }
 
-    } catch (error) {
+    } catch (err) {
 
-        return { data: null, error: error }
+        return { data: null, error: err as StandardError }
 
     }
 
@@ -87,7 +111,10 @@ export const createResearch = async (title: string, description: string, status:
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -103,11 +130,19 @@ export const createResearch = async (title: string, description: string, status:
 
         const json = await response.json()
 
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { data: json, error: null }
 
     } catch (err) {
 
-        return { data: null, error: err }
+        return { data: null, error: err as StandardError }
 
     }
 
@@ -130,7 +165,10 @@ export const editResearch = async (column: string, value: string | number, resea
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -148,11 +186,19 @@ export const editResearch = async (column: string, value: string | number, resea
             body: JSON.stringify(data)
         })
 
-        return { data: response, error: null }
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
 
     } catch (err) {
 
-        return { data: null, error: err }
+        return { data: null, error: err as StandardError }
 
     }
 }
@@ -170,7 +216,10 @@ export const deleteResearch = async (research_id: string | string[] | undefined)
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -187,10 +236,19 @@ export const deleteResearch = async (research_id: string | string[] | undefined)
             }
         })
 
-        return { data: response, error: null }
+        const json = await response.json()
 
-    } catch (error) {
-        return { data: null, error: error }
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
+    } catch (err) {
+
+        return { data: null, error: err as StandardError }
     }
 
 }

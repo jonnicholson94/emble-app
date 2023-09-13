@@ -1,4 +1,7 @@
 
+import { StandardError } from "@/types/errorTypes"
+import { SignInResponse } from "@/types/networkTypes"
+
 export const register = async (first_name: string, last_name: string, email: string, password: string) => {
 
     const data = {
@@ -20,23 +23,28 @@ export const register = async (first_name: string, last_name: string, email: str
 
         const json = await response.json()
 
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { 
-            json, 
-            error: null 
+            data: json, 
+            error: null
         }
 
 
     } catch (err) {
 
-        return {
-            json: null,
-            error: err
-        }
+        return { data: null, error: err as StandardError }
 
     }
 }
 
-export const signIn = async (email: string, password: string) => {
+export const signIn = async (email: string, password: string): Promise<SignInResponse> => {
 
     const data = {
         "email": email,
@@ -55,9 +63,19 @@ export const signIn = async (email: string, password: string) => {
 
         const json = await response.json()
 
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { data: json, error: null }
+
     } catch (err) {
-        return { data: null, error: err }
+        
+        return { data: null, error: err as StandardError }
     }
     
 }

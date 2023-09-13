@@ -12,6 +12,7 @@ import EmptyDashboard from "@/components/Dashboard/EmptyDashboard"
 import DashboardToggle from "@/components/Dashboard/DashboardToggle"
 import DashboardResearch from "@/components/Dashboard/DashboardResearch"
 import LoadingDashboard from "@/components/Loading/LoadingDashboardResearch"
+import errorHandler from "@/lib/errorHandler"
 
 const Dashboard = () => {
 
@@ -21,9 +22,12 @@ const Dashboard = () => {
 
     const { filter } = router.query
 
-    const { data, error, isLoading } = useQuery('research', fetchResearch)
+    const { data, isFetching } = useQuery('research', fetchResearch)
 
-    if (isLoading) {
+    console.log(data)
+    console.log(isFetching)
+
+    if (isFetching) {
         return (
             <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
                 <DashboardHeader />
@@ -36,9 +40,10 @@ const Dashboard = () => {
         )
     }
 
-    if (error) {
+    if (data?.error !== null && !isFetching) {
 
-        toast.error("Failed to fetch your data")
+        toast.error(data?.error.message)
+        errorHandler(data?.error.status)
 
         return (
             <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">

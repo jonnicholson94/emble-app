@@ -1,8 +1,10 @@
 
 import { useState } from "react";
 import Router from "next/router";
+import { toast } from "sonner";
 
 import { register } from "@/network/auth";
+import errorHandler from "@/lib/errorHandler";
 
 import AuthContainer from "@/components/Auth/AuthContainer";
 import AuthLogo from "@/components/Auth/AuthLogo";
@@ -23,12 +25,16 @@ const Register = () => {
 
     const handleRegister = async () => {
 
-        const { json, error } = await register(firstName, lastName, email, password)
+        const { data, error } = await register(firstName, lastName, email, password)
 
         if (error != null) {
-            console.log(error)
-        } else {
-            localStorage.setItem("token", json)
+            toast.error(error.message)
+            errorHandler(error.status)
+            return
+        }
+        
+        if (data !== null) {
+            localStorage.setItem("token", data)
             Router.push("/dashboard")
         }
 

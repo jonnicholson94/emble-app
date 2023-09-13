@@ -1,8 +1,13 @@
 
+import { StandardError } from "@/types/errorTypes"
+
 export const fetchSurveyDetails = async (research_id: string | string[] | undefined) => {
 
     if (!research_id) {
-        return { data: null, error: "No research ID provided" }
+        throw {
+            message: "No research ID",
+            status: 400
+        }
     }
 
     if (Array.isArray(research_id)) {
@@ -24,13 +29,19 @@ export const fetchSurveyDetails = async (research_id: string | string[] | undefi
 
         const json = await response.json()
 
-        console.log(json)
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
 
         return { data: json, error: null }
 
-    } catch (error) {
+    } catch (err) {
 
-        return { data: null, error: error }
+        return { data: null, error: err as StandardError }
 
     }
 

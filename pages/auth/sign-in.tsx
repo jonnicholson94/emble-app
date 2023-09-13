@@ -8,8 +8,10 @@ import AuthContainer from "@/components/Auth/AuthContainer"
 import AuthInput from "@/components/Auth/AuthInput"
 import AuthLogo from "@/components/Auth/AuthLogo"
 import AuthTitle from "@/components/Auth/AuthTitle"
-import AuthLink from "@/components/Auth/AuthLink"
 import AuthButton from "@/components/Auth/AuthButton"
+
+import { toast } from "sonner"
+import errorHandler from "@/lib/errorHandler"
 
 const SignIn = () => {
 
@@ -20,8 +22,12 @@ const SignIn = () => {
         const { data, error } = await signIn(email, password)
 
         if (error != null) {
-            console.log(error)
-        } else {
+            toast.error(error.message)
+            errorHandler(error.status)
+            return
+        }
+        
+        if (data !== null) {
             localStorage.setItem("token", data)
             Router.push("/dashboard")
         }

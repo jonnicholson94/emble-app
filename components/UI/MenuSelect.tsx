@@ -20,14 +20,14 @@ const MenuSelect = ({ children, array, state, handleClick }: Props) => {
                 { children }
             </Select.Trigger>
             <Select.Portal >
-                <Select.Content position="popper" className="py-[10px] px-[10px] bg-white border border-paleGrey rounded-sm">
+                <Select.Content position="popper" className="py-[10px] px-[5px] bg-white border border-paleGrey rounded-sm">
                     <Select.Viewport>
                         { array.map((item, index) => {
                             return (
                                 <Select.Item 
                                     key={index}
                                     value={item}
-                                    className="h-[30px] mx-[5px] px-[10px] cursor-pointer flex items-center border border-white focus:border-border"
+                                    className="h-[30px] mx-[5px] px-[10px] cursor-pointer flex items-center border border-white focus:border-paleGrey rounded-sm"
                                     >{item}</Select.Item>
                             )
                         })}

@@ -1,9 +1,13 @@
 import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes";
+import { StandardError } from "@/types/errorTypes";
 
 export const createQuestion = async (title: string, type: QuestionTypeOptions, research_id: string | string[] | undefined, index: number) => {
 
     if (!research_id) {
-        return { data: null, error: "No research ID provided" }
+        throw {
+            message: "No research ID",
+            status: 400
+        }
     }
 
     if (Array.isArray(research_id)) {
@@ -20,7 +24,10 @@ export const createQuestion = async (title: string, type: QuestionTypeOptions, r
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -34,11 +41,21 @@ export const createQuestion = async (title: string, type: QuestionTypeOptions, r
             body: JSON.stringify(data)
         })
 
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { data: response, error: null }
 
     } catch (err) {
 
-        return { data: null, error: err }
+        return { data: null, error: err as StandardError }
 
     }
 
@@ -61,7 +78,10 @@ export const updateQuestion = async (column: string, value: string | number, res
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -79,11 +99,21 @@ export const updateQuestion = async (column: string, value: string | number, res
             body: JSON.stringify(data)
         })
 
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { data: response, error: null }
 
     } catch (err) {
 
-        return { data: null, error: err }
+        return { data: null, error: err as StandardError }
 
     }
 
@@ -106,7 +136,10 @@ export const editQuestionOrder = async (firstQuestion: QuestionType, secondQuest
     const token = localStorage.getItem("token")
 
     if (!token) {
-        return { data: null, error: "No token provided" }
+        throw {
+            message: "No token provided",
+            status: 400
+        }
     }
 
     try {
@@ -120,11 +153,21 @@ export const editQuestionOrder = async (firstQuestion: QuestionType, secondQuest
             body: JSON.stringify(data)
         })
 
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
         return { data: response, error: null }
 
-    } catch (error) {
+    } catch (err) {
 
-        return { data: null, error: error }
+        return { data: null, error: err as StandardError }
     }
 
 }

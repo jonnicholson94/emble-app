@@ -21,7 +21,7 @@ const Survey = () => {
 
     const { id } = router.query
 
-    const { data, error, isLoading } = useQuery(`survey-${id}`, () => fetchSurveyDetails(id))
+    const { data, isFetching } = useQuery(`survey-${id}`, () => fetchSurveyDetails(id))
 
     console.log(answers)
 
@@ -50,14 +50,11 @@ const Survey = () => {
 
     }, [data])
 
-    if (isLoading) {
+    if (isFetching) {
         return <LoadingSurvey />
     }
 
-    if (error) {}
-
-    if (!isLoading && data) {
-        return (
+    return (
                 <SurveyParentContainer>
                 <SurveyMainContainer>
                     <iframe className="w-[90%] h-[90%] rounded-md" src={`https://www.figma.com/embed?embed_host=emble&url=${data?.data?.prototype_url}`}  />
@@ -74,8 +71,5 @@ const Survey = () => {
             </SurveyParentContainer>
         )
     }
-
-    
-}
 
 export default Survey
