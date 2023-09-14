@@ -1,12 +1,11 @@
 
-import { editResearch } from "@/network/research"
-
 type Props = {
     state: string 
     setState: React.Dispatch<React.SetStateAction<string>>
+    handleEdit: () => void
 }
 
-const CreateInput = ({ state, setState }: Props) => {
+const ResearchTitle = ({ state, setState, handleEdit }: Props) => {
 
     return (
         <input
@@ -14,9 +13,10 @@ const CreateInput = ({ state, setState }: Props) => {
             placeholder="Enter a research title"
             value={state}
             onChange={(e) => setState(e.target.value)}
+            onBlur={() => handleEdit()}
             type="text"
         />
     )
 }
 
-export default CreateInput
+export default ResearchTitle

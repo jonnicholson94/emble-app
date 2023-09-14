@@ -2,9 +2,10 @@
 type Props = {
     state: string
     setState: React.Dispatch<React.SetStateAction<string>>
+    handleEdit: () => void
 }
 
-const CreateTextarea = ({ state, setState }: Props) => {
+const ResearchDescription = ({ state, setState, handleEdit }: Props) => {
 
     return (
         <textarea
@@ -12,8 +13,9 @@ const CreateTextarea = ({ state, setState }: Props) => {
             placeholder="Enter a research description"
             value={state}
             onChange={(e) => setState(e.target.value)}
+            onBlur={() => handleEdit()}
         />
     )
 }
 
-export default CreateTextarea
+export default ResearchDescription

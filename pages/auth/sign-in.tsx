@@ -12,16 +12,21 @@ import AuthButton from "@/components/Auth/AuthButton"
 
 import { toast } from "sonner"
 import errorHandler from "@/lib/errorHandler"
+import PendingButton from "@/components/UI/PendingButton"
 
 const SignIn = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [pending, setPending] = useState(false)
 
     const handleSignIn = async () => {
+        setPending(true)
+
         const { data, error } = await signIn(email, password)
 
         if (error != null) {
+            setPending(false)
             toast.error(error.message)
             errorHandler(error.status)
             return
@@ -40,7 +45,7 @@ const SignIn = () => {
             <AuthInput placeholder="Enter your email address" value={email} setValue={setEmail} type="email" />
             <AuthInput placeholder="Enter your password" value={password} setValue={setPassword} type="password" />
             {/* <AuthLink text="Forgot your password?" href="/auth/forgot-password" /> */}
-            <AuthButton text="Sign in" handleClick={handleSignIn} />
+            <PendingButton pending={pending} height="h-[50px]" width="w-full" content="Sign in" handleClick={handleSignIn} />
             {/* <AuthLink text="Not got an account?" href="/auth/register" /> */}
         </AuthContainer>
     )

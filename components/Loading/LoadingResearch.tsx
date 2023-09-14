@@ -1,7 +1,7 @@
 
 import ResearchParentContainer from "../Containers/ResearchParentContainer"
 import ResearchMainContainer from "../Containers/ResearchMainContainer"
-import ResearchDivider from "../ViewResearch/ResearchDivider"
+import ResearchDivider from "../Research/ResearchDivider"
 
 const LoadingResearch = () => {
     return (

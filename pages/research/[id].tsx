@@ -14,13 +14,13 @@ import { CommentType } from "@/types/commentTypes"
 
 import ResearchParentContainer from "@/components/Containers/ResearchParentContainer"
 import ResearchMainContainer from "@/components/Containers/ResearchMainContainer"
-import ResearchHeader from "@/components/ViewResearch/ResearchHeader"
-import ResearchInput from "@/components/ViewResearch/ResearchInput"
-import ResearchTextarea from "@/components/ViewResearch/ResearchTextarea"
-import ResearchDivider from "@/components/ViewResearch/ResearchDivider"
-import ResearchQuestions from "@/components/ViewResearch/ResearchQuestions"
-import ResearchComments from "@/components/ViewResearch/ResearchComments"
+import ResearchHeader from "@/components/Research/ResearchHeader"
+import ResearchDivider from "@/components/Research/ResearchDivider"
+import ResearchQuestions from "@/components/Research/ResearchQuestions"
+import ResearchComments from "@/components/Research/ResearchComments"
 import LoadingResearch from "@/components/Loading/LoadingResearch"
+import ResearchTitle from "@/components/Research/ResearchTitle"
+import ResearchDescription from "@/components/Research/ResearchDescription"
 
 const ViewResearch = () => {
 
@@ -46,7 +46,6 @@ const ViewResearch = () => {
 
     useEffect(() => {
         if (data?.data) {
-            console.log(data.data)
             setTitle(data.data.title)
             setDescription(data.data.description)
             setStatus(data.data.status)
@@ -78,6 +77,65 @@ const ViewResearch = () => {
         }
     }
 
+    const handleOrderChange = async (index: number, change: 1 | -1) => {
+        // if (index + change > questions.length || index + change <= 0) {
+        //     return;
+        // }
+    
+        // // Identify the clicked target
+        // const clickedTarget = questions[index - 1];
+    
+        // // Identify the change target
+        // const changeTarget = questions[index - 1 + change];
+    
+        // // Swap the question_index values
+        // const tempIndex = clickedTarget.question_index;
+        // clickedTarget.question_index = changeTarget.question_index;
+        // changeTarget.question_index = tempIndex;
+    
+        // // Update the state array with the new order
+        // const updatedQuestions = [...questions];
+        // updatedQuestions[index - 1] = changeTarget;
+        // updatedQuestions[index - 1 + change] = clickedTarget;
+
+        // setQuestions(updatedQuestions)
+
+        // const { data, error } = await editQuestionOrder(updatedQuestions[index - 1], updatedQuestions[index - 1 + change])
+
+        // if (error != null) {
+        //     toast.error("Failed to save changes")
+        // } else {
+        //     toast.success("Saved changes")
+        // }
+    };
+
+    const handleQuestionDelete = async (question_id: string) => {
+        // console.log("Running...")
+        // const { data, error } = await deleteQuestion(question_id)
+
+        // if (error !== null) {
+        //     toast.error(error.message)
+        //     errorHandler(error.status)
+        // }
+
+        // if (data !== null) {
+        //     toast.success(data)
+        // }
+
+    }
+
+    const handleEdit = () => {}
+    const handleCreateQuestion = () => {}
+
+    const handleBlur = () => {}
+    const handleClick = () => {}
+    const handleAddOption = () => {}
+    const handleDeleteOption = () => {}
+
+    const handleCommentCreate = () => {}
+    const handleCommentEdit = () => {}
+    const handleCommentDelete = () => {}
+
     if (isFetching) {
         return <LoadingResearch />
     }
@@ -98,12 +156,12 @@ const ViewResearch = () => {
             <ResearchParentContainer>
 
                 <ResearchMainContainer>
-                    <ResearchInput state={title} setState={setTitle} research_id={id} />
-                    <ResearchTextarea state={description} setState={setDescription} research_id={id} />
+                    <ResearchTitle state={title} setState={setTitle} handleEdit={handleEdit} />
+                    <ResearchDescription state={description} setState={setDescription} handleEdit={handleEdit} />
                     <ResearchDivider />
-                    <ResearchQuestions questions={questions} setQuestions={setQuestions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} research_id={id} />
+                    <ResearchQuestions questions={questions} setQuestions={setQuestions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} handleOrderChange={handleOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleBlur={handleBlur} handleClick={handleClick} handleAddOption={handleAddOption} handleDeleteOption={handleDeleteOption} />
                     <ResearchDivider />
-                    <ResearchComments comments={comments} setComments={setComments} name={name} research_id={id} />
+                    <ResearchComments comments={comments} setComments={setComments} name={name} research_id={id} handleCreate={handleCommentCreate} handleEdit={handleCommentEdit} handleDelete={handleCommentDelete} />
                 </ResearchMainContainer>
 
             </ResearchParentContainer>

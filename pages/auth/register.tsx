@@ -14,6 +14,7 @@ import AuthPolicy from "@/components/Auth/AuthPolicy";
 import AuthButton from "@/components/Auth/AuthButton";
 import AuthLink from "@/components/Auth/AuthLink";
 import AuthNameInput from "@/components/Auth/AuthNameInput";
+import PendingButton from "@/components/UI/PendingButton";
 
 
 const Register = () => {
@@ -22,14 +23,18 @@ const Register = () => {
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [pending, setPending] = useState(false)
 
     const handleRegister = async () => {
+
+        setPending(true)
 
         const { data, error } = await register(firstName, lastName, email, password)
 
         if (error != null) {
             toast.error(error.message)
             errorHandler(error.status)
+            setPending(false)
             return
         }
         
@@ -48,6 +53,7 @@ const Register = () => {
             <AuthInput placeholder="Enter your email address" value={email} setValue={setEmail} type="email" />
             <AuthInput placeholder="Enter a password" value={password} setValue={setPassword} type="password" />
             <AuthPolicy />
+            <PendingButton pending={pending} content="Register" height="h-[50px]" width="w-full" handleClick={handleRegister} />
             <AuthButton text="Register" handleClick={handleRegister} />
             <AuthLink text="Already got an account?" href="/auth/sign-in" />
         </AuthContainer>

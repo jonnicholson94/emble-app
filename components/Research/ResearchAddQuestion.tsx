@@ -1,20 +1,29 @@
 
 import { useState } from "react"
+import { useQueryClient } from "react-query"
+import { toast } from "sonner"
+import { v4 as uuidv4 } from "uuid"
 import MenuSelect from "../UI/MenuSelect"
-import { NewQuestionType, QuestionType, QuestionTypeOptions } from "@/types/questionTypes"
+import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes"
+import { createQuestion } from "@/network/questions"
 import { ActiveTypes } from "@/types/researchTypes"
+import PendingButton from "../UI/PendingButton"
+import errorHandler from "@/lib/errorHandler"
 
 type Props = {
+    research_id: string 
     index: number
-    questions: NewQuestionType[] | []
-    setQuestions: React.Dispatch<React.SetStateAction<NewQuestionType[]>>
+    handleCreateQuestion: (question: QuestionType) => void
 }
 
-const CreateAddQuestion = ({ index, questions, setQuestions }: Props) => {
+const ResearchAddQuestion = ({ research_id, index, handleCreateQuestion }: Props) => {
+
+    const question_id = uuidv4()
 
     const [active, setActive] = useState(false)
     const [newTitle, setNewTitle] = useState("")
     const [newType, setNewType] = useState<QuestionTypeOptions>("Short text") 
+    const [pending, setPending] = useState(false)
 
     const options: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
 
@@ -24,24 +33,10 @@ const CreateAddQuestion = ({ index, questions, setQuestions }: Props) => {
         setNewType("Short text")
     }
 
-    const handleSubmit = () => {
-
-        const stateCopy = [...questions]
-
-        const newItem: NewQuestionType = {
-            "index": index,
-            "title": newTitle,
-            "type": newType
-        }
-
-        stateCopy.push(newItem)
-
-        setActive(false)
+    const handleCreate = () => {
+        handleCreateQuestion({ question_id, question_title: newTitle, question_type: newType, question_research_id: research_id, question_index: index, question_options: null })
         setNewTitle("")
         setNewType("Short text")
-
-        setQuestions(stateCopy)
-
     }
 
     const handleClick = (value: QuestionTypeOptions | ActiveTypes) => {
@@ -63,8 +58,8 @@ const CreateAddQuestion = ({ index, questions, setQuestions }: Props) => {
                 </MenuSelect>
             </div>
             <div className="h-auto w-full flex items-center justify-end">
-                <button className="h-[35px] w-[75px] border border-paleGrey text-sm rounded-sm font-bold" onClick={() => cancel()}>Cancel</button>
-                <button className="h-[35px] w-[75px] bg-black text-sm rounded-sm font-bold text-white ml-[10px]" onClick={() => handleSubmit()}>Add</button>
+                <button className="h-[35px] w-[75px] border border-paleGrey text-sm rounded-sm font-bold mr-[10px]" onClick={() => cancel()}>Cancel</button>
+                <PendingButton pending={pending} content="Add" height="h-[35px]" width="w-[75px]" text="text-sm" handleClick={() => handleCreate()}/>
             </div>
             </> :
 
@@ -78,4 +73,4 @@ const CreateAddQuestion = ({ index, questions, setQuestions }: Props) => {
     )
 }
 
-export default CreateAddQuestion
+export default ResearchAddQuestion

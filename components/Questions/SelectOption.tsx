@@ -6,24 +6,13 @@ import { deleteOption } from "@/network/options"
 
 type Props = {
     id: string 
-    index: number
-    options: QuestionOption[]
-    setOptions: React.Dispatch<React.SetStateAction<QuestionOption[] | null>>
+    text: string
 }
 
-const SelectOption = ({ id, index, options, setOptions }: Props) => {
+const SelectOption = ({ id, text }: Props) => {
 
     // Create the local state for the option 
-    const [content, setContent] = useState("")
-
-    useEffect(() => {
-
-        const foundItem = options.find(element => element.option_id === id)
-
-        setContent(foundItem!.option_content)
-
-        
-    }, [options])
+    const [content, setContent] = useState(text)
 
     const removeOption = async () => {
 

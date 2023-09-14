@@ -9,7 +9,7 @@ type Props = {
 const AuthInput = ({ placeholder, value, setValue, type }: Props) => {
     return (
         <input 
-            className="border border-border h-[50px] w-[90%] rounded-sm px-[15px] placeholder:text-border my-[10px]"
+            className="border border-border h-[50px] w-full rounded-sm px-[15px] placeholder:text-border my-[10px]"
             placeholder={placeholder}
             value={value}
             onChange={(e) => setValue(e.target.value)}

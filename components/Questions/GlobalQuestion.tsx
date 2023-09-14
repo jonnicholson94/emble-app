@@ -1,56 +1,46 @@
 
-import { useState } from "react"
+import { useState } from "react";
 
-import { updateQuestion } from "@/network/questions"
+import MenuSelect from "../UI/MenuSelect";
+import CloseAlert from "../UI/CloseAlert";
+import SelectOption from "./SelectOption";
 
-import MenuSelect from "@/components/UI/MenuSelect"
-
-import { QuestionTypeOptions } from "@/types/questionTypes"
-import { ActiveTypes } from "@/types/researchTypes"
+import { QuestionTypeOptions, QuestionOption } from "@/types/questionTypes";
+import { ActiveTypes } from "@/types/researchTypes";
 
 type QuestionProps = {
-    content: string 
+    question_id: string
+    content: string
     type: QuestionTypeOptions
-    index: number 
-    length: number
-    changeOrder: (index: number, change: 1 | -1 ) => void
-    handleDelete: (index: number) => void
+    index: number
+    options: QuestionOption[] | null
+    handleQuestionTitleUpdate: (question_id: string, new_title: string) => void
+    handleQuestionTypeUpdate: (question_id: string, new_type: QuestionTypeOptions) => void
+    handleDelete: () => void
+    changeOrder: (index: number, change: number) => void
+    handleAddOption: (question_id: string, new_option: string) => void
 }
 
-const MultiSelect = ({ content, type, index, length, changeOrder, handleDelete }: QuestionProps) => {
+const GlobalQuestion = ({ question_id, content, type, index, options, handleQuestionTitleUpdate, handleQuestionTypeUpdate, handleDelete, changeOrder, handleAddOption }: QuestionProps) => {
+
+    const typeOptions: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
 
     const [question, setQuestion] = useState(content)
     const [questionType, setQuestionType] = useState<QuestionTypeOptions>(type)
-    const [selectOptions, setSelectOptions] = useState<string[] | []>(["Example"])
+    const [questionOptions, setQuestionOptions] = useState<QuestionOption[] | null>(options)
     const [newOption, setNewOption] = useState("")
 
-    const handleClick = async (value: QuestionTypeOptions | ActiveTypes) => {
-
+    const handleSelectClick = (value: ActiveTypes | QuestionTypeOptions) => {
+        handleQuestionTypeUpdate(question_id, value as QuestionTypeOptions)
         setQuestionType(value as QuestionTypeOptions)
     }
 
     const addOption = (e: React.KeyboardEvent) => {
-
-        const stateCopy: string[] | [] = [...selectOptions]
-
         if (e.key === "Enter") {
-            setSelectOptions([...stateCopy, newOption])
+            handleAddOption(question_id, newOption)
             setNewOption("")
-        }        
-
+        }
     }
-
-    const removeOption = (index: number) => {
-
-        const stateCopy: string[] = [...selectOptions]
-
-        stateCopy.splice(index, 1)
-
-        setSelectOptions(stateCopy)
-
-    }
-
-    const options: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
 
     return (
         <div className="h-auto w-[full] px-[20px] flex flex-col items-center justify-start bg-white border border-paleGrey rounded-sm mb-[10px]">
@@ -60,19 +50,20 @@ const MultiSelect = ({ content, type, index, length, changeOrder, handleDelete }
                     value={question} 
                     onChange={(e) => setQuestion(e.target.value)} 
                     placeholder="Enter a question"
+                    onBlur={() => handleQuestionTitleUpdate(question_id, question)}
                 />
-                <MenuSelect array={options} state={questionType} handleClick={handleClick}>
+                <MenuSelect array={typeOptions} state={questionType} handleClick={handleSelectClick}>
                     <p className="h-[30px] px-[10px] mr-[20px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer">{questionType}</p>
                 </MenuSelect>
                 <img className="mx-[10px]" src={index - 1 === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} onClick={() => changeOrder(index, -1)} />
                 <img className="mx-[10px]" src={index + 1 > length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} onClick={() => changeOrder(index, 1)} />
-                <img className="mx-[10px]" onClick={() => handleDelete(index)} src="/close.svg" />
+                <CloseAlert title="Are you sure you want to delete this question?" description="Users won't be able to answer it, and you'll not be able to see responses anymore" height="h-[20px]" width="w-[20px]" handleDelete={handleDelete} />
             </div>
-            { selectOptions.map((item, index) => {
-                return <div key={index} className="h-[35px] w-[98%] px-[10px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]">
-                            <input className="flex-grow outline-none" value={item} /> 
-                            <img className="h-[15px] w-[15px]" src="/close.svg" onClick={() => removeOption(index)} />
-                        </div>
+            { questionType === "Multi select" || questionType === "Single select" ? 
+            <>
+            { options?.map((item, index) => {
+                console.log(item)
+                return <SelectOption key={item.option_id} id={item.option_id} text={item.option_content} />
             })}
             <div className="h-[35px] w-[98%] px-[10px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]">
                 <input className="flex-grow outline-none" placeholder="Enter an option" value={newOption} onChange={(e) => setNewOption(e.target.value)} onKeyDown={(e) => addOption(e)}  />
@@ -81,8 +72,9 @@ const MultiSelect = ({ content, type, index, length, changeOrder, handleDelete }
                     Add option
                 </p>
             </div>
+            </> : null }
         </div>
     )
 }
 
-export default MultiSelect
+export default GlobalQuestion

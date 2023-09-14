@@ -10,25 +10,26 @@ type Props = {
     state: "Backlog" | "Active" | "Completed"
     setState: React.Dispatch<React.SetStateAction<"Backlog" | "Active" | "Completed">>
     research_id: string | string[] | undefined
+    handleStatusUpdate: (value: ActiveTypes | QuestionTypeOptions) => void
 }
 
-const ResearchStatus = ({ state, setState, research_id }: Props) => {
+const ResearchStatus = ({ state, setState, handleStatusUpdate }: Props) => {
 
-    const handleClick = async (value: ActiveTypes | QuestionTypeOptions) => {
-        setState(value as ActiveTypes)
+    // const handleClick = async (value: ActiveTypes | QuestionTypeOptions) => {
+    //     setState(value as ActiveTypes)
 
-        const { data, error } = await editResearch("status", value, research_id)
+    //     const { data, error } = await editResearch("status", value, research_id)
 
-        if (error != null) {
-            toast.error("Failed to save changes")
-        } else {
-            toast.success("Saved changes")
-        }
+    //     if (error != null) {
+    //         toast.error("Failed to save changes")
+    //     } else {
+    //         toast.success("Saved changes")
+    //     }
 
-    }
+    // }
 
     return (
-            <MenuSelect array={["Backlog", "Active", "Completed"]} state={state} handleClick={handleClick}>
+            <MenuSelect array={["Backlog", "Active", "Completed"]} state={state} handleClick={handleStatusUpdate}>
                 <div className="py-[5px] px-[10px] border border-paleGrey hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer mx-[10px]">
                     <img className="h-[15px] w-[15px] mr-[10px]" src={`/${state}.svg`} />
                     <p>{state}</p>

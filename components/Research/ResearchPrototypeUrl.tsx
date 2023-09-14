@@ -1,35 +1,17 @@
 
 import { useState } from "react"
-import { toast } from "sonner"
 import * as Popover from "@radix-ui/react-popover"
-
-import { editResearch } from "@/network/research"
 
 type Props = {
     state: string 
     setState: React.Dispatch<React.SetStateAction<string>>
     research_id: string | string[] | undefined
+    handleEdit: () => void
 }
 
-const ResearchPrototypeUrl = ({ state, setState, research_id }: Props) => {
+const ResearchPrototypeUrl = ({ state, setState, research_id, handleEdit }: Props) => {
 
     const [valid, setValid] = useState(true)
-
-    const handleEdit = async () => {
-
-        if (!valid) {
-            return
-        }
-
-        const { data, error } = await editResearch("prototype_url", state, research_id)
-
-        if (error != null) {
-            toast.error("Failed to save changes")
-        } else {
-            toast.success("Saved changes")
-        }
-
-    }
 
     const handleValidation = (value: string) => {
         const regex = /^https:\/\/www\.figma\.com\/proto\//;

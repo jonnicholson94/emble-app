@@ -171,3 +171,54 @@ export const editQuestionOrder = async (firstQuestion: QuestionType, secondQuest
     }
 
 }
+
+export const deleteQuestion = async (question_id: string) => {
+
+    const token = localStorage.getItem("token")
+
+    if (!token) {
+        throw {
+            message: "No token provided",
+            status: 400
+        }
+    }
+
+    if (!question_id) {
+        throw {
+            message: "No question ID",
+            status: 400
+        }
+    }
+
+    try {
+
+        const queryParam = new URLSearchParams({
+            id: question_id
+        })
+
+        const response = await fetch(`http://localhost:8080/delete-question?${queryParam}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
+        return { data: json, error: null }
+
+    } catch (err) {
+
+        return { data: null, error: err as StandardError }
+    }
+
+}
