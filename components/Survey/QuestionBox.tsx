@@ -51,8 +51,8 @@ const QuestionBox = ({ state, setState, active, setActive, id, options, index, t
 
     return (
         <div className={`
-            h-auto w-[90%] border border-paleGrey flex items-center justify-center flex-col rounded-sm my-[10px]`} onClick={() => setActive(index)}>
-            <h3 className="w-[90%] mt-[20px] mb-[10px] text-lg font-bold">{title}</h3>
+            h-auto w-[90%] flex items-center justify-center flex-col rounded-sm my-[10px]`} onClick={() => setActive(index)}>
+            <h3 className="w-[90%] mt-[20px] mb-[10px] text-lg font-bold mb-[30px]">{title}</h3>
             { active === index ? question : null }
         </div>
     )

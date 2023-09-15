@@ -11,10 +11,12 @@ import SurveySecondaryContainer from "@/components/Containers/SurveySecondaryCon
 import LoadingSurvey from "@/components/Loading/LoadingSurvey"
 import { SurveyAnswer } from "@/types/surveyTypes"
 import QuestionBox from "@/components/Survey/QuestionBox"
+import EmbleLink from "@/components/Survey/EmbleLink"
+import Progress from "@/components/Survey/Progress"
 
 const Survey = () => {
 
-    const [active, setActive] = useState(1)
+    const [active, setActive] = useState(0)
     const [answers, setAnswers] = useState<SurveyAnswer[] | []>([])
 
     const router = useRouter()
@@ -23,11 +25,27 @@ const Survey = () => {
 
     const { data, isFetching } = useQuery(`survey-${id}`, () => fetchSurveyDetails(id))
 
-    console.log(answers)
+    const handleDecrement = () => {
+        if (active - 1 < 0) {
+            return 
+        }
+
+        setActive(active - 1)
+    }
+
+    const handleIncrement = () => {
+        if (active + 1 > answers.length) {
+            return 
+        }
+
+        setActive(active + 1)
+    }
 
     useEffect(() => {
 
         // Create function which maps through questions array, and passes them in to the state
+
+        console.log(data)
 
         const populateStateArray = () => {
             const newArray = data?.data.questions.map((item: SurveyAnswer) => {
@@ -57,17 +75,23 @@ const Survey = () => {
     return (
                 <SurveyParentContainer>
                 <SurveyMainContainer>
-                    <iframe className="w-[90%] h-[90%] rounded-md" src={`https://www.figma.com/embed?embed_host=emble&url=${data?.data?.prototype_url}`}  />
+                    <iframe className="w-[90%] h-[90%] rounded-md" src={`https://www.figma.com/embed?embed_host=emble&url=${data?.data?.research_prototype_url}`}  />
                 </SurveyMainContainer>
                 <SurveySecondaryContainer>
                     <div className="h-auto w-[90%] flex items-center justify-start mb-[10px]">
-                    <img className="h-[30px] w-[30px] mr-[10px] cursor-pointer" src={active === 1 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} />
-                        <img className="h-[30px] w-[30px] mr-10 cursor-pointer" src={active === data?.data?.questions.length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} />
+                        <img className="h-[30px] w-[30px] mr-[10px] cursor-pointer" src={active === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} onClick={() => handleDecrement()} />
+                        <img className="h-[30px] w-[30px] mr-10 cursor-pointer" src={active + 1 > answers.length - 1 ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} onClick={() => handleIncrement()} />
+                        <Progress active={active} setActive={setActive} answers={answers} />
                     </div>
-                    { answers.map((answer, index) => {
-                        return <QuestionBox key={answer.question_id} state={answers} setState={setAnswers} active={active} setActive={setActive} id={answer.question_id} title={answer.question_title} type={answer.question_type} options={answer.question_options} index={index}  />
-                    })}
+                    <QuestionBox state={answers} setState={setAnswers} active={active} setActive={setActive} id={answers[active]?.question_id} title={answers[active]?.question_title} type={answers[active]?.question_type} options={answers[active]?.question_options} index={active} />
+                    <div className="h-auto w-[90%] flex items-center justify-end mt-[50px] px-[5%]">
+                        { active === answers.length ? <button className="h-[35px] px-[20px] bg-black text-white font-bold rounded-sm">Submit</button> : <button className="h-[35px] px-[20px] bg-black text-white font-bold rounded-sm" onClick={() => setActive(active + 1)}>Continue</button> }
+                    </div>
+
+                    <EmbleLink />
+                    
                 </SurveySecondaryContainer>
+                
             </SurveyParentContainer>
         )
     }
