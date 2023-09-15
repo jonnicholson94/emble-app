@@ -8,24 +8,23 @@ import errorHandler from "@/lib/errorHandler"
 import GlobalQuestion from "../Questions/GlobalQuestion"
 
 type ResearchProps = {
-    research_id: string
-    questions: QuestionType[]
+    research_id: string | string[] | undefined
+    questions: QuestionType[] | []
     intro: boolean
     setIntro: React.Dispatch<React.SetStateAction<boolean>>
     outro: boolean 
     setOutro: React.Dispatch<React.SetStateAction<boolean>>
     handleOrderChange: (index: number, change: 1 | -1) => void 
-    handleCreateQuestion: (question: QuestionType) => void
+    handleCreateQuestion: (question: QuestionType) => Promise<void> | void
     handleQuestionDelete: (question_id: string) => void 
     handleQuestionTitleUpdate: (question_id: string, new_title: string) => void 
     handleQuestionTypeUpdate: (question_id: string, new_type: QuestionTypeOptions) => void 
     handleAddOption: (question_id: string, new_option: string) => void 
-    handleDeleteOption: () => void 
+    handleUpdateOption: (question_id: string, option_id: string, new_content: string) => void
+    handleDeleteOption: (question_id: string, option_id: string) => void 
 }
 
-const ResearchQuestions = ({ research_id, questions, intro, setIntro, outro, setOutro, handleOrderChange, handleCreateQuestion, handleQuestionDelete, handleQuestionTitleUpdate, handleQuestionTypeUpdate, handleAddOption, handleDeleteOption }: ResearchProps) => {
-
-    console.log(questions)
+const ResearchQuestions = ({ research_id, questions, intro, setIntro, outro, setOutro, handleOrderChange, handleCreateQuestion, handleQuestionDelete, handleQuestionTitleUpdate, handleQuestionTypeUpdate, handleAddOption, handleUpdateOption, handleDeleteOption }: ResearchProps) => {
 
     return (
         <div className="h-auto w-[95%]">
@@ -33,9 +32,8 @@ const ResearchQuestions = ({ research_id, questions, intro, setIntro, outro, set
 
             <Intro intro={intro} setIntro={setIntro} />
 
-            { questions.map((question) => {
-                console.log(question.question_options)
-                return <GlobalQuestion key={question.question_id} question_id={question.question_id} content={question.question_title} type={question.question_type} index={question.question_index} options={question.question_options} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleDelete={() => handleQuestionDelete(question.question_id)} changeOrder={() => handleOrderChange(question.question_index, 1)} handleAddOption={handleAddOption} />
+            { questions?.map((question) => {
+                return <GlobalQuestion key={question.question_id} question_id={question.question_id} content={question.question_title} type={question.question_type} index={question.question_index} options={question.question_options} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleDelete={() => handleQuestionDelete(question.question_id)} changeOrder={() => handleOrderChange(question.question_index, 1)} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
             })}
 
             <Outro outro={outro} setOutro={setOutro} />

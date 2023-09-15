@@ -1,23 +1,24 @@
 
 import { StandardError } from "@/types/errorTypes"
 
-export const addComment = async (content: string, research_id: string | string[] | undefined, timestamp: number) => {
+export const addComment = async (comment_id: string, comment_content: string, comment_research_id: string | string[] | undefined, comment_timestamp: number) => {
 
-    if (!research_id) {
+    if (!comment_research_id) {
         throw {
             message: "No research ID",
             status: 400
         }
     }
 
-    if (Array.isArray(research_id)) {
-        research_id = research_id[0]
+    if (Array.isArray(comment_research_id)) {
+        comment_research_id = comment_research_id[0]
     }
 
     const data = {
-        "content": content,
-        "research_id": research_id,
-        "timestamp": timestamp,
+        "comment_id": comment_id,
+        "comment_content": comment_content,
+        "comment_research_id": comment_research_id,
+        "comment_timestamp": comment_timestamp,
     }
 
     const token = localStorage.getItem("token")
@@ -62,7 +63,7 @@ export const addComment = async (content: string, research_id: string | string[]
 
 export const editComment = async (content: string, comment_id: string) => {
     const data = {
-        "content": content
+        "comment_content": content
     }
 
     const token = localStorage.getItem("token")

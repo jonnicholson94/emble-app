@@ -1,16 +1,19 @@
 
 import Link from "next/link"
-import { useRouter } from "next/router"
-import { useQueryClient } from "react-query"
 
 import { ActiveTypes } from "@/types/researchTypes"
 
 import ResearchStatus from "./ResearchStatus"
 import ResearchPrototypeUrl from "./ResearchPrototypeUrl"
 import ResearchShare from "./ResearchShare"
+import PendingButton from "../UI/PendingButton"
+
 import { QuestionTypeOptions } from "@/types/questionTypes"
 
 type Props = {
+    type: "create" | "view"
+    pending?: boolean
+    handleSubmit?: (() => Promise<void>) | undefined
     heading: string
     status: ActiveTypes
     setStatus: React.Dispatch<React.SetStateAction<ActiveTypes>>
@@ -19,7 +22,7 @@ type Props = {
     research_id: string | string[] | undefined
 }
 
-const ResearchHeader = ({ heading, status, setStatus, prototype, setPrototype, research_id }: Props) => {
+const ResearchHeader = ({ type, pending, handleSubmit, heading, status, setStatus, prototype, setPrototype, research_id }: Props) => {
 
     const handleStatusUpdate = (value: ActiveTypes | QuestionTypeOptions) => {
         setStatus(value as ActiveTypes)
@@ -38,6 +41,7 @@ const ResearchHeader = ({ heading, status, setStatus, prototype, setPrototype, r
                 <ResearchStatus state={status} setState={setStatus} research_id={research_id} handleStatusUpdate={handleStatusUpdate} />
                 <ResearchPrototypeUrl state={prototype} setState={setPrototype} research_id={research_id} handleEdit={handlePrototypeEdit} />
                 <ResearchShare research_id={research_id} />
+                { type === "create" && <PendingButton pending={pending} content="Save" height="h-[35px]" width="px-[15px]" text="text-sm" handleClick={handleSubmit} /> }
             </div>
         </div>
     )

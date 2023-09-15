@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Router from "next/router"
 import { toast } from "sonner"
 import { v4 as uuidv4 } from "uuid"
@@ -19,12 +19,15 @@ import ResearchTitle from "@/components/Research/ResearchTitle"
 import ResearchDescription from "@/components/Research/ResearchDescription"
 import ResearchDivider from "@/components/Research/ResearchDivider"
 import ResearchQuestions from "@/components/Research/ResearchQuestions"
+import errorHandler from "@/lib/errorHandler"
 
 const CreateResearch = () => {
 
     useAuth()
 
     const research_id = uuidv4()
+
+    const [pending, setPending] = useState(false)
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -36,18 +39,22 @@ const CreateResearch = () => {
     const [outro, setOutro] = useState(false)
 
     const handleCreate = async () => {
+
+        setPending(true)
         
-        const { data, error } = await createResearch(title, description, status, target, prototype, questions)
+        const { data, error } = await createResearch(research_id, title, description, status, target, prototype, questions)
+
+        console.log(data)
+        console.log(error)
 
         if (error != null) {
-            toast.error("Failed to create your research, please try again")
+            toast.error(error.message)
+            errorHandler(error.status)
         } else {
             Router.push("/dashboard")
             toast.success("Successfully created your research")
         }
     }
-
-    console.log(questions)
 
     const handleTitleEdit = () => {}
     const handleDescriptionEdit = () => {}
@@ -106,10 +113,8 @@ const CreateResearch = () => {
         }
 
         if (stateCopy[index].question_options === null) {
-            console.log("It thinks it's null...")
             stateCopy[index].question_options = [option]
         } else {
-            console.log("It doesn't think it's null...")
             option.option_index = stateCopy[index].question_options!.length + 1
             stateCopy[index].question_options = [...stateCopy[index].question_options!, option]
         } 
@@ -117,18 +122,51 @@ const CreateResearch = () => {
         setQuestions(stateCopy)
 
     }
-    const handleDeleteOption = () => {}
+
+    const handleUpdateOption = (question_id: string, option_id: string, new_content: string) => {
+
+        const index = questions.findIndex(question => question.question_id == question_id)
+
+        const stateCopy = [...questions]
+
+        const options = stateCopy[index].question_options
+
+        const optionIndex = options!.findIndex(option => option.option_id == option_id)
+
+        options![optionIndex].option_content = new_content 
+
+        stateCopy[index].question_options = options 
+
+        setQuestions(stateCopy)
+
+    }
+
+    const handleDeleteOption = (question_id: string, option_id: string) => {
+
+        const index = questions.findIndex(question => question.question_id == question_id)
+
+        const stateCopy = [...questions]
+
+        const options = stateCopy[index].question_options
+
+        const updatedOptions = options!.filter(option => option.option_id !== option_id)
+
+        stateCopy[index].question_options = updatedOptions
+
+        setQuestions(stateCopy)
+
+    }
 
     return (
         <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
-            <ResearchHeader heading="" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} research_id={research_id} />
+            <ResearchHeader type="create" pending={pending} handleSubmit={() => handleCreate()} heading="" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} research_id={research_id} />
             <ResearchParentContainer>
 
                 <ResearchMainContainer>
                     <ResearchTitle state={title} setState={setTitle} handleEdit={handleTitleEdit} />
                     <ResearchDescription state={description} setState={setDescription} handleEdit={handleDescriptionEdit} />
                     <ResearchDivider />
-                    <ResearchQuestions research_id={research_id} questions={questions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} handleOrderChange={handleQuestionOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleAddOption={handleAddOption} handleDeleteOption={handleDeleteOption} />
+                    <ResearchQuestions research_id={research_id} questions={questions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} handleOrderChange={handleQuestionOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
                 </ResearchMainContainer>
 
             </ResearchParentContainer>

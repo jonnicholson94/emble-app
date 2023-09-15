@@ -6,19 +6,26 @@ import AlertDialog from "../UI/AlertDialog"
 import PendingButton from "../UI/PendingButton"
 
 type Props = {
+    id: string
     content: string
     name: string 
     timestamp: number
     comment_id: string
-    handleEdit: () => void
+    handleEdit: (comment_id: string, content: string) => void
     handleDelete: () => void 
 }
 
-const Comment = ({ content, name, timestamp, handleEdit, handleDelete }: Props) => {
+const Comment = ({ id, content, name, timestamp, handleEdit, handleDelete }: Props) => {
 
     const [edit, setEdit] = useState(false)
     const [newContent, setNewContent] = useState(content)
     const [pending, setPending] = useState(false)
+
+    const handleCommentEdit = () => {
+        setEdit(false)
+        setNewContent(content)
+        handleEdit(id, newContent)
+    }
 
     return (
         <div className="h-auto w-full flex items-start justify-center my-[15px]">
@@ -46,7 +53,7 @@ const Comment = ({ content, name, timestamp, handleEdit, handleDelete }: Props) 
                         <input className="h-auto w-full outline-none placeholder:text-border text-sm" value={newContent} placeholder="Enter a comment..." onChange={(e) => setNewContent(e.target.value)}  />
                         <div className="h-auto w-full flex items-center justify-end">
                             <button className="h-[35px] w-[75px] border border-paleGrey rounded-sm text-sm" onClick={() => setEdit(false)}>Cancel</button>
-                            <PendingButton pending={pending} content="Save" height="h-[35px]" width="w-[75px]" text="text-sm" handleClick={handleEdit} />
+                            <PendingButton pending={pending} content="Save" height="h-[35px]" width="w-[75px]" text="text-sm" handleClick={handleCommentEdit} />
                         </div>
                     </div> : <p className="h-auto w-full mx-[15px] mb-[15px] text-sm">{content}</p>
                 }

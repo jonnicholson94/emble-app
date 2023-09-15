@@ -3,7 +3,7 @@ export interface QuestionType {
     question_id: string 
     question_title: string 
     question_type: QuestionTypeOptions
-    question_research_id: string
+    question_research_id: string | string[] | undefined
     question_index: number
     question_options: QuestionOption[] | null
 }

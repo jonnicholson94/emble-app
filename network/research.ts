@@ -1,4 +1,4 @@
-import { NewQuestionType } from "@/types/questionTypes"
+import { QuestionType } from "@/types/questionTypes"
 import { StandardError } from "@/types/errorTypes"
 
 export const fetchSingleResearch = async (research_id: string | string[] | undefined) => {
@@ -97,15 +97,16 @@ export const fetchResearch = async () => {
 
 }
 
-export const createResearch = async (title: string, description: string, status: string, limit: number, prototype_url: string, questions: NewQuestionType[] | []) => {
+export const createResearch = async (research_id: string, title: string, description: string, status: string, limit: number, prototype_url: string, questions: QuestionType[] | []) => {
 
     const data = {
-        "title": title,
-        "description": description,
-        "status": status,
-        "limit": limit,
-        "prototype_url": prototype_url,
-        "questions": questions
+        "research_id": research_id,
+        "research_title": title,
+        "research_description": description,
+        "research_status": status,
+        "research_limit": limit,
+        "research_prototype_url": prototype_url,
+        "research_questions": questions
     }
 
     const token = localStorage.getItem("token")

@@ -19,9 +19,11 @@ type QuestionProps = {
     handleDelete: () => void
     changeOrder: (index: number, change: number) => void
     handleAddOption: (question_id: string, new_option: string) => void
+    handleUpdateOption: (question_id: string, option_id: string, new_content: string) => void
+    handleDeleteOption: (question_id: string, option_id: string) => void
 }
 
-const GlobalQuestion = ({ question_id, content, type, index, options, handleQuestionTitleUpdate, handleQuestionTypeUpdate, handleDelete, changeOrder, handleAddOption }: QuestionProps) => {
+const GlobalQuestion = ({ question_id, content, type, index, options, handleQuestionTitleUpdate, handleQuestionTypeUpdate, handleDelete, changeOrder, handleAddOption, handleUpdateOption, handleDeleteOption }: QuestionProps) => {
 
     const typeOptions: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
 
@@ -63,7 +65,7 @@ const GlobalQuestion = ({ question_id, content, type, index, options, handleQues
             <>
             { options?.map((item, index) => {
                 console.log(item)
-                return <SelectOption key={item.option_id} id={item.option_id} text={item.option_content} />
+                return <SelectOption key={item.option_id} question_id={question_id} id={item.option_id} text={item.option_content} handleUpdate={handleUpdateOption} handleDelete={handleDeleteOption} />
             })}
             <div className="h-[35px] w-[98%] px-[10px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]">
                 <input className="flex-grow outline-none" placeholder="Enter an option" value={newOption} onChange={(e) => setNewOption(e.target.value)} onKeyDown={(e) => addOption(e)}  />

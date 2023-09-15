@@ -2,14 +2,14 @@
 import { useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import { useRouter } from "next/router"
-import { useQueryClient } from "react-query"
+import { v4 as uuidv4 } from "uuid"
 
 import { fetchSingleResearch } from "@/network/research"
 import useAuth from "@/lib/hooks/useAuth"
 import { toast } from "sonner"
 import errorHandler from "@/lib/errorHandler"
 
-import { QuestionType } from "@/types/questionTypes"
+import { QuestionOption, QuestionType, QuestionTypeOptions } from "@/types/questionTypes"
 import { CommentType } from "@/types/commentTypes"
 
 import ResearchParentContainer from "@/components/Containers/ResearchParentContainer"
@@ -21,13 +21,16 @@ import ResearchComments from "@/components/Research/ResearchComments"
 import LoadingResearch from "@/components/Loading/LoadingResearch"
 import ResearchTitle from "@/components/Research/ResearchTitle"
 import ResearchDescription from "@/components/Research/ResearchDescription"
+import { createQuestion, updateQuestion, deleteQuestion } from "@/network/questions"
+import { createOption, deleteOption, editOption } from "@/network/options"
+import { addComment, deleteComment, editComment } from "@/network/comments"
 
 const ViewResearch = () => {
 
     useAuth()
 
     const router = useRouter()
-    const queryClient = useQueryClient()
+
 
     const { id } = router.query
 
@@ -109,32 +112,203 @@ const ViewResearch = () => {
         // }
     };
 
-    const handleQuestionDelete = async (question_id: string) => {
-        // console.log("Running...")
-        // const { data, error } = await deleteQuestion(question_id)
+    const handleEdit = () => {}
+    const handleCreateQuestion = async (question: QuestionType) => {
 
-        // if (error !== null) {
-        //     toast.error(error.message)
-        //     errorHandler(error.status)
-        // }
+        // Add comment to existing array and update the question state
 
-        // if (data !== null) {
-        //     toast.success(data)
-        // }
+        const stateCopy = [...questions, question]
+
+        setQuestions(stateCopy)
+
+        // Post data to BE
+
+        const { data, error } = await createQuestion(question.question_id, question.question_title, question.question_type, question.question_research_id, question.question_index)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+
+    }
+    const handleQuestionTitleUpdate = async (question_id: string, new_title: string) => {
+        const index = questions.findIndex(question => question.question_id == question_id)
+
+        const stateCopy = [...questions]
+
+        stateCopy[index].question_title = new_title
+
+        setQuestions(stateCopy)
+
+        const { data, error } = await updateQuestion("question_title", new_title, question_id)
+
+        if (error != null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
 
     }
 
-    const handleEdit = () => {}
-    const handleCreateQuestion = () => {}
+    const handleQuestionTypeUpdate = async (question_id: string, new_type: QuestionTypeOptions) => {
+        const index = questions.findIndex(question => question.question_id == question_id)
 
-    const handleBlur = () => {}
-    const handleClick = () => {}
-    const handleAddOption = () => {}
-    const handleDeleteOption = () => {}
+        const stateCopy = [...questions]
 
-    const handleCommentCreate = () => {}
-    const handleCommentEdit = () => {}
-    const handleCommentDelete = () => {}
+        stateCopy[index].question_type = new_type
+
+        setQuestions(stateCopy)
+
+        const { data, error } = await updateQuestion("question_type", new_type, question_id)
+
+        if (error != null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+    }
+
+    const handleQuestionDelete = async (question_id: string) => {
+
+        const stateCopy = [...questions]
+
+        const filteredState = stateCopy.filter(question => question.question_id !== question_id)
+
+        setQuestions(filteredState)
+
+        const { data, error } = await deleteQuestion(question_id)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+
+    }
+
+    const handleAddOption = async (question_id: string, new_option: string) => {
+
+        const index = questions!.findIndex(question => question.question_id == question_id)
+
+        const stateCopy = [...questions!]
+
+        const option = {
+            option_id: uuidv4(),
+            option_content: new_option,
+            option_index: 1,
+            option_question_id: question_id,
+            option_research_id: id
+        }
+
+        if (stateCopy[index].question_options === null) {
+            stateCopy[index].question_options = [option as QuestionOption]
+        } else {
+            option.option_index = stateCopy[index].question_options!.length + 1
+            stateCopy[index].question_options = [...stateCopy[index].question_options!, option as QuestionOption]
+        } 
+
+        setQuestions(stateCopy)
+
+        const { data, error } = await createOption(option.option_id, option.option_content, question_id, option.option_index, id)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+
+    }
+
+    const handleUpdateOption = async (question_id: string, option_id: string, new_content: string) => {
+
+        const index = questions!.findIndex(question => question.question_id == question_id)
+
+        const stateCopy = [...questions!]
+
+        const options = stateCopy[index].question_options
+
+        const optionIndex = options!.findIndex(option => option.option_id == option_id)
+
+        options![optionIndex].option_content = new_content 
+
+        stateCopy[index].question_options = options 
+
+        setQuestions(stateCopy)
+
+        const { data, error } = await editOption(new_content, option_id)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+
+    }
+
+    const handleDeleteOption = async (question_id: string, option_id: string) => {
+
+        const index = questions!.findIndex(question => question.question_id == question_id)
+
+        const stateCopy = [...questions!]
+
+        const options = stateCopy[index].question_options
+
+        const updatedOptions = options!.filter(option => option.option_id !== option_id)
+
+        stateCopy[index].question_options = updatedOptions
+
+        setQuestions(stateCopy)
+
+        const { data, error } = await deleteOption(option_id)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+
+    }
+
+    const handleCommentCreate = async (comment: CommentType) => {
+
+        const stateCopy = [...comments, comment]
+
+        setComments(stateCopy)
+
+        const { data, error } = await addComment(comment.comment_id, comment.comment_content, comment.comment_research_id, comment.comment_timestamp)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+
+    }
+    const handleCommentEdit = async (comment_id: string, content: string) => {
+
+        const index = comments.findIndex(comment => comment.comment_id === comment_id)
+
+        const stateCopy = [...comments]
+
+        stateCopy[index].comment_content = content 
+
+        setComments(stateCopy)
+
+        const { data, error } = await editComment(content, comment_id)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+
+    }
+    const handleCommentDelete = async (comment_id: string) => {
+
+        const filteredComments = comments.filter(comment => comment.comment_id !== comment_id)
+
+        setComments(filteredComments)
+
+        const { data, error } = await deleteComment(comment_id)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+
+    }
 
     if (isFetching) {
         return <LoadingResearch />
@@ -152,16 +326,16 @@ const ViewResearch = () => {
 
     return (
         <div className="h-auto w-screen flex overflow-hidden items-center justify-start flex-col bg-offWhite">
-            <ResearchHeader heading="" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} research_id={id} />
+            <ResearchHeader heading="" type="view" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} research_id={id} />
             <ResearchParentContainer>
 
                 <ResearchMainContainer>
                     <ResearchTitle state={title} setState={setTitle} handleEdit={handleEdit} />
                     <ResearchDescription state={description} setState={setDescription} handleEdit={handleEdit} />
                     <ResearchDivider />
-                    <ResearchQuestions questions={questions} setQuestions={setQuestions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} handleOrderChange={handleOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleBlur={handleBlur} handleClick={handleClick} handleAddOption={handleAddOption} handleDeleteOption={handleDeleteOption} />
+                    <ResearchQuestions research_id={id} questions={questions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} handleOrderChange={handleOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
                     <ResearchDivider />
-                    <ResearchComments comments={comments} setComments={setComments} name={name} research_id={id} handleCreate={handleCommentCreate} handleEdit={handleCommentEdit} handleDelete={handleCommentDelete} />
+                    <ResearchComments comments={comments} name={name} research_id={id} handleCreate={handleCommentCreate} handleEdit={handleCommentEdit} handleDelete={handleCommentDelete} />
                 </ResearchMainContainer>
 
             </ResearchParentContainer>

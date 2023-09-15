@@ -11,9 +11,9 @@ import PendingButton from "../UI/PendingButton"
 import errorHandler from "@/lib/errorHandler"
 
 type Props = {
-    research_id: string 
+    research_id: string | string[] | undefined
     index: number
-    handleCreateQuestion: (question: QuestionType) => void
+    handleCreateQuestion: ((question: QuestionType) => Promise<void>) | ((question: QuestionType) => void)
 }
 
 const ResearchAddQuestion = ({ research_id, index, handleCreateQuestion }: Props) => {

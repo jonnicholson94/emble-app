@@ -1,24 +1,25 @@
 import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes";
 import { StandardError } from "@/types/errorTypes";
 
-export const createQuestion = async (title: string, type: QuestionTypeOptions, research_id: string | string[] | undefined, index: number) => {
+export const createQuestion = async (question_id: string, question_title: string, question_type: QuestionTypeOptions, question_research_id: string | string[] | undefined, question_index: number) => {
 
-    if (!research_id) {
+    if (!question_research_id) {
         throw {
             message: "No research ID",
             status: 400
         }
     }
 
-    if (Array.isArray(research_id)) {
-        research_id = research_id[0]
+    if (Array.isArray(question_research_id)) {
+        question_research_id = question_research_id[0]
     }
 
     const data = {
-        "title": title,
-        "type": type,
-        "research_id": research_id,
-        "index": index
+        "question_id": question_id,
+        "question_title": question_title,
+        "question_type": question_type,
+        "question_research_id": question_research_id,
+        "question_index": question_index
     }
 
     const token = localStorage.getItem("token")
@@ -67,8 +68,13 @@ export const updateQuestion = async (column: string, value: string | number, res
         [column]: value
     }
 
+    console.log(data)
+
     if (!research_id) {
-        return { data: null, error: "No research ID provided" }
+        throw {
+            message: "No research ID",
+            status: 400
+        }
     }
 
     if (Array.isArray(research_id)) {

@@ -1,29 +1,23 @@
 
-import { useState, useEffect } from "react"
-
-import { QuestionOption } from "@/types/questionTypes"
-import { deleteOption } from "@/network/options"
+import { useState } from "react"
 
 type Props = {
+    question_id: string
     id: string 
     text: string
+    handleUpdate: (question_id: string, option_id: string, new_content: string) => void
+    handleDelete: (question_id: string, option_id: string) => void
 }
 
-const SelectOption = ({ id, text }: Props) => {
+const SelectOption = ({ question_id, id, text, handleUpdate, handleDelete }: Props) => {
 
     // Create the local state for the option 
     const [content, setContent] = useState(text)
 
-    const removeOption = async () => {
-
-        const { data, error } = await deleteOption(id)
-
-    }
-
     return (
         <div className="h-[35px] w-[98%] px-[10px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]">
-            <input className="flex-grow outline-none" value={content} /> 
-            <img className="h-[15px] w-[15px]" src="/close.svg" onClick={() => removeOption()} />
+            <input className="flex-grow outline-none" value={content} onChange={(e) => setContent(e.target.value)} onBlur={() => handleUpdate(question_id, id, content)} /> 
+            <img className="h-[15px] w-[15px]" src="/close.svg" onClick={() => handleDelete(question_id, id)} />
         </div>
     )
 }
