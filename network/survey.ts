@@ -1,5 +1,6 @@
 
 import { StandardError } from "@/types/errorTypes"
+import { SurveyAnswer } from "@/types/surveyTypes"
 
 export const fetchSurveyDetails = async (research_id: string | string[] | undefined) => {
 
@@ -44,5 +45,13 @@ export const fetchSurveyDetails = async (research_id: string | string[] | undefi
         return { data: null, error: err as StandardError }
 
     }
+
+}
+
+export const saveSurvey = async (answers: SurveyAnswer[]) => {
+
+    console.log(answers)
+
+    return { data: null, error: null }
 
 }

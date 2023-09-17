@@ -10,7 +10,7 @@ export interface SurveyQuestion {
 }
 
 export interface SurveyAnswer extends SurveyQuestion {
-    question_answer: string
+    question_answer: string[]
 }
 
 export interface FetchedSurvey {

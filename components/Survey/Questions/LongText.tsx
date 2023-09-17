@@ -1,16 +1,16 @@
 
 type Props = {
-    value: string 
+    state: string
     handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-const LongText = ({ value, handleChange }: Props) => {
+const LongText = ({ state, handleChange }: Props) => {
     return (
         <>
             <textarea
                 className="h-[100px] w-[90%] border-b border-paleGrey mb-[20px] placeholder:text-border outline-none my-[10px]"
                 placeholder="Enter an answer"
-                value={value}
+                value={state}
                 onChange={handleChange}
             />
         </>

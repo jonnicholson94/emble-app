@@ -1,21 +1,20 @@
-import Toggle from "@/components/UI/Toggle"
 import { QuestionOption } from "@/types/questionTypes"
 
 type Props = {
-    value: string 
+    state: string
     options: QuestionOption[] | null 
     handleClick: (value: string) => void
 }
 
-const SingleSelect = ({ value, options, handleClick }: Props) => {
-
-    console.log(value)
+const SingleSelect = ({ state, options, handleClick }: Props) => {
 
     return (
         <>
             { options?.map((option: QuestionOption) => {
-                return <div key={option.option_id} className="h-[40px] w-[90%] flex items-center justify-start border border-paleGrey rounded-sm my-[5px]" onClick={() => handleClick(option.option_content)}>
-                    <Toggle toggled={value == option.option_content} />
+                return <div key={option.option_id} className={`h-[40px] w-[90%] flex items-center justify-start border ${state === option.option_content ? "border-black" : "border-paleGrey"} rounded-sm my-[5px]`} onClick={() => handleClick(option.option_content)}>
+                    <div className={`h-[18px] w-[18px] flex items-center justify-center rounded-rnd border ${state === option.option_content ? "border-black" : "border-paleGrey"} mx-[10px]`}>
+                        { state === option.option_content && <span className="h-[12px] w-[12px] rounded-rnd bg-black"></span> }
+                    </div>
                     <p className="text-sm">{option.option_content}</p>
                 </div>
             })}
