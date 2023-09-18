@@ -97,7 +97,7 @@ export const fetchResearch = async () => {
 
 }
 
-export const createResearch = async (research_id: string, title: string, description: string, status: string, limit: number, prototype_url: string, questions: QuestionType[] | []) => {
+export const createResearch = async (research_id: string, title: string, description: string, status: string, limit: number, prototype_url: string, intro: boolean, intro_title: string, intro_description: string, questions: QuestionType[] | []) => {
 
     const data = {
         "research_id": research_id,
@@ -106,6 +106,9 @@ export const createResearch = async (research_id: string, title: string, descrip
         "research_status": status,
         "research_limit": limit,
         "research_prototype_url": prototype_url,
+        "research_intro": intro,
+        "research_intro_title": intro_title,
+        "research_intro_description": intro_description,
         "research_questions": questions
     }
 
@@ -149,14 +152,17 @@ export const createResearch = async (research_id: string, title: string, descrip
 
 }
 
-export const editResearch = async (column: string, value: string | number, research_id: string | string[] | undefined) => {
+export const editResearch = async (column: string, value: string | number | boolean, research_id: string | string[] | undefined) => {
 
     const data = {
         [column]: value
     }
 
     if (!research_id) {
-        return { data: null, error: "No research ID provided" }
+        throw {
+            message: "No research ID provided",
+            status: 400
+        }
     }
 
     if (Array.isArray(research_id)) {
@@ -196,6 +202,8 @@ export const editResearch = async (column: string, value: string | number, resea
                 status: json.status 
             };
         }
+
+        return { data: json, error: null }
 
     } catch (err) {
 

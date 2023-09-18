@@ -66,9 +66,9 @@ const Dashboard = () => {
         if (filter === undefined) {
             return data?.data
         } else if (filter === "active") {
-            return data?.data.filter((item: ResearchType) => item.status === "Active")
+            return data?.data.filter((item: ResearchType) => item.research_status === "Active")
         } else if (filter === "completed") {
-            return data?.data.filter((item: ResearchType) => item.status === "Completed")
+            return data?.data.filter((item: ResearchType) => item.research_status === "Completed")
         }
     }
 
@@ -82,7 +82,7 @@ const Dashboard = () => {
 
                 { filteredData?.map((research: ResearchType) => {
                     return (
-                        <DashboardResearch key={research.id} status={research.status} title={research.title} id={research.id} />
+                        <DashboardResearch key={research.research_id} status={research.research_status} title={research.research_title} id={research.research_id} />
                     )
                 })}
                 

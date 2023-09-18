@@ -57,8 +57,8 @@ const GlobalQuestion = ({ question_id, content, type, index, options, handleQues
                 <MenuSelect array={typeOptions} state={questionType} handleClick={handleSelectClick}>
                     <p className="h-[30px] px-[10px] mr-[20px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer">{questionType}</p>
                 </MenuSelect>
-                <img className="mx-[10px]" src={index - 1 === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} onClick={() => changeOrder(index, -1)} />
-                <img className="mx-[10px]" src={index + 1 > length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} onClick={() => changeOrder(index, 1)} />
+                <img className="mx-[10px]" src={index - 1 === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} alt="An up icon to indicate a question can be moved up" onClick={() => changeOrder(index, -1)} />
+                <img className="mx-[10px]" src={index + 1 > length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} alt="A down icon to indicate a question can be moved down" onClick={() => changeOrder(index, 1)} />
                 <CloseAlert title="Are you sure you want to delete this question?" description="Users won't be able to answer it, and you'll not be able to see responses anymore" height="h-[20px]" width="w-[20px]" handleDelete={handleDelete} />
             </div>
             { questionType === "Multi select" || questionType === "Single select" ? 
@@ -70,7 +70,7 @@ const GlobalQuestion = ({ question_id, content, type, index, options, handleQues
             <div className="h-[35px] w-[98%] px-[10px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]">
                 <input className="flex-grow outline-none" placeholder="Enter an option" value={newOption} onChange={(e) => setNewOption(e.target.value)} onKeyDown={(e) => addOption(e)}  />
                 <p className="h-auto px-[10px] flex items-center justify-center text-[10px] border border-paleGrey rounded-md">
-                    <img className="h-[10px] w-[10px] mr-[5px]" src="/enter.svg" />
+                    <img className="h-[10px] w-[10px] mr-[5px]" src="/enter.svg" alt="An icon to indicate enter can be pressed" />
                     Add option
                 </p>
             </div>

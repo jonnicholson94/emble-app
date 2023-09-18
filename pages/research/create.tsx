@@ -36,13 +36,14 @@ const CreateResearch = () => {
     const [prototype, setPrototype] = useState("")
     const [questions, setQuestions] = useState<QuestionType[] | []>([])
     const [intro, setIntro] = useState(false)
-    const [outro, setOutro] = useState(false)
+    const [introTitle, setIntroTitle] = useState("")
+    const [introDescription, setIntroDescription] = useState("")
 
     const handleCreate = async () => {
 
         setPending(true)
         
-        const { data, error } = await createResearch(research_id, title, description, status, target, prototype, questions)
+        const { data, error } = await createResearch(research_id, title, description, status, target, prototype, intro, introTitle, introDescription, questions)
 
         console.log(data)
         console.log(error)
@@ -59,6 +60,7 @@ const CreateResearch = () => {
     const handleTitleEdit = () => {}
     const handleDescriptionEdit = () => {}
     const handleQuestionOrderChange = () => {}
+    const handleIntroChange = () => {}
     const handleCreateQuestion = (question: QuestionType) => {
 
         const stateCopy = [...questions, question]
@@ -166,7 +168,7 @@ const CreateResearch = () => {
                     <ResearchTitle state={title} setState={setTitle} handleEdit={handleTitleEdit} />
                     <ResearchDescription state={description} setState={setDescription} handleEdit={handleDescriptionEdit} />
                     <ResearchDivider />
-                    <ResearchQuestions research_id={research_id} questions={questions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} handleOrderChange={handleQuestionOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
+                    <ResearchQuestions research_id={research_id} questions={questions} intro={intro} setIntro={setIntro} introTitle={introTitle} setIntroTitle={setIntroTitle} introDescription={introDescription} setIntroDescription={setIntroDescription} handleIntroChange={handleIntroChange} handleOrderChange={handleQuestionOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
                 </ResearchMainContainer>
 
             </ResearchParentContainer>

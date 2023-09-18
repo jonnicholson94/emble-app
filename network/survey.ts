@@ -1,6 +1,6 @@
 
 import { StandardError } from "@/types/errorTypes"
-import { SurveyAnswer } from "@/types/surveyTypes"
+import { SavedAnswer, SurveyAnswer } from "@/types/surveyTypes"
 
 export const fetchSurveyDetails = async (research_id: string | string[] | undefined) => {
 
@@ -50,8 +50,49 @@ export const fetchSurveyDetails = async (research_id: string | string[] | undefi
 
 export const saveSurvey = async (answers: SurveyAnswer[]) => {
 
-    console.log(answers)
+    const data: SavedAnswer[] = []
 
-    return { data: null, error: null }
+    answers.map(answer => {
+        console.log(answer)
+        const newAnswer = {
+            "answer_id": answer.answer_id,
+            "answer_answer": answer.answer_answer.toString(),
+            "answer_question_id": answer.question_id,
+            "answer_question_type": answer.question_type,
+            "answer_research_id": answer.answer_research_id
+        }
+
+        data.push(newAnswer)
+    })
+
+    console.log(data)
+
+    try {
+
+        const response = await fetch(`http://localhost:8080/create-response`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }, 
+            body: JSON.stringify(data)
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) {
+
+            throw {
+                message: json.message,
+                status: json.status 
+            };
+        }
+
+        return { data: json, error: null }
+
+    } catch (err) {
+
+        return { data: null, error: err as StandardError }
+
+    }
 
 }

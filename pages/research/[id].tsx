@@ -4,7 +4,7 @@ import { useQuery } from "react-query"
 import { useRouter } from "next/router"
 import { v4 as uuidv4 } from "uuid"
 
-import { fetchSingleResearch } from "@/network/research"
+import { editResearch, fetchSingleResearch } from "@/network/research"
 import useAuth from "@/lib/hooks/useAuth"
 import { toast } from "sonner"
 import errorHandler from "@/lib/errorHandler"
@@ -39,7 +39,8 @@ const ViewResearch = () => {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [intro, setIntro] = useState(false)
-    const [outro, setOutro] = useState(false)
+    const [introTitle, setIntroTitle] = useState("")
+    const [introDescription, setIntroDescription] = useState("")
     const [status, setStatus] = useState<"Backlog" | "Active" | "Completed">("Backlog")
     const [limit, setLimit] = useState<number>(50)
     const [prototype, setPrototype] = useState("")
@@ -49,11 +50,15 @@ const ViewResearch = () => {
 
     useEffect(() => {
         if (data?.data) {
+            console.log(data.data)
             setTitle(data.data.title)
             setDescription(data.data.description)
             setStatus(data.data.status)
             setLimit(data.data.limit)
             setPrototype(data.data.prototype_url)
+            setIntro(data.data.intro)
+            setIntroTitle(data.data.intro_title)
+            setIntroDescription(data.data.intro_description)
             setQuestions(sortQuestions(data.data.questions))
             setComments(sortComments(data.data.comments))
             setName(data.data.first_name + " " + data.data.last_name)
@@ -310,6 +315,17 @@ const ViewResearch = () => {
 
     }
 
+    const handleIntroEdit = async (column: string, value: string | boolean) => {
+
+        const { data, error } = await editResearch(column, value, id)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        }
+
+    }
+
     if (isFetching) {
         return <LoadingResearch />
     }
@@ -333,7 +349,7 @@ const ViewResearch = () => {
                     <ResearchTitle state={title} setState={setTitle} handleEdit={handleEdit} />
                     <ResearchDescription state={description} setState={setDescription} handleEdit={handleEdit} />
                     <ResearchDivider />
-                    <ResearchQuestions research_id={id} questions={questions} intro={intro} setIntro={setIntro} outro={outro} setOutro={setOutro} handleOrderChange={handleOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
+                    <ResearchQuestions research_id={id} intro={intro} setIntro={setIntro} introTitle={introTitle} setIntroTitle={setIntroTitle} introDescription={introDescription} setIntroDescription={setIntroDescription} handleIntroChange={handleIntroEdit} questions={questions} handleOrderChange={handleOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
                     <ResearchDivider />
                     <ResearchComments comments={comments} name={name} research_id={id} handleCreate={handleCommentCreate} handleEdit={handleCommentEdit} handleDelete={handleCommentDelete} />
                 </ResearchMainContainer>

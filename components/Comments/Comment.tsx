@@ -39,9 +39,9 @@ const Comment = ({ id, content, name, timestamp, handleEdit, handleDelete }: Pro
                     <div className="h-auto flex items-center justify-end mx-[20px]">
                         { !edit && 
                             <>
-                                <img className="h-[15px] w-[15px] cursor-pointer" src="/edit.svg" onClick={() => setEdit(true)} />
+                                <img className="h-[15px] w-[15px] cursor-pointer" src="/edit.svg" onClick={() => setEdit(true)} alt="An edit icon to show the user they can edit a comment" />
                                 <AlertDialog title="Are you sure you want to delete this comment?" description="When you do, you won't be able to see it again." handleDelete={() => handleDelete()}>
-                                    <img className="h-[15px] w-[15px] cursor-pointer ml-[15px]" src="/trash.svg" />
+                                    <img className="h-[15px] w-[15px] cursor-pointer ml-[15px]" src="/trash.svg" alt="A trash icon to indicate to the user they can delete a comment" />
                                 </AlertDialog>
                             </>
                         }

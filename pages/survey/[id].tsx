@@ -2,22 +2,30 @@
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/router"
 import { useQuery } from "react-query"
+import { v4 as uuidv4 } from "uuid"
 
 import { fetchSurveyDetails } from "@/network/survey"
+
+import { SurveyAnswer } from "@/types/surveyTypes"
 
 import SurveyMainContainer from "@/components/Containers/SurveyMainContainer"
 import SurveyParentContainer from "@/components/Containers/SurveyParentContainer"
 import SurveySecondaryContainer from "@/components/Containers/SurveySecondaryContainer"
 import LoadingSurvey from "@/components/Loading/LoadingSurvey"
-import { SurveyAnswer } from "@/types/surveyTypes"
 import QuestionBox from "@/components/Survey/QuestionBox"
 import EmbleLink from "@/components/Survey/EmbleLink"
 import Progress from "@/components/Survey/Progress"
+import Success from "@/components/Survey/Success"
+import SurveyIntro from "@/components/Survey/SurveyIntro"
 
 const Survey = () => {
 
     const containerRef = useRef(null)
 
+    const [intro, setIntro] = useState(true)
+    const [introTitle, setIntroTitle] = useState("")
+    const [introDescription, setIntroDescription] = useState("")
+    const [success, setSuccess] = useState(false)
     const [active, setActive] = useState(0)
     const [answers, setAnswers] = useState<SurveyAnswer[] | []>([])
 
@@ -61,19 +69,21 @@ const Survey = () => {
 
     useEffect(() => {
 
-        // Create function which maps through questions array, and passes them in to the state
+        console.log(data?.data)
 
-        console.log(data)
+        // Create function which maps through questions array, and passes them in to the state
 
         const populateStateArray = () => {
             const newArray = data?.data.questions.map((item: SurveyAnswer) => {
                 return {
+                    answer_id: uuidv4(),
+                    answer_research_id: id,
                     question_id: item.question_id,
                     question_title: item.question_title,
                     question_type: item.question_type,
                     question_index: item.question_index,
                     question_options: item.question_options,
-                    question_answer: []
+                    answer_answer: []
                 }
             })
 
@@ -82,12 +92,23 @@ const Survey = () => {
 
         if (data?.data) {
             populateStateArray()
+            setIntro(data?.data.intro)
+            setIntroTitle(data?.data.intro_title)
+            setIntroDescription(data?.data.intro_description)
         }
 
     }, [data])
 
     if (isFetching) {
         return <LoadingSurvey />
+    }
+
+    if (intro) {
+        return <SurveyIntro setIntro={setIntro} introTitle={introTitle} introDescription={introDescription} />
+    }
+
+    if (success) {
+        return <Success />
     }
 
     return (
@@ -100,11 +121,11 @@ const Survey = () => {
 
                     <SurveySecondaryContainer>
                         <div className="h-auto w-[90%] flex items-center justify-start mb-[10px]">
-                            <img className="h-[30px] w-[30px] mr-[10px] cursor-pointer" src={active === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} onClick={() => handleDecrement()} />
-                            <img className="h-[30px] w-[30px] mr-10 cursor-pointer" src={active + 1 > answers.length - 1 ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} onClick={() => handleIncrement()} />
+                            <img className="h-[30px] w-[30px] mr-[10px] cursor-pointer" src={active === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} alt="An up icon for moving up a question" onClick={() => handleDecrement()} />
+                            <img className="h-[30px] w-[30px] mr-10 cursor-pointer" src={active + 1 > answers.length - 1 ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} alt="A down icon for moving down a question" onClick={() => handleIncrement()} />
                             <Progress active={active} setActive={setActive} answers={answers} />
                         </div>
-                        <QuestionBox state={answers} setState={setAnswers} active={active} setActive={setActive} id={answers[active]?.question_id} title={answers[active]?.question_title} type={answers[active]?.question_type} options={answers[active]?.question_options} index={active} />
+                        <QuestionBox state={answers} setState={setAnswers} setSuccess={setSuccess} active={active} setActive={setActive} id={answers[active]?.question_id} title={answers[active]?.question_title} type={answers[active]?.question_type} options={answers[active]?.question_options} index={active} />
 
                         <EmbleLink />
                         

@@ -45,7 +45,7 @@ const SignIn = () => {
             <AuthInput placeholder="Enter your email address" value={email} setValue={setEmail} type="email" />
             <AuthInput placeholder="Enter your password" value={password} setValue={setPassword} type="password" />
             {/* <AuthLink text="Forgot your password?" href="/auth/forgot-password" /> */}
-            <PendingButton pending={pending} height="h-[50px]" width="w-full" content="Sign in" handleClick={handleSignIn} />
+            <PendingButton text="text-lg" pending={pending} height="h-[50px]" width="w-full" content="Sign in" handleClick={handleSignIn} />
             {/* <AuthLink text="Not got an account?" href="/auth/register" /> */}
         </AuthContainer>
     )

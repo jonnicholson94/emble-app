@@ -32,7 +32,7 @@ const ResearchPrototypeUrl = ({ state, setState, research_id, handleEdit }: Prop
             <Popover.Root>
             <Popover.Trigger>
                 <div className="py-[5px] px-[10px] border border-paleGrey hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer mx-[10px]">
-                    <img className="h-[15px] w-[15px] mr-[10px]" src="/figma.svg" />
+                    <img className="h-[15px] w-[15px] mr-[10px]" src="/figma.svg" alt="The Figma logo" />
                     <p>Prototype</p>
                 </div>
             </Popover.Trigger>

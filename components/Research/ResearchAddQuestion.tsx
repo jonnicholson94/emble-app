@@ -64,7 +64,7 @@ const ResearchAddQuestion = ({ research_id, index, handleCreateQuestion }: Props
             </> :
 
             <button className="h-auto px-[5px] flex items-center justify-start cursor-pointer my-[20px]" onClick={() => setActive(true)}>
-                <img className="h-[15px] w-[15px] mr-[10px]" src="/add-grey.svg" />
+                <img className="h-[15px] w-[15px] mr-[10px]" src="/add-grey.svg" alt="A plus icon to indicate an adding action" />
                 <p className="text-border">Add question</p>
             </button>
 

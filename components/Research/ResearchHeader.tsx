@@ -33,7 +33,7 @@ const ResearchHeader = ({ type, pending, handleSubmit, heading, status, setStatu
         <div className="h-[60px] w-full bg-white flex items-center justify-center border-b border-paleGrey">
             <div className="h-full w-[48%] flex items-center justify-start">
                 <Link className="mr-[10px]" href="/dashboard">
-                    <img src="/close.svg" />
+                    <img src="/close.svg" alt="A button to close the page" />
                 </Link>
                 <h1 className="font-bold">{heading}</h1>
             </div>

@@ -10,7 +10,17 @@ export interface SurveyQuestion {
 }
 
 export interface SurveyAnswer extends SurveyQuestion {
-    question_answer: string[]
+    answer_id: string 
+    answer_research_id: string
+    answer_answer: string[]
+}
+
+export interface SavedAnswer {
+    answer_id: string 
+    answer_answer: string 
+    answer_question_id: string
+    answer_question_type: QuestionTypeOptions
+    answer_research_id: string
 }
 
 export interface FetchedSurvey {

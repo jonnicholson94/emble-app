@@ -2,8 +2,8 @@
 type Props = {
     pending: boolean | undefined
     content: string
-    height: "h-[35px]" | "h-[50px]"
-    width: "w-full" | "w-[75px]" | "px-[15px]"
+    height: "h-[35px]" | "h-[40px]" | "h-[50px]" 
+    width: "w-full" | "w-[75px]" | "px-[15px]" | "w-[90%]"
     text: "text-lg" | "text-sm"
     handleClick: (() => Promise<void>) | undefined | (() => void)
 }

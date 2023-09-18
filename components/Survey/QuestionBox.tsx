@@ -16,6 +16,7 @@ import Scale from "./Questions/Scale"
 type Props = {
     state: SurveyAnswer[] | []
     setState: React.Dispatch<React.SetStateAction<SurveyAnswer[]>>
+    setSuccess: React.Dispatch<React.SetStateAction<boolean>>
     active: number
     setActive: React.Dispatch<React.SetStateAction<number>>
     id: string 
@@ -25,17 +26,17 @@ type Props = {
     type: QuestionTypeOptions
 }
 
-const QuestionBox = ({ state, setState, active, setActive, id, options, index, title, type }: Props) => {
+const QuestionBox = ({ state, setState, setSuccess, active, setActive, id, options, index, title, type }: Props) => {
 
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let data = [...state]
-        data[index].question_answer[0] = e.target.value
+        data[index].answer_answer[0] = e.target.value
         setState(data)
     }
 
     const handleClickChange = (value: string) => {
         let data = [...state]
-        data[index].question_answer[0] = value 
+        data[index].answer_answer[0] = value 
         setState(data)
     }
 
@@ -44,13 +45,13 @@ const QuestionBox = ({ state, setState, active, setActive, id, options, index, t
         let data = [...state]
         console.log(data[index])
 
-        const exists = data[index].question_answer.includes(value)
+        const exists = data[index].answer_answer.includes(value)
 
         // If element already exists, then remove it from array
         
         if (exists) {
-            const filteredData = data[index].question_answer.filter(answer => answer !== value)
-            data[index].question_answer = filteredData
+            const filteredData = data[index].answer_answer.filter(answer => answer !== value)
+            data[index].answer_answer = filteredData
             console.log(filteredData)
             setState(data)
         }
@@ -58,13 +59,15 @@ const QuestionBox = ({ state, setState, active, setActive, id, options, index, t
         // If element doesn't exist, then add it to array 
 
         if (!exists) {
-            data[index].question_answer = [...data[index].question_answer, value]
+            data[index].answer_answer = [...data[index].answer_answer, value]
             setState(data)
         }
 
     }
 
     const handleSubmit = async () => {
+
+        setSuccess(true)
 
         const { data, error } = await saveSurvey(state)
 
@@ -74,22 +77,22 @@ const QuestionBox = ({ state, setState, active, setActive, id, options, index, t
 
     switch (type) {
         case "Short text":
-            question = <ShortText state={state[index].question_answer[0]} handleChange={handleTextChange}  />
+            question = <ShortText state={state[index].answer_answer[0]} handleChange={handleTextChange}  />
             break
         case "Long text":
-            question = <LongText state={state[index].question_answer[0]} handleChange={handleTextChange} />
+            question = <LongText state={state[index].answer_answer[0]} handleChange={handleTextChange} />
             break
         case "Single select":
-            question = <SingleSelect state={state[index].question_answer[0]} options={options} handleClick={handleClickChange}  />
+            question = <SingleSelect state={state[index].answer_answer[0]} options={options} handleClick={handleClickChange}  />
             break 
         case "Multi select": 
-            question = <MultiSelect state={state[index].question_answer} options={options} handleClick={handleMultiClickChange} />
+            question = <MultiSelect state={state[index].answer_answer} options={options} handleClick={handleMultiClickChange} />
             break 
         case "Rating":
-            question = <Rating state={state[index].question_answer[0]} handleClick={handleClickChange} />
+            question = <Rating state={state[index].answer_answer[0]} handleClick={handleClickChange} />
             break
         case "Scale":
-            question = <Scale state={state[index].question_answer[0]} handleClick={handleClickChange} />
+            question = <Scale state={state[index].answer_answer[0]} handleClick={handleClickChange} />
             break
     }
 
@@ -101,7 +104,7 @@ const QuestionBox = ({ state, setState, active, setActive, id, options, index, t
             <div className="h-auto w-[90%] flex items-end justify-center mt-[50px] py-[5%] flex-col">
                 { active === state.length - 1 ? <button className="h-[35px] px-[20px] bg-black text-white font-bold rounded-sm" onClick={() => handleSubmit()}>Submit</button> : <button className="h-[35px] px-[20px] bg-black text-white font-bold rounded-sm" onClick={() => setActive(active + 1)}>Continue</button> }
                 <p className="h-auto flex items-center justify-end text-xs rounded-md mt-[10px]">
-                    <img className="h-[10px] w-[10px] mr-[5px]" src="/enter.svg" />
+                    <img className="h-[10px] w-[10px] mr-[5px]" src="/enter.svg" alt="An icon that indicates enter can be pressed" />
                     Or hit enter
                 </p>
             </div>
