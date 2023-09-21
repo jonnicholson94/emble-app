@@ -41,6 +41,11 @@ const CreateResearch = () => {
 
     const handleCreate = async () => {
 
+        if (title.length === 0) {
+            toast.error("Enter a research title before creating your research")
+            return
+        }
+
         setPending(true)
         
         const { data, error } = await createResearch(research_id, title, description, status, target, prototype, intro, introTitle, introDescription, questions)

@@ -22,6 +22,13 @@ const Comment = ({ id, content, name, timestamp, handleEdit, handleDelete }: Pro
     const [pending, setPending] = useState(false)
 
     const handleCommentEdit = () => {
+
+        if (newContent.length === 0) {
+            setEdit(false) 
+            setNewContent(content)
+            return
+        }
+
         setEdit(false)
         setNewContent(content)
         handleEdit(id, newContent)

@@ -32,7 +32,7 @@ const ResearchQuestions = ({ research_id, questions, intro, setIntro, introTitle
 
             <Intro intro={intro} setIntro={setIntro} title={introTitle} setTitle={setIntroTitle} description={introDescription} setDescription={setIntroDescription} handleChange={handleIntroChange} />
 
-            { questions?.map((question) => {
+            { questions.length > 0 && questions?.map((question) => {
                 return <GlobalQuestion key={question.question_id} question_id={question.question_id} content={question.question_title} type={question.question_type} index={question.question_index} options={question.question_options} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleDelete={() => handleQuestionDelete(question.question_id)} changeOrder={() => handleOrderChange(question.question_index, 1)} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
             })}
 

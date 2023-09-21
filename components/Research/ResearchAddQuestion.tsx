@@ -9,6 +9,7 @@ import { createQuestion } from "@/network/questions"
 import { ActiveTypes } from "@/types/researchTypes"
 import PendingButton from "../UI/PendingButton"
 import errorHandler from "@/lib/errorHandler"
+import ErrorText from "../UI/ErrorText"
 
 type Props = {
     research_id: string | string[] | undefined
@@ -25,18 +26,29 @@ const ResearchAddQuestion = ({ research_id, index, handleCreateQuestion }: Props
     const [newType, setNewType] = useState<QuestionTypeOptions>("Short text") 
     const [pending, setPending] = useState(false)
 
+    const [error, setError] = useState("")
+
     const options: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
 
     const cancel = () => {
         setActive(false)
         setNewTitle("")
         setNewType("Short text")
+        setError("")
     }
 
     const handleCreate = () => {
+
+        if (newTitle.length === 0) {
+            setError("You must enter a question title")
+            return
+        }
+
         handleCreateQuestion({ question_id, question_title: newTitle, question_type: newType, question_research_id: research_id, question_index: index, question_options: null })
         setNewTitle("")
         setNewType("Short text")
+        setActive(false)
+        setError("")
     }
 
     const handleClick = (value: QuestionTypeOptions | ActiveTypes) => {
@@ -47,7 +59,7 @@ const ResearchAddQuestion = ({ research_id, index, handleCreateQuestion }: Props
         <>
             { active ? 
             <>
-            <div className="h-[50px] w-[full] px-[20px] flex items-center justify-start bg-white border border-paleGrey rounded-sm mb-[10px]">
+            <div className={`h-[50px] w-[full] px-[20px] flex items-center justify-start bg-white border ${error ? "border-warning" : "border-paleGrey" } rounded-sm mt-[10px] mb-[10px]`}>
                 <input 
                     className="h-full flex-grow outline-none placeholder:text-border"
                     placeholder="Enter a question title"
@@ -57,6 +69,7 @@ const ResearchAddQuestion = ({ research_id, index, handleCreateQuestion }: Props
                     <p className="px-[10px] py-[5px] border border-paleGrey text-sm cursor-pointer rounded-sm">{newType}</p>
                 </MenuSelect>
             </div>
+            { error && <ErrorText error={error} paddingX="px-[20px]" width="w-full" marginTop="mt-[10px]" marginBottom="mb-[0px]" /> }
             <div className="h-auto w-full flex items-center justify-end">
                 <button className="h-[35px] w-[75px] border border-paleGrey text-sm rounded-sm font-bold mr-[10px]" onClick={() => cancel()}>Cancel</button>
                 <PendingButton pending={pending} content="Add" height="h-[35px]" width="w-[75px]" text="text-sm" handleClick={() => handleCreate()}/>

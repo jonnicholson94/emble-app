@@ -79,3 +79,86 @@ export const signIn = async (email: string, password: string): Promise<SignInRes
     }
     
 }
+
+export const requestReset = async (email: string) => {
+
+    const data = {
+        "email": email
+    }
+
+    try {
+
+        const response = await fetch("http://localhost:8080/password-reset", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) {
+            throw {
+                message: json.message,
+                status: json.status 
+            }
+        }
+
+        return { data: json, error: null }
+        
+    } catch (err) {
+
+        return { data: null, error: err as StandardError }
+
+    }
+
+}
+
+export const updatePassword = async (password: string, id: string | string[] | undefined) => {
+
+    if (!id) {
+        throw {
+            message: "No research ID",
+            status: 400
+        }
+    }
+
+    if (Array.isArray(id)) {
+        id = id[0]
+    }
+
+    const data = {
+        "password": password,
+        "id": id
+    }
+
+    try {
+        const response = await fetch("http://localhost:8080/update-password", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) {
+            throw {
+                message: json.message,
+                status: json.status 
+            }
+        }
+
+        return { data: json, error: null }
+
+    } catch (err) {
+
+        return { data: null, error: err as StandardError }
+
+    }
+
+
+
+}
