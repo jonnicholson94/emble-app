@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { useQuery } from "react-query"
 import { fetchResearch } from "@/network/research"
 import { toast } from "sonner"
+import Head from "next/head"
 
 import { ResearchType } from "@/types/researchTypes"
 import useAuth from "@/lib/hooks/useAuth"
@@ -22,9 +23,9 @@ const Dashboard = () => {
 
     const { filter } = router.query
 
-    const { data, isFetching } = useQuery('research', fetchResearch)
+    const { data, isLoading } = useQuery('research', fetchResearch)
     
-    if (isFetching) {
+    if (isLoading) {
         return (
             <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
                 <DashboardHeader />
@@ -37,7 +38,7 @@ const Dashboard = () => {
         )
     }
 
-    if (data?.error !== null && !isFetching) {
+    if (data?.error !== null && !isLoading) {
 
         toast.error(data?.error.message)
         errorHandler(data?.error.status)
@@ -72,6 +73,10 @@ const Dashboard = () => {
     const filteredData = filterResults()
 
     return (
+            <>
+            <Head>
+                <title>Dashboard | emble</title>
+            </Head>
             <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
                 <DashboardHeader />
 
@@ -84,6 +89,7 @@ const Dashboard = () => {
                 })}
                 
             </div>
+            </>
         )
     }
 

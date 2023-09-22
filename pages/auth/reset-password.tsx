@@ -10,6 +10,7 @@ import PendingButton from "@/components/UI/PendingButton"
 import { toast } from "sonner"
 import { updatePassword } from "@/network/auth"
 import errorHandler from "@/lib/errorHandler"
+import Head from "next/head"
 
 const ResetPassword = () => {
 
@@ -44,6 +45,10 @@ const ResetPassword = () => {
     }
 
     return (
+        <>
+        <Head>
+            <title>Reset your password | emble</title>
+        </Head>
         <AuthContainer>
             <AuthLogo />
             <AuthTitle content="Confirm your new password" />
@@ -51,6 +56,7 @@ const ResetPassword = () => {
             <AuthInput placeholder="Re-enter your new password" value={secondPass} setValue={setSecondPass} type="password" />
             <PendingButton pending={pending} content="Update password" height="h-[50px]" width="w-full" text="text-lg" handleClick={handleSubmit} />
         </AuthContainer>
+        </>
     )
 }
 

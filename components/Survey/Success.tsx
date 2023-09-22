@@ -1,5 +1,6 @@
 
 import { useState } from "react"
+import Head from "next/head";
 
 import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion"
 
@@ -18,12 +19,17 @@ const Success = () => {
     const [isExploding, setIsExploding] = useState(true)
 
     return (
+        <>
+        <Head>
+            <title>Thanks for your response | emble</title>
+        </Head>
         <div className="h-screen w-screen flex items-center justify-center flex-col">
             { isExploding && <ConfettiExplosion { ...largeProps } /> }
             <img className="h-[40px] w-[40px]" src="/success-check.svg" alt="A success check" />
             <h1 className="text-2xl font-bold my-[30px]">Your response has been submitted</h1>
             <EmbleLink />
         </div>
+        </>
     )
 }
 

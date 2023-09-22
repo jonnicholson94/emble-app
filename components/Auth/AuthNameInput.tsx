@@ -8,7 +8,7 @@ type Props = {
 
 const AuthNameInput = ({ firstName, setFirstName, lastName, setLastName }: Props) => {
     return (
-        <div className="h-auto w-[90%] flex">
+        <div className="h-auto w-full flex justify-around">
             <input 
                 className="border border-border h-[50px] flex-grow rounded-sm px-[15px] placeholder:text-border my-[10px] mr-[10px]"
                 placeholder="Enter your first name"

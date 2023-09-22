@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/router"
 import { useQuery } from "react-query"
 import { v4 as uuidv4 } from "uuid"
+import Head from "next/head"
 
 import { fetchSurveyDetails } from "@/network/survey"
 
@@ -33,7 +34,7 @@ const Survey = () => {
 
     const { id } = router.query
 
-    const { data, isFetching } = useQuery(`survey-${id}`, () => fetchSurveyDetails(id))
+    const { data, isLoading } = useQuery(`survey-${id}`, () => fetchSurveyDetails(id))
 
     const handleDecrement = () => {
         if (active - 1 < 0) {
@@ -99,7 +100,7 @@ const Survey = () => {
 
     }, [data])
 
-    if (isFetching) {
+    if (isLoading) {
         return <LoadingSurvey />
     }
 
@@ -112,11 +113,15 @@ const Survey = () => {
     }
 
     return (
+            <>
+            <Head>
+                <title>{introTitle} | emble</title>
+            </Head>
             <div onKeyDown={(e) => handleKeyDown(e)} tabIndex={-1} ref={containerRef}>
                 <SurveyParentContainer>
 
                     <SurveyMainContainer>
-                        <iframe className="w-[90%] h-[90%] rounded-md" src={`https://www.figma.com/embed?embed_host=emble&url=${data?.data?.research_prototype_url}`}  />
+                        <iframe className="w-[90%] h-[90%] rounded-md" src={`https://www.figma.com/embed?embed_host=emble&url=${data?.data?.prototype_url}`}  />
                     </SurveyMainContainer>
 
                     <SurveySecondaryContainer>
@@ -133,6 +138,7 @@ const Survey = () => {
                 
                 </SurveyParentContainer>
             </div>
+            </>
         )
     }
 

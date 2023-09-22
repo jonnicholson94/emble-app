@@ -5,7 +5,7 @@ type Props = {
     children: ReactNode
 }
 
-const ResponsesMainContainer = ({ children }: Props) => {
+const SettingsParentContainer = ({ children }: Props) => {
     return (
         <div className="h-auto min-h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
             { children }
@@ -13,4 +13,4 @@ const ResponsesMainContainer = ({ children }: Props) => {
     )
 }
 
-export default ResponsesMainContainer
+export default SettingsParentContainer

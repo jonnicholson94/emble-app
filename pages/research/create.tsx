@@ -20,6 +20,7 @@ import ResearchDescription from "@/components/Research/ResearchDescription"
 import ResearchDivider from "@/components/Research/ResearchDivider"
 import ResearchQuestions from "@/components/Research/ResearchQuestions"
 import errorHandler from "@/lib/errorHandler"
+import Head from "next/head"
 
 const CreateResearch = () => {
 
@@ -50,9 +51,6 @@ const CreateResearch = () => {
         
         const { data, error } = await createResearch(research_id, title, description, status, target, prototype, intro, introTitle, introDescription, questions)
 
-        console.log(data)
-        console.log(error)
-
         if (error != null) {
             toast.error(error.message)
             errorHandler(error.status)
@@ -62,8 +60,8 @@ const CreateResearch = () => {
         }
     }
 
-    const handleTitleEdit = () => {}
-    const handleDescriptionEdit = () => {}
+    const handleEdit = (column: string, value: string | number) => {}
+
     const handleQuestionOrderChange = () => {}
     const handleIntroChange = () => {}
     const handleCreateQuestion = (question: QuestionType) => {
@@ -165,19 +163,24 @@ const CreateResearch = () => {
     }
 
     return (
+        <>
+        <Head>
+            <title>Create new research | emble</title>
+        </Head>
         <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
-            <ResearchHeader type="create" pending={pending} handleSubmit={() => handleCreate()} heading="" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} research_id={research_id} />
+            <ResearchHeader type="create" pending={pending} handleSubmit={() => handleCreate()} heading="" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} handleEdit={handleEdit} research_id={research_id} />
             <ResearchParentContainer>
 
                 <ResearchMainContainer>
-                    <ResearchTitle state={title} setState={setTitle} handleEdit={handleTitleEdit} />
-                    <ResearchDescription state={description} setState={setDescription} handleEdit={handleDescriptionEdit} />
+                    <ResearchTitle state={title} setState={setTitle} handleEdit={handleEdit} research_id={research_id} />
+                    <ResearchDescription state={description} setState={setDescription} handleEdit={handleEdit} research_id={research_id} />
                     <ResearchDivider />
                     <ResearchQuestions research_id={research_id} questions={questions} intro={intro} setIntro={setIntro} introTitle={introTitle} setIntroTitle={setIntroTitle} introDescription={introDescription} setIntroDescription={setIntroDescription} handleIntroChange={handleIntroChange} handleOrderChange={handleQuestionOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
                 </ResearchMainContainer>
 
             </ResearchParentContainer>
         </div>
+        </>
     )
 }
 

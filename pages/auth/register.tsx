@@ -15,6 +15,7 @@ import AuthButton from "@/components/Auth/AuthButton";
 import AuthLink from "@/components/Auth/AuthLink";
 import AuthNameInput from "@/components/Auth/AuthNameInput";
 import PendingButton from "@/components/UI/PendingButton";
+import Head from "next/head";
 
 
 const Register = () => {
@@ -46,6 +47,10 @@ const Register = () => {
     }
 
     return (
+        <>
+        <Head>
+            <title>Register for an account | emble</title>
+        </Head>
         <AuthContainer>
             <AuthLogo />
             <AuthTitle content="Register for an account" />
@@ -54,9 +59,9 @@ const Register = () => {
             <AuthInput placeholder="Enter a password" value={password} setValue={setPassword} type="password" />
             <AuthPolicy />
             <PendingButton text="text-lg" pending={pending} content="Register" height="h-[50px]" width="w-full" handleClick={handleRegister} />
-            <AuthButton text="Register" handleClick={handleRegister} />
             <AuthLink text="Already got an account?" href="/auth/sign-in" />
         </AuthContainer>
+        </>
     )
 }
 

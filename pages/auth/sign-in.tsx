@@ -13,6 +13,7 @@ import AuthButton from "@/components/Auth/AuthButton"
 import { toast } from "sonner"
 import errorHandler from "@/lib/errorHandler"
 import PendingButton from "@/components/UI/PendingButton"
+import Head from "next/head"
 
 const SignIn = () => {
 
@@ -39,6 +40,10 @@ const SignIn = () => {
     }
 
     return (
+        <>
+        <Head>
+            <title>Sign in to your account | emble</title>
+        </Head>
         <AuthContainer>
             <AuthLogo />
             <AuthTitle content="Sign in to your account" />
@@ -48,6 +53,7 @@ const SignIn = () => {
             <PendingButton text="text-lg" pending={pending} height="h-[50px]" width="w-full" content="Sign in" handleClick={handleSignIn} />
             {/* <AuthLink text="Not got an account?" href="/auth/register" /> */}
         </AuthContainer>
+        </>
     )
 }
 

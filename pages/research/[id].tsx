@@ -24,6 +24,7 @@ import ResearchDescription from "@/components/Research/ResearchDescription"
 import { createQuestion, updateQuestion, deleteQuestion } from "@/network/questions"
 import { createOption, deleteOption, editOption } from "@/network/options"
 import { addComment, deleteComment, editComment } from "@/network/comments"
+import Head from "next/head"
 
 const ViewResearch = () => {
 
@@ -31,10 +32,9 @@ const ViewResearch = () => {
 
     const router = useRouter()
 
-
     const { id } = router.query
 
-    const { data, isFetching } = useQuery(`research-${id}`, () => fetchSingleResearch(id))
+    const { data, isLoading } = useQuery(`research-${id}`, () => fetchSingleResearch(id))
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -117,7 +117,18 @@ const ViewResearch = () => {
         // }
     };
 
-    const handleEdit = () => {}
+    const handleEdit = async (column: string, value: string | number) => {
+
+        const { data, error } = await editResearch(column, value, id)
+
+        if (error !== null) {
+            toast.error(error.message)
+            errorHandler(error.status)
+        } else {
+            toast.success("Successfully saved your changes")
+        }
+
+    }
     const handleCreateQuestion = async (question: QuestionType) => {
 
         // Add comment to existing array and update the question state
@@ -326,11 +337,11 @@ const ViewResearch = () => {
 
     }
 
-    if (isFetching) {
+    if (isLoading) {
         return <LoadingResearch />
     }
 
-    if (data?.error !== null && !isFetching) {
+    if (data?.error !== null && !isLoading) {
 
         toast.error(data?.error.message)
         errorHandler(data?.error.status)
@@ -341,13 +352,17 @@ const ViewResearch = () => {
     }
 
     return (
+        <>
+        <Head>
+            <title>View your research | emble</title>
+        </Head>
         <div className="h-auto w-screen flex overflow-hidden items-center justify-start flex-col bg-offWhite">
-            <ResearchHeader heading="" type="view" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} research_id={id} />
+            <ResearchHeader heading="" type="view" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} handleEdit={handleEdit} research_id={id} />
             <ResearchParentContainer>
 
                 <ResearchMainContainer>
-                    <ResearchTitle state={title} setState={setTitle} handleEdit={handleEdit} />
-                    <ResearchDescription state={description} setState={setDescription} handleEdit={handleEdit} />
+                    <ResearchTitle state={title} setState={setTitle} handleEdit={handleEdit} research_id={id} />
+                    <ResearchDescription state={description} setState={setDescription} handleEdit={handleEdit} research_id={id} />
                     <ResearchDivider />
                     <ResearchQuestions research_id={id} intro={intro} setIntro={setIntro} introTitle={introTitle} setIntroTitle={setIntroTitle} introDescription={introDescription} setIntroDescription={setIntroDescription} handleIntroChange={handleIntroEdit} questions={questions} handleOrderChange={handleOrderChange} handleCreateQuestion={handleCreateQuestion} handleQuestionDelete={handleQuestionDelete} handleQuestionTitleUpdate={handleQuestionTitleUpdate} handleQuestionTypeUpdate={handleQuestionTypeUpdate} handleAddOption={handleAddOption} handleUpdateOption={handleUpdateOption} handleDeleteOption={handleDeleteOption} />
                     <ResearchDivider />
@@ -356,6 +371,7 @@ const ViewResearch = () => {
 
             </ResearchParentContainer>
         </div>
+        </>
     )
 }
 

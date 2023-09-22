@@ -2,10 +2,17 @@
 type Props = {
     state: string
     setState: React.Dispatch<React.SetStateAction<string>>
-    handleEdit: () => void
+    handleEdit: (column: string, value: string | number, research_id: string | string[] | undefined) => void
+    research_id: string | string[] | undefined
 }
 
-const ResearchDescription = ({ state, setState, handleEdit }: Props) => {
+const ResearchDescription = ({ state, setState, handleEdit, research_id }: Props) => {
+
+    const handleBlur = () => {
+
+        handleEdit("research_title", state, research_id)
+
+    }
 
     return (
         <textarea
@@ -13,7 +20,7 @@ const ResearchDescription = ({ state, setState, handleEdit }: Props) => {
             placeholder="Enter a research description"
             value={state}
             onChange={(e) => setState(e.target.value)}
-            onBlur={() => handleEdit()}
+            onBlur={() => handleBlur()}
         />
     )
 }

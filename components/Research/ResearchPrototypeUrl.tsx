@@ -3,15 +3,17 @@ import { useState } from "react"
 import * as Popover from "@radix-ui/react-popover"
 
 type Props = {
+    type: "view" | "create"
     state: string 
     setState: React.Dispatch<React.SetStateAction<string>>
     research_id: string | string[] | undefined
     handleEdit: () => void
 }
 
-const ResearchPrototypeUrl = ({ state, setState, research_id, handleEdit }: Props) => {
+const ResearchPrototypeUrl = ({ type, state, setState, research_id, handleEdit }: Props) => {
 
     const [valid, setValid] = useState(true)
+    const [pending, setPending] = useState(false)
 
     const handleValidation = (value: string) => {
         const regex = /^https:\/\/www\.figma\.com\/proto\//;
@@ -26,14 +28,18 @@ const ResearchPrototypeUrl = ({ state, setState, research_id, handleEdit }: Prop
         handleValidation(value)
     }
 
+    const handleSubmit = () => {
+        handleEdit()
+    }
+
 
     return (
         <>
             <Popover.Root>
             <Popover.Trigger>
-                <div className="py-[5px] px-[10px] border border-paleGrey hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer mx-[10px]">
+                <div className="h-[35px] px-[10px] border border-paleGrey hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer mx-[10px]">
                     <img className="h-[15px] w-[15px] mr-[10px]" src="/figma.svg" alt="The Figma logo" />
-                    <p>Prototype</p>
+                    <p className="text-sm">Prototype</p>
                 </div>
             </Popover.Trigger>
             <Popover.Content sideOffset={15} className="h-auto w-[350px] bg-white flex items-center justify-center flex-col border border-paleGrey rounded-sm shadow">
@@ -48,9 +54,9 @@ const ResearchPrototypeUrl = ({ state, setState, research_id, handleEdit }: Prop
                         value={state}
                         placeholder="https://figma.com/prototype/your-url"
                         onChange={(e) => handleChange(e)} 
-                        onBlur={() => handleEdit()}
                         type="text" />
                         { !valid && <p className="h-auto w-[80%] text-[12px] text-warning mt-[10px]">Enter a valid Figma prototype link</p>}
+                        { type === "view" && <button className="h-[40px] w-[80%] bg-black mt-[15px] rounded-sm text-white font-bold" onClick={() => handleSubmit()}>Save</button> }
                 </div>
             </Popover.Content>
         </Popover.Root>

@@ -19,15 +19,20 @@ type Props = {
     setStatus: React.Dispatch<React.SetStateAction<ActiveTypes>>
     prototype: string 
     setPrototype: React.Dispatch<React.SetStateAction<string>>
+    handleEdit: (column: string, value: string | number, research_id: string | string[] | undefined) => void
     research_id: string | string[] | undefined
 }
 
-const ResearchHeader = ({ type, pending, handleSubmit, heading, status, setStatus, prototype, setPrototype, research_id }: Props) => {
+const ResearchHeader = ({ type, pending, handleSubmit, heading, status, setStatus, prototype, setPrototype, handleEdit, research_id }: Props) => {
 
     const handleStatusUpdate = (value: ActiveTypes | QuestionTypeOptions) => {
         setStatus(value as ActiveTypes)
     }
-    const handlePrototypeEdit = () => {}
+    const handlePrototypeEdit = () => {
+
+        handleEdit("research_prototype_url", prototype, research_id)
+
+    }
 
     return (
         <div className="h-[60px] w-full bg-white flex items-center justify-center border-b border-paleGrey">
@@ -39,9 +44,10 @@ const ResearchHeader = ({ type, pending, handleSubmit, heading, status, setStatu
             </div>
             <div className="h-full w-[48%] flex items-center justify-end">
                 <ResearchStatus state={status} setState={setStatus} research_id={research_id} handleStatusUpdate={handleStatusUpdate} />
-                <ResearchPrototypeUrl state={prototype} setState={setPrototype} research_id={research_id} handleEdit={handlePrototypeEdit} />
-                <ResearchShare research_id={research_id} />
+                <ResearchPrototypeUrl type={type} state={prototype} setState={setPrototype} research_id={research_id} handleEdit={handlePrototypeEdit} />
+                { type === "view" && <ResearchShare research_id={research_id} /> }
                 { type === "create" && <PendingButton pending={pending} content="Save" height="h-[35px]" width="px-[15px]" text="text-sm" handleClick={handleSubmit} /> }
+                { type === "view" && <Link className="h-[35px] px-[10px] bg-black text-white font-bold rounded-sm text-sm flex items-center justify-center ml-[20px]" href={`/responses/${research_id}`}>View responses</Link> }
             </div>
         </div>
     )

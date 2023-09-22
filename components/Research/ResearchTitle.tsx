@@ -5,10 +5,11 @@ import ErrorText from "../UI/ErrorText"
 type Props = {
     state: string 
     setState: React.Dispatch<React.SetStateAction<string>>
-    handleEdit: () => void
+    handleEdit: (column: string, value: string | number, research_id: string | string[] | undefined) => void
+    research_id: string | string[] | undefined
 }
 
-const ResearchTitle = ({ state, setState, handleEdit }: Props) => {
+const ResearchTitle = ({ state, setState, handleEdit, research_id }: Props) => {
 
     const [error, setError] = useState("")
 
@@ -21,7 +22,7 @@ const ResearchTitle = ({ state, setState, handleEdit }: Props) => {
 
         setError("")
 
-        handleEdit()
+        handleEdit("research_title", state, research_id)
     }
 
 

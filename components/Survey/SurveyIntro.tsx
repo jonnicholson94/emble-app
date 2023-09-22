@@ -1,5 +1,6 @@
 
 import { useRef } from "react"
+import Head from "next/head"
 
 import EmbleLink from "./EmbleLink"
 
@@ -22,6 +23,10 @@ const SurveyIntro = ({ setIntro, introTitle, introDescription }: Props) => {
     }
 
     return (
+        <>
+        <Head>
+            <title>{introTitle} | emble</title>
+        </Head>
         <div className="h-screen w-screen flex items-center justify-center flex-col" onKeyDown={(e) => handleKeyDown(e)} tabIndex={-1} ref={introRef}>
             
             <h1 className="text-2xl font-bold">{introTitle}</h1>
@@ -35,6 +40,7 @@ const SurveyIntro = ({ setIntro, introTitle, introDescription }: Props) => {
             <EmbleLink />
 
         </div>
+        </>
     )
 }
 

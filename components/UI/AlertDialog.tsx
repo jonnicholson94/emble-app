@@ -23,7 +23,7 @@ const AlertDialog = ({ children, title, description, handleDelete }: Props) => {
                     <Alert.Description className="h-auto w-[90%] my-[15px]">{description}</Alert.Description>
                     <div className="h-auto w-[90%] flex items-center justify-end my-[10px]">
                         <Alert.Cancel className="h-[35px] px-[10px] border border-paleGrey rounded-sm font-bold">Cancel</Alert.Cancel>
-                        <Alert.Action className="h-[35px] px-[10px] bg-warning rounded-sm ml-[15px] font-bold text-white" onClick={handleDelete}>Confirm</Alert.Action>
+                        <Alert.Action className="h-[35px] px-[10px] bg-delete rounded-sm ml-[15px] font-bold text-white" onClick={handleDelete}>Confirm</Alert.Action>
                     </div>
                     
                 </Alert.Content>

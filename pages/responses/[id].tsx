@@ -1,6 +1,7 @@
 
 import { useRouter } from "next/router"
 import { useQuery } from "react-query"
+import Head from "next/head"
 
 import useAuth from "@/lib/hooks/useAuth"
 
@@ -21,9 +22,9 @@ const Responses = () => {
 
     const { id } = router.query
 
-    const { data, isFetching } = useQuery(`responses-${id}`, () => fetchResponses(id))
+    const { data, isLoading } = useQuery(`responses-${id}`, () => fetchResponses(id))
 
-    if (isFetching) {
+    if (isLoading) {
         return <LoadingResponses />
     }
 
@@ -31,6 +32,10 @@ const Responses = () => {
 
     return (
 
+        <>
+        <Head>
+            <title>{data?.data.research_title} | responses | emble</title>
+        </Head>
         <ResponsesMainContainer>
             <ResponsesHeader title={data?.data.research_title} id={id} />
             <ResponsesSecondaryContainer>
@@ -47,6 +52,7 @@ const Responses = () => {
 
             </ResponsesSecondaryContainer>
         </ResponsesMainContainer>
+        </>
         
     )
 }
