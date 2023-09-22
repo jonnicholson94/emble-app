@@ -23,10 +23,7 @@ const Dashboard = () => {
     const { filter } = router.query
 
     const { data, isFetching } = useQuery('research', fetchResearch)
-
-    console.log(data)
-    console.log(isFetching)
-
+    
     if (isFetching) {
         return (
             <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">

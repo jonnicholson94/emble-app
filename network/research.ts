@@ -1,5 +1,6 @@
 import { QuestionType } from "@/types/questionTypes"
 import { StandardError } from "@/types/errorTypes"
+import { baseUrl } from "@/lib/env"
 
 export const fetchSingleResearch = async (research_id: string | string[] | undefined) => {
 
@@ -29,7 +30,7 @@ export const fetchSingleResearch = async (research_id: string | string[] | undef
             id: research_id
         })
 
-        const response = await fetch(`http://localhost:8080/single-research?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/single-research?${queryParam}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -69,7 +70,7 @@ export const fetchResearch = async () => {
 
     try {
 
-        const response = await fetch("http://localhost:8080/research", {
+        const response = await fetch(`${baseUrl}/research`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -123,7 +124,7 @@ export const createResearch = async (research_id: string, title: string, descrip
 
     try {
 
-        const response = await fetch("http://localhost:8080/create-research", {
+        const response = await fetch(`${baseUrl}/create-research`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -184,7 +185,7 @@ export const editResearch = async (column: string, value: string | number | bool
             id: research_id
         })
 
-        const response = await fetch(`http://localhost:8080/edit-item?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/edit-item?${queryParam}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -237,7 +238,7 @@ export const deleteResearch = async (research_id: string | string[] | undefined)
             id: research_id
         })
 
-        const response = await fetch(`http://localhost:8080/delete-research?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/delete-research?${queryParam}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

@@ -1,4 +1,6 @@
 
+import { baseUrl } from "@/lib/env"
+
 import { StandardError } from "@/types/errorTypes"
 
 export const joinBeta = async (email: string) => {
@@ -9,7 +11,7 @@ export const joinBeta = async (email: string) => {
 
     try {
 
-        const response = await fetch("http://localhost:8080/join-beta", {
+        const response = await fetch(`${baseUrl}/join-beta`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

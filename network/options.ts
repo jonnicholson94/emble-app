@@ -1,4 +1,5 @@
 
+import { baseUrl } from "@/lib/env"
 import { StandardError } from "@/types/errorTypes"
 
 export const createOption = async (option_id: string, option_content: string, option_question_id: string, option_index: number, option_research_id: string | string[] | undefined) => {
@@ -35,7 +36,7 @@ export const createOption = async (option_id: string, option_content: string, op
 
     try {
 
-        const response = await fetch("http://localhost:8080/create-option", {
+        const response = await fetch(`${baseUrl}/create-option`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -81,7 +82,7 @@ export const deleteOption = async (option_id: string) => {
             id: option_id
         })
 
-        const response = await fetch(`http://localhost:8080/delete-option?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/delete-option?${queryParam}`, {
             method: "DELETE", 
             headers: {
                 "Content-Type": "application/json",
@@ -129,7 +130,7 @@ export const editOption = async (option_content: string, option_id: string) => {
             id: option_id
         })
 
-        const response = await fetch(`http://localhost:8080/edit-option?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/edit-option?${queryParam}`, {
             method: "PUT", 
             headers: {
                 "Content-Type": "application/json",

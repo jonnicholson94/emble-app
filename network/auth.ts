@@ -1,4 +1,6 @@
 
+import { baseUrl } from "@/lib/env"
+
 import { StandardError } from "@/types/errorTypes"
 import { SignInResponse } from "@/types/networkTypes"
 
@@ -13,7 +15,7 @@ export const register = async (first_name: string, last_name: string, email: str
 
     try {
 
-        const response = await fetch("http://localhost:8080/create-user", {
+        const response = await fetch(`${baseUrl}/create-user`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -53,7 +55,7 @@ export const signIn = async (email: string, password: string): Promise<SignInRes
 
     try {
 
-        const response = await fetch("http://localhost:8080/sign-in", {
+        const response = await fetch(`${baseUrl}/sign-in`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -88,7 +90,7 @@ export const requestReset = async (email: string) => {
 
     try {
 
-        const response = await fetch("http://localhost:8080/password-reset", {
+        const response = await fetch(`${baseUrl}/password-reset`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -134,7 +136,7 @@ export const updatePassword = async (password: string, id: string | string[] | u
     }
 
     try {
-        const response = await fetch("http://localhost:8080/update-password", {
+        const response = await fetch(`${baseUrl}/update-password`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

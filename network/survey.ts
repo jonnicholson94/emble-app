@@ -1,4 +1,5 @@
 
+import { baseUrl } from "@/lib/env"
 import { StandardError } from "@/types/errorTypes"
 import { SavedAnswer, SurveyAnswer } from "@/types/surveyTypes"
 
@@ -21,7 +22,7 @@ export const fetchSurveyDetails = async (research_id: string | string[] | undefi
             id: research_id
         })
 
-        const response = await fetch(`http://localhost:8080/survey?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/survey?${queryParam}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -69,7 +70,7 @@ export const saveSurvey = async (answers: SurveyAnswer[]) => {
 
     try {
 
-        const response = await fetch(`http://localhost:8080/create-response`, {
+        const response = await fetch(`${baseUrl}/create-response`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

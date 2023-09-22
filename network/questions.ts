@@ -1,5 +1,6 @@
 import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes";
 import { StandardError } from "@/types/errorTypes";
+import { baseUrl } from "@/lib/env";
 
 export const createQuestion = async (question_id: string, question_title: string, question_type: QuestionTypeOptions, question_research_id: string | string[] | undefined, question_index: number) => {
 
@@ -33,7 +34,7 @@ export const createQuestion = async (question_id: string, question_title: string
 
     try {
 
-        const response = await fetch("http://localhost:8080/create-question", {
+        const response = await fetch(`${baseUrl}/create-question`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -96,7 +97,7 @@ export const updateQuestion = async (column: string, value: string | number, res
             id: research_id
         })
 
-        const response = await fetch(`http://localhost:8080/edit-question?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/edit-question?${queryParam}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -150,7 +151,7 @@ export const editQuestionOrder = async (firstQuestion: QuestionType, secondQuest
 
     try {
 
-        const response = await fetch("http://localhost:8080/update-question-order", {
+        const response = await fetch(`${baseUrl}/update-question-order`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -202,7 +203,7 @@ export const deleteQuestion = async (question_id: string) => {
             id: question_id
         })
 
-        const response = await fetch(`http://localhost:8080/delete-question?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/delete-question?${queryParam}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

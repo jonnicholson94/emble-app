@@ -1,4 +1,6 @@
 
+import { baseUrl } from "@/lib/env"
+
 import { StandardError } from "@/types/errorTypes"
 
 export const addComment = async (comment_id: string, comment_content: string, comment_research_id: string | string[] | undefined, comment_timestamp: number) => {
@@ -32,7 +34,7 @@ export const addComment = async (comment_id: string, comment_content: string, co
 
     try {
 
-        const response = await fetch("http://localhost:8080/create-comment", {
+        const response = await fetch(`${baseUrl}/create-comment`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -81,7 +83,7 @@ export const editComment = async (content: string, comment_id: string) => {
             id: comment_id
         })
 
-        const response = await fetch(`http://localhost:8080/edit-comment?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/edit-comment?${queryParam}`, {
             method: "PUT", 
             headers: {
                 "Content-Type": "application/json",
@@ -123,7 +125,7 @@ export const deleteComment = async (comment_id: string) => {
             id: comment_id
         })
 
-        const response = await fetch(`http://localhost:8080/delete-comment?${queryParam}`, {
+        const response = await fetch(`${baseUrl}/delete-comment?${queryParam}`, {
             method: "DELETE", 
             headers: {
                 "Content-Type": "application/json",
