@@ -9,6 +9,8 @@ export const joinBeta = async (email: string) => {
         "email": email
     }
 
+    console.log(process.env.NODE_ENV)
+
     try {
 
         const response = await fetch(`${baseUrl}/join-beta`, {
