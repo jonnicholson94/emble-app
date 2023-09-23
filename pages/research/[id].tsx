@@ -5,6 +5,7 @@ import { useRouter } from "next/router"
 import { v4 as uuidv4 } from "uuid"
 
 import { editResearch, fetchSingleResearch } from "@/network/research"
+import { editQuestionOrder } from "@/network/questions"
 import useAuth from "@/lib/hooks/useAuth"
 import { toast } from "sonner"
 import errorHandler from "@/lib/errorHandler"
@@ -86,35 +87,33 @@ const ViewResearch = () => {
     }
 
     const handleOrderChange = async (index: number, change: 1 | -1) => {
-        // if (index + change > questions.length || index + change <= 0) {
-        //     return;
-        // }
+        if (index + change > questions.length || index + change <= 0) {
+            return;
+        }
     
-        // // Identify the clicked target
-        // const clickedTarget = questions[index - 1];
+        // Identify the clicked target
+        const clickedTarget = questions[index - 1];
     
-        // // Identify the change target
-        // const changeTarget = questions[index - 1 + change];
+        // Identify the change target
+        const changeTarget = questions[index - 1 + change];
     
-        // // Swap the question_index values
-        // const tempIndex = clickedTarget.question_index;
-        // clickedTarget.question_index = changeTarget.question_index;
-        // changeTarget.question_index = tempIndex;
+        // Swap the question_index values
+        const tempIndex = clickedTarget.question_index;
+        clickedTarget.question_index = changeTarget.question_index;
+        changeTarget.question_index = tempIndex;
     
-        // // Update the state array with the new order
-        // const updatedQuestions = [...questions];
-        // updatedQuestions[index - 1] = changeTarget;
-        // updatedQuestions[index - 1 + change] = clickedTarget;
+        // Update the state array with the new order
+        const updatedQuestions = [...questions];
+        updatedQuestions[index - 1] = changeTarget;
+        updatedQuestions[index - 1 + change] = clickedTarget;
 
-        // setQuestions(updatedQuestions)
+        setQuestions(updatedQuestions)
 
-        // const { data, error } = await editQuestionOrder(updatedQuestions[index - 1], updatedQuestions[index - 1 + change])
+        const { data, error } = await editQuestionOrder(updatedQuestions[index - 1], updatedQuestions[index - 1 + change])
 
-        // if (error != null) {
-        //     toast.error("Failed to save changes")
-        // } else {
-        //     toast.success("Saved changes")
-        // }
+        if (error !== null) {
+            toast.error("Failed to save changes")
+        }
     };
 
     const handleEdit = async (column: string, value: string | number) => {

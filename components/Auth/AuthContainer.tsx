@@ -9,7 +9,7 @@ const AuthContainer = ({ children }: Props) => {
         <div className="h-screen flex items-center justify-center flex-col bg-homepage-pattern">
             <div className="h-screen flex items-center justify-center flex-col
             xs:w-[90%]
-            md:w-[50%]
+            md:w-[60%]
             lg:w-[40%]">
                 { children }
             </div>

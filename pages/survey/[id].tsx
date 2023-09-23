@@ -115,17 +115,17 @@ const Survey = () => {
     return (
             <>
             <Head>
-                <title>{introTitle} | emble</title>
+                <title>{!introTitle ? "Survey" : introTitle} | emble</title>
             </Head>
             <div onKeyDown={(e) => handleKeyDown(e)} tabIndex={-1} ref={containerRef}>
                 <SurveyParentContainer>
 
                     <SurveyMainContainer>
-                        <iframe className="w-[90%] h-[90%] rounded-md" src={`https://www.figma.com/embed?embed_host=emble&url=${data?.data?.prototype_url}`}  />
+                        <iframe className="xxs:w-[100%] md:w-[90%] xxs:h-[400px] md:h-[90%] md:rounded-md" src={`https://www.figma.com/embed?embed_host=emble&url=${data?.data?.prototype_url}`} allowFullScreen />
                     </SurveyMainContainer>
 
                     <SurveySecondaryContainer>
-                        <div className="h-auto w-[90%] flex items-center justify-start mb-[10px]">
+                        <div className="h-auto w-[90%] flex items-center justify-start xxs:mt-[50px] mb-[10px]">
                             <img className="h-[30px] w-[30px] mr-[10px] cursor-pointer" src={active === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} alt="An up icon for moving up a question" onClick={() => handleDecrement()} />
                             <img className="h-[30px] w-[30px] mr-10 cursor-pointer" src={active + 1 > answers.length - 1 ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} alt="A down icon for moving down a question" onClick={() => handleIncrement()} />
                             <Progress active={active} setActive={setActive} answers={answers} />

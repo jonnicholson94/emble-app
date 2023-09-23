@@ -40,8 +40,8 @@ const Comment = ({ id, content, name, timestamp, handleEdit, handleDelete }: Pro
             <div className="h-auto flex-grow bg-white border border-paleGrey rounded-sm">
                 <div className="h-auto w-full flex items-center justify-center">
                     <div className="h-auto flex flex-grow items-center justify-start my-[15px] mx-[15px]">
-                        <p className="font-bold mr-[20px] text-sm">{name}</p>
-                        <p className="text-border text-sm">{moment(timestamp).format("DD MMM, HH:MM")}</p>
+                        <p className="font-bold mr-[20px] text-sm truncate">{name}</p>
+                        <p className="text-border text-sm truncate">{moment(timestamp).format("DD MMM, HH:MM")}</p>
                     </div>
                     <div className="h-auto flex items-center justify-end mx-[20px]">
                         { !edit && 
@@ -57,12 +57,12 @@ const Comment = ({ id, content, name, timestamp, handleEdit, handleDelete }: Pro
                 
                 { edit ? 
                     <div className="h-auto w-[full] flex items-center justify-center flex-col mx-[15px] mb-[15px]">
-                        <input className="h-auto w-full outline-none placeholder:text-border text-sm" value={newContent} placeholder="Enter a comment..." onChange={(e) => setNewContent(e.target.value)}  />
+                        <textarea className="h-[75px] w-full outline-none placeholder:text-border text-sm" value={newContent} placeholder="Enter a comment..." onChange={(e) => setNewContent(e.target.value)}  />
                         <div className="h-auto w-full flex items-center justify-end">
                             <button className="h-[35px] w-[75px] border border-paleGrey rounded-sm text-sm" onClick={() => setEdit(false)}>Cancel</button>
-                            <PendingButton pending={pending} content="Save" height="h-[35px]" width="w-[75px]" text="text-sm" handleClick={handleCommentEdit} />
+                            <PendingButton pending={pending} content="Save" height="h-[35px]" width="w-[75px]" marginSide="mx-[15px]" text="text-sm" handleClick={handleCommentEdit} />
                         </div>
-                    </div> : <p className="h-auto w-full mx-[15px] mb-[15px] text-sm">{content}</p>
+                    </div> : <p className="h-auto w-full px-[15px] mb-[15px] text-sm">{content}</p>
                 }
             </div>
         </div>

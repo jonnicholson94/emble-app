@@ -89,7 +89,7 @@ const Settings = () => {
 
             <SettingsHeader />
 
-            <div className="h-auto w-[40%] flex items-start justify-center flex-col mt-[30px]">
+            <div className="h-auto xxs:w-[90%] md:w-[60%] lg:w-[40%] flex items-start justify-center flex-col mt-[30px]">
 
                 <SettingsLabel content="First name" />
                 <SettingsInput placeholder="Enter your first name" state={firstName} setState={setFirstName} type="text"  />
@@ -97,12 +97,12 @@ const Settings = () => {
                 <SettingsLabel content="Last name" />
                 <SettingsInput placeholder="Enter your last name" state={lastName} setState={setLastName} type="text" />
 
-                <PendingButton pending={pending} content="Save changes" height="h-[40px]" width="w-full" text="text-sm" handleClick={() => handleSave()}  />
+                <PendingButton pending={pending} content="Save changes" height="h-[40px]" width="w-full" text="text-sm" marginSide="mx-[0px]" handleClick={() => handleSave()}  />
 
-                <button className="mt-[30px] mx-[15px] underline" onClick={() => handleReset()}>Need a password reset?</button>
+                <button className="mt-[30px] md:mx-[15px] underline" onClick={() => handleReset()}>Need a password reset?</button>
 
                 <AlertDialog title="Are you sure you want to sign out?" description="You'll have to sign back in to your emble account afterwards." handleDelete={handleLogout}>
-                    <button className="h-[40px] w-full mx-[15px] bg-delete mt-[50px] text-sm text-white font-bold rounded-sm">Sign out</button>
+                    <button className="h-[40px] w-full md:mx-[15px] bg-delete mt-[50px] text-sm text-white font-bold rounded-sm">Sign out</button>
                 </AlertDialog>
                 
 

@@ -17,7 +17,10 @@ const ResearchShare = ({ research_id }: Props) => {
         <>
             <Popover.Root>
             <Popover.Trigger>
-                <button className="h-[35px] px-5 border border-paleGrey rounded-sm text-sm ml-[10px]">Share</button>
+                <button className="h-[35px] xxs:px-[10px] md:px-[10px] border border-paleGrey hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer mx-[10px]">
+                    <img className="xs:h-[20px] md:h-[15px] xs:h-[20px] md:w-[15px] md:mr-[10px]" src="/link.svg" alt="A link icon to indicate the share option" />
+                    <p className="text-sm xxs:hidden md:flex">Share</p>
+                </button>
             </Popover.Trigger>
             <Popover.Content sideOffset={15} className="h-auto w-[350px] bg-white flex items-center justify-center flex-col border border-paleGrey rounded-sm shadow mr-[15px]">
                 <h2 className="h-auto w-[80%] mt-[20px] font-bold">Your survey link</h2>

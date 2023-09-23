@@ -30,9 +30,9 @@ const ResearchStatus = ({ state, setState, handleStatusUpdate }: Props) => {
 
     return (
             <MenuSelect array={["Backlog", "Active", "Completed"]} state={state} handleClick={handleStatusUpdate}>
-                <div className="h-[35px] px-[10px] border border-paleGrey hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer mx-[10px]">
-                    <img className="h-[15px] w-[15px] mr-[10px]" src={`/${state}.svg`} alt="The current status of the research" />
-                    <p className="text-sm">{state}</p>
+                <div className="h-[35px] xxs:px-[10px] md:px-[10px] border border-paleGrey hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer mx-[10px]">
+                    <img className="xxs:h-[20px] md:h-[15px] xxs:h-[20px] md:w-[15px] md:mr-[10px]" src={`/${state}.svg`} alt="The current status of the research" />
+                    <p className="text-sm xxs:hidden md:flex">{state}</p>
                 </div>
             </MenuSelect>
     )

@@ -26,8 +26,12 @@ type Props = {
 const ResearchHeader = ({ type, pending, handleSubmit, heading, status, setStatus, prototype, setPrototype, handleEdit, research_id }: Props) => {
 
     const handleStatusUpdate = (value: ActiveTypes | QuestionTypeOptions) => {
+
         setStatus(value as ActiveTypes)
+        handleEdit("research_status", value, research_id)
+        
     }
+
     const handlePrototypeEdit = () => {
 
         handleEdit("research_prototype_url", prototype, research_id)
@@ -36,18 +40,21 @@ const ResearchHeader = ({ type, pending, handleSubmit, heading, status, setStatu
 
     return (
         <div className="h-[60px] w-full bg-white flex items-center justify-center border-b border-paleGrey">
-            <div className="h-full w-[48%] flex items-center justify-start">
+            <div className="h-full xxs:flex-grow md:grow-0 xxs:mx-[10px] md:w-[48%] flex items-center justify-start">
                 <Link className="mr-[10px]" href="/dashboard">
                     <img src="/close.svg" alt="A button to close the page" />
                 </Link>
                 <h1 className="font-bold">{heading}</h1>
             </div>
-            <div className="h-full w-[48%] flex items-center justify-end">
+            <div className="h-full xxs:flex-grow xxs:mx-[10px] md:mx-[0px] md:grow-0 md:w-[48%] flex items-center justify-end">
                 <ResearchStatus state={status} setState={setStatus} research_id={research_id} handleStatusUpdate={handleStatusUpdate} />
                 <ResearchPrototypeUrl type={type} state={prototype} setState={setPrototype} research_id={research_id} handleEdit={handlePrototypeEdit} />
                 { type === "view" && <ResearchShare research_id={research_id} /> }
-                { type === "create" && <PendingButton pending={pending} content="Save" height="h-[35px]" width="px-[15px]" text="text-sm" handleClick={handleSubmit} /> }
-                { type === "view" && <Link className="h-[35px] px-[10px] bg-black text-white font-bold rounded-sm text-sm flex items-center justify-center ml-[20px]" href={`/responses/${research_id}`}>View responses</Link> }
+                { type === "create" && <PendingButton pending={pending} content="Save" height="h-[35px]" marginSide="mx-[15px]" width="px-[15px]" text="text-sm" handleClick={handleSubmit} /> }
+                { type === "view" && <Link className="h-[35px] px-[10px] bg-black text-white font-bold rounded-sm text-sm flex items-center justify-center ml-[10px]" href={`/responses/${research_id}`}>
+                        <img className="xs:h-[20px] md:h-[15px] xs:h-[20px] md:w-[15px] md:mr-[10px]" src="/responses.svg" alt="A clipboard indicating a response" />
+                        <p className="text-sm xxs:hidden md:flex">Responses</p>
+                    </Link> }
             </div>
         </div>
     )

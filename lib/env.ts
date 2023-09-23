@@ -6,5 +6,5 @@ export let baseUrl = ""
 if (environment === "development") {
     baseUrl = "http://localhost:8080"
 } else {
-    baseUrl = ""
+    baseUrl = "https://api.emble.app"
 }

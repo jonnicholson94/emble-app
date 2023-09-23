@@ -9,7 +9,7 @@ type Props = {
 const SettingsInput = ({ placeholder, state, setState, type }: Props) => {
     return (
         <input 
-            className="h-[40px] w-full mt-[10px] border border-paleGrey px-[15px] rounded-sm placeholder:text-grey mx-[15px]"
+            className="h-[40px] w-full mt-[10px] border border-paleGrey px-[15px] rounded-sm placeholder:text-grey md:mx-[15px]"
             placeholder={placeholder}
             value={state}
             onChange={(e) => setState(e.target.value)}

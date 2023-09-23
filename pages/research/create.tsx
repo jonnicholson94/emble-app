@@ -62,7 +62,31 @@ const CreateResearch = () => {
 
     const handleEdit = (column: string, value: string | number) => {}
 
-    const handleQuestionOrderChange = () => {}
+    const handleQuestionOrderChange = (index: number, change: 1 | -1) => {
+
+        if (index + change > questions.length || index + change <= 0) {
+            return;
+        }
+    
+        // Identify the clicked target
+        const clickedTarget = questions[index - 1];
+    
+        // Identify the change target
+        const changeTarget = questions[index - 1 + change];
+    
+        // Swap the question_index values
+        const tempIndex = clickedTarget.question_index;
+        clickedTarget.question_index = changeTarget.question_index;
+        changeTarget.question_index = tempIndex;
+    
+        // Update the state array with the new order
+        const updatedQuestions = [...questions];
+        updatedQuestions[index - 1] = changeTarget;
+        updatedQuestions[index - 1 + change] = clickedTarget;
+
+        setQuestions(updatedQuestions)
+
+    }
     const handleIntroChange = () => {}
     const handleCreateQuestion = (question: QuestionType) => {
 

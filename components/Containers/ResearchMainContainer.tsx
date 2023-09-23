@@ -6,7 +6,7 @@ type Props = {
 
 const ResearchMainContainer = ({ children }: Props) => {
     return (
-        <div className="flex-grow w-full overflow overflow-scroll flex items-center justify-start flex-col mt-[50px]">
+        <div className="xxs:w-[95%] md:w-full overflow overflow-scroll flex items-center justify-start flex-col mt-[50px]">
             { children }
         </div>
     )

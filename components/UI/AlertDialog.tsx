@@ -18,7 +18,7 @@ const AlertDialog = ({ children, title, description, handleDelete }: Props) => {
             </Alert.Trigger>
             <Alert.Portal >
                 <Alert.Overlay className="h-screen w-screen fixed top-0 left-0 bg-black opacity-70" />
-                <Alert.Content className="h-auto w-[50%] bg-white flex items-center justify-start flex-col fixed top-[30%] left-[25%] py-[25px] rounded-sm border border-paleGrey">
+                <Alert.Content className="h-auto xxs:w-[90%] md:w-[50%] bg-white flex items-center justify-start flex-col fixed top-[30%] xxs:left-[5%] md:left-[25%] py-[25px] rounded-sm border border-paleGrey">
                     <Alert.Title className="h-auto w-[90%] font-bold text-xl">{title}</Alert.Title>
                     <Alert.Description className="h-auto w-[90%] my-[15px]">{description}</Alert.Description>
                     <div className="h-auto w-[90%] flex items-center justify-end my-[10px]">

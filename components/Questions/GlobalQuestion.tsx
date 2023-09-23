@@ -14,17 +14,18 @@ type QuestionProps = {
     content: string
     type: QuestionTypeOptions
     index: number
+    length: number
     options: QuestionOption[] | null
     handleQuestionTitleUpdate: (question_id: string, new_title: string) => void
     handleQuestionTypeUpdate: (question_id: string, new_type: QuestionTypeOptions) => void
     handleDelete: () => void
-    changeOrder: (index: number, change: number) => void
+    changeOrder: (index: number, change: 1 | -1) => void
     handleAddOption: (question_id: string, new_option: string) => void
     handleUpdateOption: (question_id: string, option_id: string, new_content: string) => void
     handleDeleteOption: (question_id: string, option_id: string) => void
 }
 
-const GlobalQuestion = ({ question_id, content, type, index, options, handleQuestionTitleUpdate, handleQuestionTypeUpdate, handleDelete, changeOrder, handleAddOption, handleUpdateOption, handleDeleteOption }: QuestionProps) => {
+const GlobalQuestion = ({ question_id, content, type, index, length, options, handleQuestionTitleUpdate, handleQuestionTypeUpdate, handleDelete, changeOrder, handleAddOption, handleUpdateOption, handleDeleteOption }: QuestionProps) => {
 
     const typeOptions: QuestionTypeOptions[] = ["Short text", "Long text", "Single select", "Multi select", "Rating", "Scale"]
 
@@ -70,28 +71,30 @@ const GlobalQuestion = ({ question_id, content, type, index, options, handleQues
     return (
         <>
         <div className={`h-auto w-[full] px-[20px] flex flex-col items-center justify-start bg-white border ${questionError ? "border-warning" : "border-paleGrey" } rounded-sm mb-[10px]`}>
-            <div className="h-[50px] w-full flex items-center justify-center">
+            <div className="xxs:h-auto md:h-[50px] w-full flex items-center justify-center flex-wrap">
                 <input 
-                    className="h-[35px] placeholder:text-paleGrey outline-none flex-grow"
+                    className="h-[35px] placeholder:text-paleGrey outline-none flex-grow xxs:my-[10px] lg:my-[0px] pr-[10px]"
                     value={question} 
                     onChange={(e) => setQuestion(e.target.value)} 
                     placeholder="Enter a question"
                     onBlur={() => handleBlur()}
                 />
-                <MenuSelect array={typeOptions} state={questionType} handleClick={handleSelectClick}>
-                    <p className="h-[30px] px-[10px] mr-[20px] border border-paleGrey rounded-sm text-sm flex items-center justify-center cursor-pointer">{questionType}</p>
-                </MenuSelect>
-                <img className="mx-[10px]" src={index - 1 === 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} alt="An up icon to indicate a question can be moved up" onClick={() => changeOrder(index, -1)} />
-                <img className="mx-[10px]" src={index + 1 > length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} alt="A down icon to indicate a question can be moved down" onClick={() => changeOrder(index, 1)} />
-                <CloseAlert title="Are you sure you want to delete this question?" description="Users won't be able to answer it, and you'll not be able to see responses anymore" height="h-[20px]" width="w-[20px]" handleDelete={handleDelete} />
+                <div className="h-auto flex-grow flex items-center xxs:justify-start md:justify-end xxs:my-[10px]">
+                    <MenuSelect array={typeOptions} state={questionType} handleClick={handleSelectClick}>
+                        <p className="h-[30px] xxs:flex-grow md:grow-0 flex md:px-[15px] mr-[20px] border border-paleGrey rounded-sm text-sm items-center justify-center cursor-pointer">{questionType}</p>
+                    </MenuSelect>
+                    <img className="mx-[10px]" src={index - 1 <= 0 ? "/arrow-up-grey.svg" : "/arrow-up-black.svg"} alt="An up icon to indicate a question can be moved up" onClick={() => changeOrder(index, -1)} />
+                    <img className="mx-[10px]" src={index + 1 > length ? "/arrow-down-grey.svg" : "/arrow-down-black.svg"} alt="A down icon to indicate a question can be moved down" onClick={() => changeOrder(index, 1)} />
+                    <CloseAlert title="Are you sure you want to delete this question?" description="Users won't be able to answer it, and you'll not be able to see responses anymore" height="h-[20px]" width="w-[20px]" handleDelete={handleDelete} />
+                </div>
+                
             </div>
             { questionType === "Multi select" || questionType === "Single select" ? 
             <>
             { options?.map((item, index) => {
-                console.log(item)
                 return <SelectOption key={item.option_id} question_id={question_id} id={item.option_id} text={item.option_content} handleUpdate={handleUpdateOption} handleDelete={handleDeleteOption} />
             })}
-            <div className={`h-[35px] w-[98%] px-[10px] border ${ optionError ? "border-warning" : "border-paleGrey" } rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]`}>
+            <div className={`h-[35px] xxs:w-[100%] md:w-[98%] px-[10px] border ${ optionError ? "border-warning" : "border-paleGrey" } rounded-sm text-sm flex items-center justify-center cursor-pointer mb-[10px]`}>
                 <input className="flex-grow outline-none" placeholder="Enter an option" value={newOption} onChange={(e) => setNewOption(e.target.value)} onKeyDown={(e) => addOption(e)}  />
                 <p className="h-auto px-[10px] flex items-center justify-center text-[10px] border border-paleGrey rounded-md">
                     <img className="h-[10px] w-[10px] mr-[5px]" src="/enter.svg" alt="An icon to indicate enter can be pressed" />

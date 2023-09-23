@@ -61,7 +61,7 @@ const ResearchAddQuestion = ({ research_id, index, handleCreateQuestion }: Props
             <>
             <div className={`h-[50px] w-[full] px-[20px] flex items-center justify-start bg-white border ${error ? "border-warning" : "border-paleGrey" } rounded-sm mt-[10px] mb-[10px]`}>
                 <input 
-                    className="h-full flex-grow outline-none placeholder:text-border"
+                    className="h-full flex-grow outline-none placeholder:text-border mr-[15px] truncate"
                     placeholder="Enter a question title"
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)} />
@@ -72,7 +72,7 @@ const ResearchAddQuestion = ({ research_id, index, handleCreateQuestion }: Props
             { error && <ErrorText error={error} paddingX="px-[20px]" width="w-full" marginTop="mt-[10px]" marginBottom="mb-[0px]" /> }
             <div className="h-auto w-full flex items-center justify-end">
                 <button className="h-[35px] w-[75px] border border-paleGrey text-sm rounded-sm font-bold mr-[10px]" onClick={() => cancel()}>Cancel</button>
-                <PendingButton pending={pending} content="Add" height="h-[35px]" width="w-[75px]" text="text-sm" handleClick={() => handleCreate()}/>
+                <PendingButton pending={pending} content="Add" height="h-[35px]" width="w-[75px]" marginSide="mx-[15px]" text="text-sm" handleClick={() => handleCreate()}/>
             </div>
             </> :
 

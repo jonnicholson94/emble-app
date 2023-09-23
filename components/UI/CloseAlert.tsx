@@ -11,7 +11,7 @@ type Props = {
 const CloseAlert = ({ title, description, height, width, handleDelete }: Props) => {
     return (
         <AlertDialog title={title} description={description} handleDelete={handleDelete}>
-            <img className={`${height} ${width}`} src="/close.svg" alt="A close button for the dialog" />
+            <img className={`${height} ${width} mx-[10px]`} src="/close.svg" alt="A close button for the dialog" />
         </AlertDialog>
     )
 }

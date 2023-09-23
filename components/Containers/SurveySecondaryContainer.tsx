@@ -6,7 +6,7 @@ type Props = {
 
 const SurveySecondaryContainer = ({ children }: Props) => {
     return (
-        <div className="h-screen w-[400px] bg-white border-l border-border flex items-center justify-center flex-col">
+        <div className="xxs:h-auto md:h-screen xxs:w-full md:w-[400px] bg-white border-l border-border flex items-center justify-center flex-col">
             { children }
         </div>
     )
