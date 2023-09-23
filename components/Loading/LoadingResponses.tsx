@@ -6,7 +6,7 @@ const LoadingResponses = () => {
     return (
         <ResponsesMainContainer>
 
-            <ResponsesHeader />
+            <ResponsesHeader title="Responses | emble" id="" />
             <ResponsesSecondaryContainer>
                 <div className="h-[100px] w-[90%] bg-paleGrey rounded-lg animate-pulse my-[15px]"></div>
             </ResponsesSecondaryContainer>

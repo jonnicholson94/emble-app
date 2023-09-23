@@ -58,7 +58,7 @@ const Register = () => {
             <AuthInput placeholder="Enter your email address" value={email} setValue={setEmail} type="email" />
             <AuthInput placeholder="Enter a password" value={password} setValue={setPassword} type="password" />
             <AuthPolicy />
-            <PendingButton text="text-lg" pending={pending} content="Register" height="h-[50px]" width="w-full" handleClick={handleRegister} />
+            <PendingButton text="text-lg" pending={pending} content="Register" height="h-[50px]" width="w-full" marginSide="mx-[15px]" handleClick={handleRegister} />
             <AuthLink text="Already got an account?" href="/auth/sign-in" />
         </AuthContainer>
         </>

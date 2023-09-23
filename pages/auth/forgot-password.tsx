@@ -44,7 +44,7 @@ const ForgotPassword = () => {
             <AuthLogo />
             <AuthTitle content="Request a password reset" />
             <AuthInput placeholder="Enter your email" value={email} setValue={setEmail} type="email" />
-            <PendingButton text="text-lg" pending={pending} content="Request reset" height="h-[50px]" width="w-full" handleClick={() => handleResetRequest()} />
+            <PendingButton text="text-lg" pending={pending} content="Request reset" height="h-[50px]" width="w-full" marginSide="mx-[15px]" handleClick={() => handleResetRequest()} />
             <AuthLink text="Back to sign in" href="/auth/sign-in" />
         </AuthContainer>
         </>

@@ -54,7 +54,7 @@ const ResetPassword = () => {
             <AuthTitle content="Confirm your new password" />
             <AuthInput placeholder="Enter a new password" value={firstPass} setValue={setFirstPass} type="password" />
             <AuthInput placeholder="Re-enter your new password" value={secondPass} setValue={setSecondPass} type="password" />
-            <PendingButton pending={pending} content="Update password" height="h-[50px]" width="w-full" text="text-lg" handleClick={handleSubmit} />
+            <PendingButton pending={pending} content="Update password" height="h-[50px]" width="w-full" text="text-lg" marginSide="mx-[15px]" handleClick={handleSubmit} />
         </AuthContainer>
         </>
     )
