@@ -84,7 +84,7 @@ const Dashboard = () => {
 
                 { filteredData?.map((research: ResearchType) => {
                     return (
-                        <DashboardResearch key={research.research_id} status={research.research_status} title={research.research_title} id={research.research_id} />
+                        <DashboardResearch key={research.research_id} status={research.research_status} title={research.research_title} type={research.research_type} id={research.research_id} />
                     )
                 })}
                 

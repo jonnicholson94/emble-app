@@ -10,6 +10,8 @@ export interface ResearchType {
     research_intro: boolean 
     research_intro_title: string 
     research_intro_description: string
+    research_type: ResearchOptions
 }
 
 export type ActiveTypes = "Backlog" | "Active" | "Completed"
+export type ResearchOptions = "Prototype" | "Survey"

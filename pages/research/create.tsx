@@ -3,10 +3,11 @@ import { useState } from "react"
 import Router from "next/router"
 import { toast } from "sonner"
 import { v4 as uuidv4 } from "uuid"
+import Head from "next/head"
 
 import { createResearch } from "@/network/research"
 
-import { ActiveTypes } from "@/types/researchTypes"
+import { ActiveTypes, ResearchOptions } from "@/types/researchTypes"
 import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes"
 
 import useAuth from "@/lib/hooks/useAuth"
@@ -20,7 +21,6 @@ import ResearchDescription from "@/components/Research/ResearchDescription"
 import ResearchDivider from "@/components/Research/ResearchDivider"
 import ResearchQuestions from "@/components/Research/ResearchQuestions"
 import errorHandler from "@/lib/errorHandler"
-import Head from "next/head"
 
 const CreateResearch = () => {
 
@@ -35,6 +35,7 @@ const CreateResearch = () => {
     const [status, setStatus] = useState<ActiveTypes>("Backlog")
     const [target, setTarget] = useState(50)
     const [prototype, setPrototype] = useState("")
+    const [type, setType] = useState<ResearchOptions>("Prototype")
     const [questions, setQuestions] = useState<QuestionType[] | []>([])
     const [intro, setIntro] = useState(false)
     const [introTitle, setIntroTitle] = useState("")
@@ -49,7 +50,7 @@ const CreateResearch = () => {
 
         setPending(true)
         
-        const { data, error } = await createResearch(research_id, title, description, status, target, prototype, intro, introTitle, introDescription, questions)
+        const { data, error } = await createResearch(research_id, title, description, status, target, prototype, type, intro, introTitle, introDescription, questions)
 
         if (error != null) {
             toast.error(error.message)
@@ -192,7 +193,7 @@ const CreateResearch = () => {
             <title>Create new research | emble</title>
         </Head>
         <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
-            <ResearchHeader type="create" pending={pending} handleSubmit={() => handleCreate()} heading="" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} handleEdit={handleEdit} research_id={research_id} />
+            <ResearchHeader type="create" pending={pending} handleSubmit={() => handleCreate()} heading="" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} researchType={type} setResearchType={setType} handleEdit={handleEdit} research_id={research_id} />
             <ResearchParentContainer>
 
                 <ResearchMainContainer>

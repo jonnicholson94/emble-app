@@ -98,7 +98,7 @@ export const fetchResearch = async () => {
 
 }
 
-export const createResearch = async (research_id: string, title: string, description: string, status: string, limit: number, prototype_url: string, intro: boolean, intro_title: string, intro_description: string, questions: QuestionType[] | []) => {
+export const createResearch = async (research_id: string, title: string, description: string, status: string, limit: number, prototype_url: string, type: string, intro: boolean, intro_title: string, intro_description: string, questions: QuestionType[] | []) => {
 
     const data = {
         "research_id": research_id,
@@ -107,6 +107,7 @@ export const createResearch = async (research_id: string, title: string, descrip
         "research_status": status,
         "research_limit": limit,
         "research_prototype_url": prototype_url,
+        "research_type": type,
         "research_intro": intro,
         "research_intro_title": intro_title,
         "research_intro_description": intro_description,

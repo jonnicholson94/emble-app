@@ -26,6 +26,7 @@ import { createQuestion, updateQuestion, deleteQuestion } from "@/network/questi
 import { createOption, deleteOption, editOption } from "@/network/options"
 import { addComment, deleteComment, editComment } from "@/network/comments"
 import Head from "next/head"
+import { ResearchOptions } from "@/types/researchTypes"
 
 const ViewResearch = () => {
 
@@ -43,6 +44,7 @@ const ViewResearch = () => {
     const [introTitle, setIntroTitle] = useState("")
     const [introDescription, setIntroDescription] = useState("")
     const [status, setStatus] = useState<"Backlog" | "Active" | "Completed">("Backlog")
+    const [type, setType] = useState<ResearchOptions>("Prototype")
     const [limit, setLimit] = useState<number>(50)
     const [prototype, setPrototype] = useState("")
     const [questions, setQuestions] = useState<QuestionType[] | []>([])
@@ -57,6 +59,7 @@ const ViewResearch = () => {
             setStatus(data.data.status)
             setLimit(data.data.limit)
             setPrototype(data.data.prototype_url)
+            setType(data.data.type)
             setIntro(data.data.intro)
             setIntroTitle(data.data.intro_title)
             setIntroDescription(data.data.intro_description)
@@ -356,7 +359,7 @@ const ViewResearch = () => {
             <title>View your research | emble</title>
         </Head>
         <div className="h-auto w-screen flex overflow-hidden items-center justify-start flex-col bg-offWhite">
-            <ResearchHeader heading="" type="view" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} handleEdit={handleEdit} research_id={id} />
+            <ResearchHeader heading="" type="view" status={status} setStatus={setStatus} prototype={prototype} setPrototype={setPrototype} researchType={type} setResearchType={setType} handleEdit={handleEdit} research_id={id} />
             <ResearchParentContainer>
 
                 <ResearchMainContainer>

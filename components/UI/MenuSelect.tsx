@@ -2,14 +2,14 @@
 import { ReactNode } from "react"
 
 import * as Select from "@radix-ui/react-select"
-import { ActiveTypes } from "@/types/researchTypes"
+import { ActiveTypes, ResearchOptions } from "@/types/researchTypes"
 import { QuestionTypeOptions } from "@/types/questionTypes"
 
 type Props = {
     children: ReactNode
     array: string[]
-    state: ActiveTypes | QuestionTypeOptions
-    handleClick: (value: ActiveTypes | QuestionTypeOptions) => void
+    state: ActiveTypes | QuestionTypeOptions | ResearchOptions
+    handleClick: (value: ActiveTypes | QuestionTypeOptions | ResearchOptions) => void
 }
 
 const MenuSelect = ({ children, array, state, handleClick }: Props) => {

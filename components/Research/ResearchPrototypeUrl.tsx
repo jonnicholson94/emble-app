@@ -39,7 +39,7 @@ const ResearchPrototypeUrl = ({ type, state, setState, research_id, handleEdit }
             <Popover.Trigger>
                 <div className="h-[35px] px-[10px] border border-paleGrey hover:border-paleGrey flex items-center justify-center rounded-sm cursor-pointer mx-[10px]">
                     <img className="xs:h-[20px] md:h-[15px] xs:h-[20px] md:w-[15px] md:mr-[10px]" src="/figma.svg" alt="The Figma logo" />
-                    <p className="text-sm xxs:hidden md:flex">Prototype</p>
+                    <p className="text-sm xxs:hidden md:flex">Figma link</p>
                 </div>
             </Popover.Trigger>
             <Popover.Content sideOffset={15} className="h-auto w-[350px] bg-white flex items-center justify-center flex-col border border-paleGrey rounded-sm shadow">
