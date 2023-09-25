@@ -2,7 +2,7 @@
 import React from "react"
 import { toast } from "sonner"
 import MenuSelect from "../UI/MenuSelect"
-import { ActiveTypes } from "@/types/researchTypes"
+import { ActiveTypes, ResearchOptions } from "@/types/researchTypes"
 import { QuestionTypeOptions } from "@/types/questionTypes"
 import { editResearch } from "@/network/research"
 
@@ -10,7 +10,7 @@ type Props = {
     state: "Backlog" | "Active" | "Completed"
     setState: React.Dispatch<React.SetStateAction<"Backlog" | "Active" | "Completed">>
     research_id: string | string[] | undefined
-    handleStatusUpdate: (value: ActiveTypes | QuestionTypeOptions) => void
+    handleStatusUpdate: (value: ActiveTypes | QuestionTypeOptions | ResearchOptions) => void
 }
 
 const ResearchStatus = ({ state, setState, handleStatusUpdate }: Props) => {

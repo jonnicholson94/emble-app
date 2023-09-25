@@ -28,7 +28,7 @@ type Props = {
 
 const ResearchHeader = ({ type, pending, handleSubmit, heading, status, setStatus, prototype, setPrototype, researchType, setResearchType, handleEdit, research_id }: Props) => {
 
-    const handleStatusUpdate = (value: ActiveTypes | QuestionTypeOptions) => {
+    const handleStatusUpdate = (value: ActiveTypes | QuestionTypeOptions | ResearchOptions) => {
 
         setStatus(value as ActiveTypes)
         handleEdit("research_status", value, research_id)

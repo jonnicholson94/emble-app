@@ -6,7 +6,7 @@ import CloseAlert from "../UI/CloseAlert";
 import SelectOption from "./SelectOption";
 
 import { QuestionTypeOptions, QuestionOption } from "@/types/questionTypes";
-import { ActiveTypes } from "@/types/researchTypes";
+import { ActiveTypes, ResearchOptions } from "@/types/researchTypes";
 import ErrorText from "../UI/ErrorText";
 
 type QuestionProps = {
@@ -36,7 +36,7 @@ const GlobalQuestion = ({ question_id, content, type, index, length, options, ha
     const [questionError, setQuestionError] = useState("")
     const [optionError, setOptionError] = useState("")
 
-    const handleSelectClick = (value: ActiveTypes | QuestionTypeOptions) => {
+    const handleSelectClick = (value: ActiveTypes | QuestionTypeOptions | ResearchOptions) => {
         handleQuestionTypeUpdate(question_id, value as QuestionTypeOptions)
         setQuestionType(value as QuestionTypeOptions)
     }

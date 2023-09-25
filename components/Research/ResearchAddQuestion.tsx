@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid"
 import MenuSelect from "../UI/MenuSelect"
 import { QuestionType, QuestionTypeOptions } from "@/types/questionTypes"
 import { createQuestion } from "@/network/questions"
-import { ActiveTypes } from "@/types/researchTypes"
+import { ActiveTypes, ResearchOptions } from "@/types/researchTypes"
 import PendingButton from "../UI/PendingButton"
 import errorHandler from "@/lib/errorHandler"
 import ErrorText from "../UI/ErrorText"
@@ -51,7 +51,7 @@ const ResearchAddQuestion = ({ research_id, index, handleCreateQuestion }: Props
         setError("")
     }
 
-    const handleClick = (value: QuestionTypeOptions | ActiveTypes) => {
+    const handleClick = (value: QuestionTypeOptions | ActiveTypes | ResearchOptions) => {
         setNewType(value as QuestionTypeOptions)
     }
 
