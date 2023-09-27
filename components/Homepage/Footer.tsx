@@ -47,16 +47,13 @@ const Footer = () => {
             </FooterSection>
             <FooterSection>
                 <FooterHeader content="Resources" />
+                <FooterLink link="/blog" content="Blog" />
                 <FooterLink link="/pricing" content="Pricing" />
                 <FooterLink link="/changelog" content="Changelog" />
             </FooterSection>
             <FooterSection>
                 <FooterHeader content="Company" />
-                <FooterLink link="/blog" content="Blog" />
                 <FooterLink link="/contact" content="Contact" />
-            </FooterSection>
-            <FooterSection>
-                <FooterHeader content="Legal" />
                 <FooterLink link="/terms" content="Terms and Conditions" />
                 <FooterLink link="/privacy" content="Privacy policy" />
             </FooterSection> */}
