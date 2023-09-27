@@ -8,7 +8,7 @@ type Props = {
 
 const AuthLink = ({ text, href }: Props) => {
     return (
-        <Link className="my-[50px] underline" href={href}>{text}</Link>
+        <Link className="my-[20px] underline" href={href}>{text}</Link>
     )
 }
 

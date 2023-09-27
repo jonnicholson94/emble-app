@@ -8,3 +8,11 @@ if (environment === "development") {
 } else {
     baseUrl = "https://emble-server-4b4c12a42480.herokuapp.com"
 }
+
+export let uiUrl = ""
+
+if (environment === "development") {
+    uiUrl = "http://localhost:3000"
+} else {
+    uiUrl = "https://emble.app"
+}

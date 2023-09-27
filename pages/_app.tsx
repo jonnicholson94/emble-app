@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 
 import type { AppProps } from 'next/app'
+import { Analytics } from "@vercel/analytics/react"
 
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Toaster />
       <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
+        <Analytics />
       </QueryClientProvider>
     </main>
     </>

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Router from "next/router";
 import { toast } from "sonner";
+import Link from "next/link";
 
 import { register } from "@/network/auth";
 import errorHandler from "@/lib/errorHandler";
@@ -16,6 +17,8 @@ import AuthLink from "@/components/Auth/AuthLink";
 import AuthNameInput from "@/components/Auth/AuthNameInput";
 import PendingButton from "@/components/UI/PendingButton";
 import Head from "next/head";
+import GoogleAuth from "@/components/Auth/GoogleAuth";
+import AuthDivider from "@/components/Auth/AuthDivider";
 
 
 const Register = () => {
@@ -54,6 +57,8 @@ const Register = () => {
         <AuthContainer>
             <AuthLogo />
             <AuthTitle content="Register for an account" />
+            <GoogleAuth />
+            <AuthDivider />
             <AuthNameInput firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} />
             <AuthInput placeholder="Enter your email address" value={email} setValue={setEmail} type="email" />
             <AuthInput placeholder="Enter a password" value={password} setValue={setPassword} type="password" />
