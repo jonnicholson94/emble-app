@@ -3,13 +3,12 @@ import { baseUrl } from "@/lib/env"
 
 import { StandardError } from "@/types/errorTypes"
 
-export const joinBeta = async (email: string) => {
+export const joinBeta = async (email: string, code: number) => {
 
     const data = {
-        "email": email
+        "email": email,
+        "code": code
     }
-
-    console.log(process.env.NODE_ENV)
 
     try {
 

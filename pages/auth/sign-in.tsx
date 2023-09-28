@@ -49,13 +49,13 @@ const SignIn = () => {
         <AuthContainer>
             <AuthLogo />
             <AuthTitle content="Sign in to your account" />
-            <GoogleAuth />
-            <AuthDivider />
+            {/* <GoogleAuth /> */}
+            {/* <AuthDivider /> */}
             <AuthInput placeholder="Enter your email address" value={email} setValue={setEmail} type="email" />
             <AuthInput placeholder="Enter your password" value={password} setValue={setPassword} type="password" />
             <PendingButton text="text-lg" pending={pending} height="h-[50px]" width="w-full" content="Sign in" marginSide="mx-[15px]" handleClick={handleSignIn} />
-            <AuthLink text="Forgot your password?" href="/auth/forgot-password" />
-            <AuthLink text="Not got an account?" href="/auth/register" />
+            {/* <AuthLink text="Forgot your password?" href="/auth/forgot-password" />
+            <AuthLink text="Not got an account?" href="/auth/register" /> */}
         </AuthContainer>
         </>
     )

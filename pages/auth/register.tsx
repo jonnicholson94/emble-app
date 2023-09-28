@@ -57,7 +57,7 @@ const Register = () => {
         <AuthContainer>
             <AuthLogo />
             <AuthTitle content="Register for an account" />
-            <GoogleAuth />
+            {/* <GoogleAuth /> */}
             <AuthDivider />
             <AuthNameInput firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} />
             <AuthInput placeholder="Enter your email address" value={email} setValue={setEmail} type="email" />
