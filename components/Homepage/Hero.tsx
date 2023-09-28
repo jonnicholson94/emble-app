@@ -31,6 +31,7 @@ const Hero = () => {
 
         e.preventDefault()
 
+        setDisabled(true)
         setPending(true)
 
         const code = Math.floor(100000 + Math.random() * 900000)
@@ -41,9 +42,11 @@ const Hero = () => {
             setPending(false)
             toast.error(error.message)
             errorHandler(error.status)
+            setDisabled(false)
         } else {
             setPending(false)
             toast.success("Thanks for signing up. We're sending you a confirmation email now.")
+            setDisabled(false)
         }
 
     }
@@ -59,14 +62,15 @@ const Hero = () => {
                 <input className={`h-[50px] w-full border ${error ? "border-warning" : "border-paleGrey"} px-[15px] placeholder:text-border rounded-sm`} placeholder="Enter your email" value={email} onChange={(e) => handleChange(e)} />
                 { error && <ErrorText error={error} paddingX="px-[15px]" width="w-full" marginTop="mt-[10px]" marginBottom="mb-[10px]" />}
                 <button className="h-[50px] w-full bg-black text-white font-bold mt-[15px] mb-[30px] flex items-center justify-center rounded-sm" disabled={disabled} type="submit">
-                    { pending ? <img className="animate-spin" src="/loader.svg" /> : "Join" }
+                    { pending ? <img className="animate-spin" src="/loader.svg" alt="A loading icon when the network request is pending" /> : "Join" }
                 </button>
             </form>
 
             {/* <Link className="h-[50px] w-[300px] bg-black text-white font-bold flex items-center justify-center rounded-md text-lg mb-[50px]" href="/auth/register">Get started</Link> */}
 
             {/* <Link className="h-[45px] w-[200px] bg-black text-white flex items-center justify-center font-bold text-lg rounded-sm mb-[50px]" href="/auth/sign-in">Get started</Link> */}
-            <img className="rounded-sm w-[100%]" src="/homepage/hero.svg" alt="The main hero image on the homepage" />
+            <iframe className="xxs:h-[500px] md:h-[800px] rounded-md border border-paleGrey shadow w-[100%]" src="https://www.loom.com/embed/89dcd27c66064f479917b71494bf55a5?sid=9a717cdf-9946-4aa5-b099-c9905a816d6d" allowFullScreen></iframe>
+            {/* <img className="rounded-sm w-[100%]" src="/homepage/hero.svg" alt="The main hero image on the homepage" /> */}
         </section>
     )
 }
