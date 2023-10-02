@@ -5,6 +5,8 @@ import Footer from "@/components/Homepage/Footer"
 import Hero from "@/components/Homepage/Hero"
 import InfoSection from "@/components/Homepage/InfoSection"
 import Navbar from "@/components/Homepage/Navbar"
+import InfoCard from "@/components/Homepage/InfoCard"
+import InfoTile from "@/components/Homepage/InfoTile"
 
 const HomePage = () => {
   return (
@@ -12,13 +14,20 @@ const HomePage = () => {
       <Head>
         <title>Get feedback from users on prototypes, designs and more, in minutes | emble</title>
       </Head>
-      <div className="h-auto w-screen flex items-center justify-center flex-col bg-homepage-pattern">
+      <div className="h-auto w-screen flex items-center justify-center flex-col bg-[#000]">
         <Navbar />
         <Hero />
-        <InfoSection heading="Conduct prototype tests with your users in seconds" content="Upload prototypes that render inside of intuitive surveys, which users can interact with on their own devices." image="/homepage/cursor-click.svg" />
-        <InfoSection heading="Integrates seamlessly with Figma" content="Simply paste your Figma link in to your research, and your prototypes will load automatically in your users browser." image="/homepage/figma.svg" />
-        <InfoSection heading="Send surveys and get instant responses" content="Just want to ask your users some questions? Quickly set up surveys, share your survey link, and get responses in minutes." image="/homepage/clock.svg" />
-        <InfoSection heading="Review responses and make decisions" content="Users fill in your survey alongside your prototype, allowing them to test your work early and save you from pursuing wrong ideas." image="/homepage/send.svg" />
+        <InfoSection tagColour="text-salmon" tagline="Prototypes" heading="Conduct prototype tests with your users, remotely">
+          <InfoCard image="/homepage/figma-link.svg" width="w-[50%]" heading="Upload Figma prototypes" content="As simple as copy and paste. Embed your prototypes into your tests by pasting a prototype link." />
+          <InfoCard image="/homepage/questions.svg" width="w-[40%]" heading="Ask any questions you like" content="Add questions to your tests, which your user fills in while interacting with your prototype. All in the browser." />
+          <InfoCard image="/homepage/responses.svg" width="w-[50%]" heading="Review responses, in real time" content="Get your results presented to you, professionally and cleanly." />
+          <InfoCard image="/homepage/survey-link.svg" width="w-[40%]" heading="Share your test, anywhere" content="Get publicly accessible links to your tests, that you can share just about anywhere" />
+        </InfoSection>
+        <InfoSection tagColour="text-green" tagline="Collaborative" heading="Work collaboratively, from product to design">
+          <InfoTile icon="/person-icon.svg" heading="Assign tests to team members" content="Be aware of who's working on which research at any one time." />
+          <InfoTile icon="/in-progress.svg" heading="Keep research up to date" content="Tests close automatically when you change their status to completed." />
+          <InfoTile icon="/notification-message.svg" heading="Receive emails with responses" content="Get notified when new responses are received, so you're always aware." />
+        </InfoSection>
         <Footer />
       </div>
     </>

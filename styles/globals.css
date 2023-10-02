@@ -2,4 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+.hero-gradient {
+  background-image: linear-gradient(to right, #E4A5FF, #EF9595);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
+.heading-gradient {
+  background-image: linear-gradient(to bottom, #fff, #aaa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
