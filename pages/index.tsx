@@ -7,6 +7,7 @@ import InfoSection from "@/components/Homepage/InfoSection"
 import Navbar from "@/components/Homepage/Navbar"
 import InfoCard from "@/components/Homepage/InfoCard"
 import InfoTile from "@/components/Homepage/InfoTile"
+import FAQ from "@/components/Homepage/FAQ"
 
 const HomePage = () => {
   return (
@@ -20,7 +21,7 @@ const HomePage = () => {
         <InfoSection tagColour="text-salmon" tagline="Prototypes" heading="Conduct prototype tests with your users, remotely">
           <InfoCard image="/homepage/figma-link.svg" width="w-[50%]" heading="Upload Figma prototypes" content="As simple as copy and paste. Embed your prototypes into your tests by pasting a prototype link." />
           <InfoCard image="/homepage/questions.svg" width="w-[40%]" heading="Ask any questions you like" content="Add questions to your tests, which your user fills in while interacting with your prototype. All in the browser." />
-          <InfoCard image="/homepage/responses.svg" width="w-[50%]" heading="Review responses, in real time" content="Get your results presented to you, professionally and cleanly." />
+          <InfoCard image="/homepage/responses.svg" width="w-[50%]" heading="Review responses quickly" content="Get your results presented to you, professionally and cleanly." />
           <InfoCard image="/homepage/survey-link.svg" width="w-[40%]" heading="Share your test, anywhere" content="Get publicly accessible links to your tests, that you can share just about anywhere" />
         </InfoSection>
         <InfoSection tagColour="text-green" tagline="Collaborative" heading="Work collaboratively, from product to design">
@@ -28,6 +29,7 @@ const HomePage = () => {
           <InfoTile icon="/in-progress.svg" heading="Keep research up to date" content="Tests close automatically when you change their status to completed." />
           <InfoTile icon="/notification-message.svg" heading="Receive emails with responses" content="Get notified when new responses are received, so you're always aware." />
         </InfoSection>
+        <FAQ />
         <Footer />
       </div>
     </>

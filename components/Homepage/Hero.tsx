@@ -55,9 +55,9 @@ const Hero = () => {
     return (
         <section className="h-auto xxs:w-[90%] lg:w-[60%] flex items-center justify-center flex-col">
             
-            <h1 className="h-auto xxs:text-5xl sm:text-6xl md:text-7xl text-center font-bold xxs:mt-[50px] md:mt-[100px] hero-gradient animate-pulse">Your new favourite user research platform.</h1>
+            <h1 className="h-auto xxs:text-5xl sm:text-6xl md:text-7xl text-center font-bold xxs:mt-[50px] md:mt-[100px] hero-gradient animate-pulse fade-in">Your new favourite user research platform.</h1>
             
-            <p className="h-auto xxs:w-[90%] md:w-[70%] text-center mt-[30px] mb-[50px] xxs:text-md sm:text-lg md:text-2xl text-white">Set up tests, and get instant feedback from your users. Run prototype tests, send surveys and more. All in one platform.</p>
+            <p className="h-auto xxs:w-[90%] md:w-[70%] text-center mt-[30px] mb-[50px] xxs:text-md sm:text-lg md:text-2xl text-white fade-in-slow">Set up tests, and get instant feedback from your users. Run prototype tests, send surveys and more. All in one platform.</p>
 
             <form className="h-auto xxs:w-[100%] md:w-[60%] bg-altBackground border border-border mt-[30px] mb-[50px] px-[20px] rounded-sm" onSubmit={(e) => handleSubmit(e)}>
                 <h2 className="h-auto xxs:text-xl md:text-2xl mt-[30px] text-white opacity-80 font-bold">Join our beta</h2>
