@@ -7,19 +7,19 @@ const FAQ = () => {
             <p className={`text-blue uppercase font-bold text-lg my-[20px]`}>Questions</p>
             <h2 className="h-auto xxs:w-[90%] lg:w-[60%] font-bold heading-gradient xxs:text-5xl sm:text-6xl md:text-7xl  text-center">Frequently asked questions</h2>
                 <Accordion.Root type="single" className="h-auto w-[full] my-[50px] flex flex-wrap items-center justify-center" collapsible defaultValue="1">
-                    <Accordion.AccordionItem value="1" className="h-auto w-[900px] bg-altBackground text-white border border-altBorder px-[30px] py-[20px] my-[10px] rounded-md">
+                    <Accordion.AccordionItem value="1" className="h-auto xxs:w-[90%] lg:w-[900px] bg-altBackground text-white border border-altBorder px-[30px] py-[20px] my-[10px] rounded-md">
                         <Accordion.AccordionTrigger className="h-auto w-full flex items-center justify-center">
                             <p className="text-lg flex-grow text-left font-bold">What is Emble?</p>
                         </Accordion.AccordionTrigger>
                         <Accordion.AccordionContent className="h-auto my-[20px] text-sm text-white opacity-80">Emble is an app that helps you conduct user testing. You can send prototype tests and surveys to your users, so they can complete it remotely. Once done, you can view their responses and make product decisions.</Accordion.AccordionContent>
                     </Accordion.AccordionItem>
-                    <Accordion.AccordionItem value="2" className="h-auto w-[900px] bg-altBackground text-white border border-altBorder p-[20px] my-[10px] rounded-md">
+                    <Accordion.AccordionItem value="2" className="h-auto xxs:w-[90%] lg:w-[900px] bg-altBackground text-white border border-altBorder p-[20px] my-[10px] rounded-md">
                         <Accordion.AccordionTrigger>
                             <p className="w-full text-lg flex-grow text-left font-bold">Why would I use Emble?</p>
                         </Accordion.AccordionTrigger>
                         <Accordion.AccordionContent className="h-auto my-[20px] text-sm text-white opacity-80">Building brilliant apps requires product feedback. However, for most teams, speaking to users can be timeconsuming, when you just need to be fast. Emble is great for sending prototypes, surveys and more to users so they can quickly provide you with feedback, and you can keep iterating your product.</Accordion.AccordionContent>
                     </Accordion.AccordionItem>
-                    <Accordion.AccordionItem value="3" className="h-auto w-[900px] bg-altBackground text-white border border-altBorder p-[20px] my-[10px] rounded-md">
+                    <Accordion.AccordionItem value="3" className="h-auto xxs:w-[90%] lg:w-[900px] bg-altBackground text-white border border-altBorder p-[20px] my-[10px] rounded-md">
                         <Accordion.AccordionTrigger>
                             <p className="text-lg flex-grow text-left font-bold">What sorts of teams would use Emble?</p>
                         </Accordion.AccordionTrigger>
