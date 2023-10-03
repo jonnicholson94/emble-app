@@ -1,6 +1,6 @@
 
 type Props = {
-    icon: "/in-progress.svg" | "/notification-message.svg" | "/person-icon.svg"
+    icon: "/in-progress.svg" | "/notification-message.svg" | "/person-icon.svg" | "/announcement.svg" | "/survey.svg" | "/better.svg"
     heading: string 
     content: string
 }

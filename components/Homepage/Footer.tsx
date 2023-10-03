@@ -24,7 +24,7 @@ const FooterSection = ({ children }: SectionProps) => {
 
 const FooterLink = ({ link, content }: LinkProps) => {
     return (
-        <Link className="h-auto my-[5px] text-border" href={link}>{content}</Link>
+        <Link className="h-auto my-[5px] text-border text-white opacity-70" href={link}>{content}</Link>
     )
 }
 
@@ -36,16 +36,16 @@ const FooterHeader = ({ content }: HeaderProps) => {
 
 const Footer = () => {
     return (
-        <footer className="h-auto w-full xxs:flex-col lg:flex items-start justify-center py-[100px] bg-black mt-[50px]">
+        <footer className="h-auto w-full xxs:flex-col lg:flex-row flex items-start justify-center py-[100px] bg-black mt-[50px]">
             <h2 className="text-2xl font-bold text-white xxs:mx-[50px] xxs:mb-[30px] md:mr-[150px]">Emble</h2>
-            {/* <FooterSection>
-                <FooterHeader content="Use cases" />
-                <FooterLink link="/product-managers" content="Product Managers" />
-                <FooterLink link="/designers" content="Designers" />
-                <FooterLink link="/ux-research" content="UX Research" />
-                <FooterLink link="/startups" content="Startups" />
-            </FooterSection>
             <FooterSection>
+                <FooterHeader content="Use cases" />
+                <FooterLink link="/use-cases/product-managers" content="Product Managers" />
+                {/* <FooterLink link="/designers" content="Designers" />
+                <FooterLink link="/ux-research" content="UX Research" />
+                <FooterLink link="/startups" content="Startups" /> */}
+            </FooterSection>
+            {/* <FooterSection>
                 <FooterHeader content="Resources" />
                 <FooterLink link="/blog" content="Blog" />
                 <FooterLink link="/pricing" content="Pricing" />
