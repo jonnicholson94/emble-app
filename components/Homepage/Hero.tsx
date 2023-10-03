@@ -17,7 +17,7 @@ const Hero = () => {
 
             {/* <Link className="h-[45px] w-[200px] bg-black text-white flex items-center justify-center font-bold text-lg rounded-sm mb-[50px]" href="/auth/sign-in">Get started</Link> */}
             {/* <iframe className="xxs:h-[500px] md:h-[800px] rounded-md border border-paleGrey shadow w-[100%]" src="https://www.loom.com/embed/89dcd27c66064f479917b71494bf55a5?sid=9a717cdf-9946-4aa5-b099-c9905a816d6d" allowFullScreen></iframe> */}
-            {/* <img className="rounded-sm w-[100%]" src="/homepage/hero.svg" alt="The main hero image on the homepage" /> */}
+            <img className="rounded-md h-auto w-[100%] border border-altBorder shadow-[0px_0px_4px_4px_rgba(0,0,0,0.3)] shadow-altBorder mt-[50px]" src="/homepage/hero.png" alt="The main hero image on the homepage" />
         </section>
     )
 }

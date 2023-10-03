@@ -13,7 +13,7 @@ const Progress = ({ active, setActive, answers }: Props) => {
                 return <span 
                             key={index} 
                             onClick={() => setActive(index)}
-                            className={`h-[15px] w-[15px] rounded-rnd mx-[5px] ${active !== index ? "bg-white border border-paleGrey" : "bg-black"}`}></span>
+                            className={`h-[15px] w-[15px] rounded-rnd mx-[5px] ${active !== index ? "bg-altBorder border border-border" : "bg-white"}`}></span>
             })}
         </div>
     )

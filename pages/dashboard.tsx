@@ -27,7 +27,7 @@ const Dashboard = () => {
     
     if (isLoading) {
         return (
-            <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
+            <div className="h-screen w-screen flex items-center justify-start flex-col bg-background">
                 <DashboardHeader />
 
                 <DashboardToggle />
@@ -44,7 +44,7 @@ const Dashboard = () => {
         errorHandler(data?.error.status)
 
         return (
-            <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
+            <div className="h-screen w-screen flex items-center justify-start flex-col bg-background">
                 <DashboardHeader />
 
                 <DashboardToggle />
@@ -77,7 +77,7 @@ const Dashboard = () => {
             <Head>
                 <title>Dashboard | emble</title>
             </Head>
-            <div className="h-screen w-screen flex items-center justify-start flex-col bg-offWhite">
+            <div className="h-screen w-screen flex items-center justify-start flex-col bg-background">
                 <DashboardHeader />
 
                 { data?.data == null ? <EmptyDashboard /> : <DashboardToggle /> }

@@ -5,8 +5,8 @@ import ResearchDivider from "../Research/ResearchDivider"
 
 const LoadingResearch = () => {
     return (
-        <div className="h-screen w-screen flex overflow-hidden items-center justify-start flex-col bg-offWhite">
-            <div className="h-[60px] w-full bg-white flex items-center justify-center border-b border-paleGrey"></div>
+        <div className="h-screen w-screen flex overflow-hidden items-center justify-start flex-col bg-altBackground">
+            <div className="h-[60px] w-full bg-white flex items-center justify-center border-b border-altBorder"></div>
             <ResearchParentContainer>
 
                 <ResearchMainContainer>

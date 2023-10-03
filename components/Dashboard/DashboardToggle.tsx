@@ -25,7 +25,7 @@ const DashboardToggle = () => {
 
 const Toggle = ({ content, active, href }: ToggleProps) => {
     return (
-        <Link className={`h-[30px] px-5 rounded-md flex items-center justify-center text-sm cursor-pointer ${active === true ? "bg-white border border-paleGrey" : ""}`} href={href}>
+        <Link className={`h-[30px] px-5 rounded-md flex items-center justify-center text-sm text-white cursor-pointer ${active === true ? "bg-altBackground border border-altBorder" : ""}`} href={href}>
             { content }
         </Link>
     )

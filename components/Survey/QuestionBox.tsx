@@ -99,11 +99,11 @@ const QuestionBox = ({ state, setState, setSuccess, active, setActive, id, optio
     return (
         <div className={`
             h-auto w-[90%] flex items-center justify-center flex-col rounded-sm my-[10px] focus:outline-none`}>
-            <h3 className="w-[90%] mt-[20px] mb-[10px] text-lg font-bold mb-[30px]">{title}</h3>
+            <h3 className="w-[90%] mt-[20px] mb-[10px] text-lg font-bold mb-[30px] text-white">{title}</h3>
             { active === index ? question : null }
             <div className="h-auto w-[90%] flex items-end justify-center mt-[50px] py-[5%] flex-col">
-                { active === state.length - 1 ? <button className="h-[35px] px-[20px] bg-black text-white font-bold rounded-sm" onClick={() => handleSubmit()}>Submit</button> : <button className="h-[35px] px-[20px] bg-black text-white font-bold rounded-sm" onClick={() => setActive(active + 1)}>Continue</button> }
-                <p className="h-auto flex items-center justify-end text-xs rounded-md mt-[10px]">
+                { active === state.length - 1 ? <button className="h-[35px] px-[20px] bg-white text-white font-bold rounded-sm" onClick={() => handleSubmit()}>Submit</button> : <button className="h-[35px] px-[20px] bg-white text-black font-bold rounded-sm" onClick={() => setActive(active + 1)}>Continue</button> }
+                <p className="h-auto flex items-center justify-end text-xs rounded-md mt-[10px] text-white">
                     <img className="h-[10px] w-[10px] mr-[5px]" src="/enter.svg" alt="An icon that indicates enter can be pressed" />
                     Or hit enter
                 </p>

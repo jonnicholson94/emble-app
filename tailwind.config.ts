@@ -20,9 +20,10 @@ const config: Config = {
     colors: {
       "black": "#000000",
       "white": "#ffffff",
+      "background": "#000000",
       "altBackground": "#111111",
       "border": "#222222",
-      "altBorder": "#333333",
+      "altBorder": "#444",
       "offWhite": "#F9F9F9",
       "paleGrey": "#e9e9e9",
       "warning": "#E25E3E",
