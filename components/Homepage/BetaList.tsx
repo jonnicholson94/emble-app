@@ -52,11 +52,11 @@ const BetaList = () => {
 
     return (
         <form className="h-auto xxs:w-[100%] md:w-[70%] bg-altBackground border border-border mt-[30px] mb-[50px] px-[20px] rounded-sm" onSubmit={(e) => handleSubmit(e)}>
-            <h2 className="h-auto xxs:text-xl md:text-2xl mt-[30px] text-white opacity-80 font-bold">Join our beta</h2>
-            <p className="h-auto mt-[10px] mb-[20px] text-white opacity-80">Get early access to our beta, and shape the future of user research</p>
+            <h2 className="h-auto xxs:text-xl md:text-2xl mt-[30px] text-text font-bold">Join our beta</h2>
+            <p className="h-auto mt-[10px] mb-[20px] text-text">Get early access to our beta, and shape the future of user research</p>
             <div className="h-auto w-full flex items-center justify-center mt-[15px] mb-[30px]">
-                <input className={`h-[50px] w-full bg-altBackground border ${error ? "border-warning" : "border-altBorder"} px-[15px] placeholder:text-altBorder rounded-sm text-white opacity-80`} placeholder="Enter your email..." value={email} onChange={(e) => handleChange(e)} />
-                <button className="h-[50px] px-[30px] bg-white text-black font-bold flex items-center justify-center rounded-sm ml-[20px]" disabled={disabled} type="submit">
+                <input className={`h-[50px] w-full bg-background border ${error ? "border-warning" : "border-border"} px-[15px] placeholder:text-placeholder rounded-sm text-text opacity-80`} placeholder="Enter your email..." value={email} onChange={(e) => handleChange(e)} />
+                <button className="h-[50px] px-[30px] bg-cta text-ctaText font-bold flex items-center justify-center rounded-sm ml-[20px]" disabled={disabled} type="submit">
                     { pending ? <img className="animate-spin" src="/loader.svg" alt="A loading icon when the network request is pending" /> : 
                     <>
                         Join 

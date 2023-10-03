@@ -24,19 +24,19 @@ const FooterSection = ({ children }: SectionProps) => {
 
 const FooterLink = ({ link, content }: LinkProps) => {
     return (
-        <Link className="h-auto my-[5px] text-border text-white opacity-70" href={link}>{content}</Link>
+        <Link className="h-auto my-[5px] text-ctaText opacity-70" href={link}>{content}</Link>
     )
 }
 
 const FooterHeader = ({ content }: HeaderProps) => {
     return (
-        <h3 className="text-md text-white font-bold xxs:mb-[5px] lg:mb-[20px]">{content}</h3>
+        <h3 className="text-md text-ctaText font-bold xxs:mb-[5px] lg:mb-[20px]">{content}</h3>
     )
 }
 
 const Footer = () => {
     return (
-        <footer className="h-auto w-full xxs:flex-col lg:flex-row flex items-start justify-center py-[100px] bg-black mt-[50px]">
+        <footer className="h-auto w-full xxs:flex-col lg:flex-row flex items-start justify-center py-[100px] bg-cta mt-[50px]">
             <h2 className="text-2xl font-bold text-white xxs:mx-[50px] xxs:mb-[30px] md:mr-[150px]">Emble</h2>
             <FooterSection>
                 <FooterHeader content="Use cases" />
