@@ -10,7 +10,28 @@
 }
 
 .heading-gradient {
-  background-image: linear-gradient(to bottom, #fff, #aaa);
+  background-image: linear-gradient(to bottom, #fff, #ccc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heading-gradient-1 {
+  background-image: linear-gradient(to bottom, #EF9595, #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heading-gradient-2 {
+  background-image: linear-gradient(to bottom, #96C291, #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heading-gradient-3 {
+  background-image: linear-gradient(to bottom, #9EDDFF, #fff);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

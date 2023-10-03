@@ -16,7 +16,7 @@ const ProductManagers = () => {
                 <BetaList />
             </section>
 
-            <InfoSection tagColour="text-salmon" tagline="Validate" heading="Test ideas out using prototypes">
+            <InfoSection tagColour="text-salmon" headingGradient="heading-gradient-1" tagline="Validate" heading="Test ideas out using prototypes">
                 <InfoTile icon="/survey.svg" heading="Send prototype tests" content="Send prototypes to your target users, and figure out what they like and dislike about new product ideas." />
                 <InfoTile icon="/announcement.svg" heading="Analyse feedback" content="Once users have completed your test, review their feedback and make decisions on your new idea." />
                 <InfoTile icon="/better.svg" heading="Build a better product" content="Use Emble in conjunction with other forms of research, to help you build better products" />
